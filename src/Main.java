@@ -6,7 +6,7 @@ public class Main {
 		
 		System.out.println(charmander.stats().getAtk());
 		
-		System.out.println(charmander.getMoves()[0]);
+		System.out.println(charmander.getMoves()[2]);
 		
 	
 		}

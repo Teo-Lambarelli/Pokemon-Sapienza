@@ -1,7 +1,6 @@
 package pokemon; import types.Type; import moves.Move;
 
 import java.util.HashMap;
-import java.util.Random;
 
 public abstract class Pokemon {
 	private Stats stats;

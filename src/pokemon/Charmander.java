@@ -4,7 +4,7 @@ import types.Type;
 import moves.Move;
 
 public class Charmander extends Pokemon{
-    private final static HashMap<Integer, Move> rewardlvl=new HashMap<>() {{
+	public final static HashMap<Integer, Move> rewardlvl=new HashMap<>() {{
     	put(101, Move.SCRATCH);    
         put(1, Move.GROWL);
         put(7, Move.EMBER);
@@ -19,8 +19,15 @@ public class Charmander extends Pokemon{
         put(46, Move.FIRE_SPIN);
   
     }};
+    
+    
+    public final static HashMap<Integer,Pokemon> evolutionlvl=new HashMap<>(){{
+		put(16, new Charmeleon());
+		put(36, new Charizard());
+		
+	}};
 
-	public Charmander() {		   //  					hp    atk   def   satk  sdef  spd lvl xp
+	public Charmander() {//  	 				   hp    atk   def   satk  sdef  spd lvl xp
 		super("Charmander", Type.FIRE, rewardlvl,  39.0, 52.0, 43.0, 60.0, 50.0, 65.0,1,0); 
 		
 		

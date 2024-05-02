@@ -4,7 +4,7 @@ import types.Type;
 import moves.Move;
 
 public class Bulbasaur extends Pokemon{
-	private final static HashMap<Integer, Move> rewardlvl=new HashMap<>() {{
+	public final static HashMap<Integer, Move> rewardlvl=new HashMap<>() {{
 		put(101, Move.TACKLE);
         put(1, Move.GROWL);
         put(7, Move.LEECH_SEED);
@@ -17,9 +17,18 @@ public class Bulbasaur extends Pokemon{
         put(37, Move.GROWTH);
         put(43, Move.SYNTHESIS);
         put(46, Move.SOLAR_BEAM);
+        
 	}};
 	
-	public Bulbasaur() {						//  hp    atk   def   satk  sdef  spd lvl xp
+	
+	public final static HashMap<Integer,Pokemon> evolutionlvl=new HashMap<>(){{
+		put(16, new Ivysaur());
+		put(32, new Venusaur());
+		
+	}};
+	
+	
+	public Bulbasaur() {//					            	  hp   atk   def   satk  sdef  spd lvl xp
 		super("Bulbasaur", Type.GRASS, Type.POISON,rewardlvl, 45.0, 49.0, 49.0, 65.0, 65.0, 45.0,1,0);
 
 
