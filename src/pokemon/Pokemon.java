@@ -9,8 +9,7 @@ public abstract class Pokemon {
 	private Type type0;
 	private Type type1=null;
 	private HashMap<Integer, Move> rewardlvl;
-//	private LevelUpReward[] rewards;
-
+	
 	
 	
 	Pokemon(String name, Type type0, Type type1, HashMap<Integer, Move> rewardlvl, double hp, double atk, double def, double satk, double sdef, double spd,int lvl,int xp){
@@ -18,13 +17,12 @@ public abstract class Pokemon {
 		this.type0=type0;
 		this.type1=type1;
 		this.moves=new Move[4];
+		this.rewardlvl=rewardlvl;
+		this.moves[0]=rewardlvl.get(101);
+		this.moves[1]=rewardlvl.get(1);
 		this.stats=new Stats(hp,atk,def,satk,sdef,spd,lvl,xp);
-
-
         }
         
-	
-	
 	Pokemon(String name, Type type0, HashMap<Integer, Move> rewardlvl, double hp, double atk, double def, double satk, double sdef, double spd,int lvl,int xp){
 		this.name=name;
 		this.type0=type0;
@@ -32,11 +30,11 @@ public abstract class Pokemon {
 		this.rewardlvl=rewardlvl;
 		this.moves[0]=rewardlvl.get(101);
 		this.moves[1]=rewardlvl.get(1);
-		this.stats=new Stats(hp,atk,def,satk,sdef,spd,lvl,xp);
-		
-
+		this.stats=new Stats(hp,atk,def,satk,sdef,spd,lvl,xp);	
         }
         
+	
+	
 	public HashMap<Integer, Move> getRewardLvl(){
 		return rewardlvl;
 	}
