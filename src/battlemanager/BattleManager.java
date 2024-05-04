@@ -168,6 +168,24 @@ public class BattleManager {
 //		}
 //		
 	}
+	public void caccona(Pokemon user, Pokemon target, Move move) { //la difesa e l'attacco cambieranno dal tipo di danno
+		double basedamage=(((2*user.getStats().getLvl()/5+2)*move.getDmg()*getCurrentAtk(user)*getCurrentDef(target))/50+2);
+		double stab;
+		double critical=1;
+		double type=Typechart.typechart[move.getType().getValue()][target.getType1().getValue()];
+		Random r=new Random();
+		int random=r.nextInt(86)/100;
+		if(isCritical) {//TODO nn l'abbiamo ancora fatto ig
+			critical=1.5;
+		}
+		if (user.getType0()==move.getType() || user.getType1()==move.getType()) {
+			stab=1.5;
+		}
+		else {
+			stab=1;
+		}
+		double damage=basedamage*0.25*critical*random*stab*type;
+		}
 	
 	public void executeTurn() {
 
