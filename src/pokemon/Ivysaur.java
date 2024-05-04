@@ -1,5 +1,5 @@
 package pokemon;
 
-public class Ivysaur extends Bulbasaur {
+public class Ivysaur {
 
 }

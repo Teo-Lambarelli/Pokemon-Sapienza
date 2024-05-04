@@ -1,6 +1,7 @@
 package pokemon; import types.Type; import moves.Move;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Pokemon {
 	private Stats stats;
@@ -8,34 +9,120 @@ public abstract class Pokemon {
 	private String name;
 	private Type type0;
 	private Type type1=null;
-	private HashMap<Integer, Move> rewardlvl;
+	private final Map<Integer, Move> rewardlvl;
+	private final String evolution;
+	private final int evolutionlvl;
+	private Ability ability;
 	
 	
+	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> rewardlvl, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability){
+		this.name=name;
+		this.type0=type0;
+		this.type1=type1;
+		this.moves=new Move[4];
+		this.rewardlvl=rewardlvl; 
+		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
+		generateMoves();
+		this.evolution=null;
+		this.evolutionlvl=101;
+        }
+        
+	Pokemon(String name, Type type0, Map<Integer, Move> rewardlvl, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability){
+		this.name=name;
+		this.type0=type0;
+		this.moves=new Move[4];
+		this.rewardlvl=rewardlvl;
+		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);	
+		generateMoves();
+		this.evolution=null;
+		this.evolutionlvl=101;
+        }
 	
-	Pokemon(String name, Type type0, Type type1, HashMap<Integer, Move> rewardlvl, double hp, double atk, double def, double satk, double sdef, double spd,int lvl,int xp){
+	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> rewardlvl, Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability){
 		this.name=name;
 		this.type0=type0;
 		this.type1=type1;
 		this.moves=new Move[4];
 		this.rewardlvl=rewardlvl;
-		this.moves[0]=rewardlvl.get(101);
-		this.moves[1]=rewardlvl.get(1);
-		this.stats=new Stats(hp,atk,def,satk,sdef,spd,lvl,xp);
+		this.moves=moves;
+		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
+		this.evolution=null;
+		this.evolutionlvl=101;
         }
-        
-	Pokemon(String name, Type type0, HashMap<Integer, Move> rewardlvl, double hp, double atk, double def, double satk, double sdef, double spd,int lvl,int xp){
+	
+	Pokemon(String name, Type type0, Map<Integer, Move> rewardlvl,Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, Ability ability){
 		this.name=name;
 		this.type0=type0;
 		this.moves=new Move[4];
 		this.rewardlvl=rewardlvl;
-		this.moves[0]=rewardlvl.get(101);
-		this.moves[1]=rewardlvl.get(1);
-		this.stats=new Stats(hp,atk,def,satk,sdef,spd,lvl,xp);	
+		this.moves=moves;
+		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);	
+		this.evolution=null;
+		this.evolutionlvl=101;
+        }
+	
+	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> rewardlvl, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,String evolution, int evolutionlvl, Ability ability){
+		this.name=name;
+		this.type0=type0;
+		this.type1=type1;
+		this.moves=new Move[4];
+		this.rewardlvl=rewardlvl;
+		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
+		generateMoves();
+		this.evolution=evolution;
+		this.evolutionlvl=evolutionlvl;
         }
         
+	Pokemon(String name, Type type0, Map<Integer, Move> rewardlvl, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability){
+		this.name=name;
+		this.type0=type0;
+		this.moves=new Move[4];
+		this.rewardlvl=rewardlvl;
+		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
+		generateMoves();
+		this.evolution=evolution;
+		this.evolutionlvl=evolutionlvl;
+        }
+	
+	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> rewardlvl, Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability){
+		this.name=name;
+		this.type0=type0;
+		this.type1=type1;
+		this.moves=new Move[4];
+		this.rewardlvl=rewardlvl;
+		this.moves=moves;
+		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
+		this.evolution=evolution;
+		this.evolutionlvl=evolutionlvl;
+        }
+	
+	Pokemon(String name, Type type0, HashMap<Integer, Move> rewardlvl,Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability){
+		this.name=name;
+		this.type0=type0;
+		this.moves=new Move[4];
+		this.rewardlvl=rewardlvl;
+		this.moves=moves;
+		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);	
+		this.evolution=evolution;
+		this.evolutionlvl=evolutionlvl;
+        }
 	
 	
-	public HashMap<Integer, Move> getRewardLvl(){
+	public void generateMoves() {
+		int counter=0;
+		for(int i=this.stats.lvl; i>0 && counter<4; i--) {
+			if(rewardlvl.containsKey(i)) {
+				moves[counter]=rewardlvl.get(i);
+				counter++;
+			}
+			
+			
+		}
+	}
+	
+	
+	
+	public Map<Integer, Move> getRewardLvl(){
 		return rewardlvl;
 	}
 	
@@ -51,7 +138,7 @@ public abstract class Pokemon {
     	return type1;
     }
 	
-	public Stats stats() {
+	public Stats getStats() {
     	return stats;
     }
 	
@@ -59,12 +146,20 @@ public abstract class Pokemon {
     	return moves;
     }
 	
+	public String getEvolution() {
+		return evolution;
+	}
+	
+	public int getEvolutionLvl() {
+		return evolutionlvl;
+	}
+	
 	public void setName(String name) {
 		this.name=name;
 	}
 	
 	public void setOneMove(Move move, int index) {
-		moves[index]=move;
+		this.moves[index]=move;
 	}
 	public void setAllMoves(Move[] moves) {
 		this.moves=moves;
@@ -78,9 +173,26 @@ public abstract class Pokemon {
 		this.type1=type1;
 	}
 	
+	public void damage(double dmg) {
+		this.getStats().setHp(this.getStats().getHp()-dmg);
+	}
+	
+	public void heal(double hl) {
+		this.getStats().setHp(this.getStats().getHp()+hl);
+	}
+	
 	public class Stats{
-		private int xp;
+		private double xp;
 		private int lvl;
+		private double baseHp;
+		private double baseAtk;
+		private double baseDef;
+		private double baseSatk;
+		private double baseSdef;
+		private double baseSpd;
+		
+		private double maxHp;
+
 		private double hp;
 		private double atk;
 		private double def;
@@ -93,23 +205,60 @@ public abstract class Pokemon {
 //		- se il pokemon battuto è di pari livello = [(Liv. Pokemon battuto x 10) + (Liv. Pokemon battuto)]
 //		- se il pokemon battuto è di livello maggiore = (Liv. Pokemon battuto) x 10 + [(Differenza di livello) x 10]
 //		
-		private Stats(double hp, double atk, double def, double satk, double sdef, double spd, int lvl,int xp){
+		private Stats(double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd, int lvl,double xp){
 			this.xp=xp;
 			this.lvl=lvl;
-			this.atk=atk;
-			this.satk=satk;
-			this.def=def;
-			this.sdef=sdef;
-			this.spd=spd;
-			this.hp=hp;
+			this.baseAtk=baseAtk;
+			this.baseSatk=baseSatk;
+			this.baseDef=baseDef;
+			this.baseSdef=baseSdef;
+			this.baseSpd=baseSpd;
+			this.baseHp=baseHp;
+			updateStats();
+			//yay!
+			
 		}
 		
-		public int getXp() {
+		private void updateStats() {
+			hp=(baseHp*lvl/50)+10+lvl;
+			atk=(baseAtk*lvl/50)+5;
+			def=(baseDef*lvl/50)+5;
+			satk=(baseSatk*lvl/50)+5;
+			sdef=(baseSdef*lvl/50)+5;
+			spd=(baseSpd*lvl/50)+5;
+			maxHp=hp;
+		}
+		
+		public double getXp() {
 			return xp;
 		}
 		
-		public int getlvl() {
+		public int getLvl() {
 			return lvl;
+		}
+		
+		public double getBaseHp() {
+			return baseHp;
+		}
+		
+		public double getBaseAtk() {
+			return baseAtk;
+		}
+		
+		public double getBaseSatk() {
+			return baseSatk;
+		}
+		
+		public double getBaseDef() {
+			return baseDef;
+		}
+		
+		public double getBaseSdef() {
+			return baseSdef;
+		}
+		
+		public double getBaseSpd() {
+			return baseSpd;
 		}
 		
 		public double getHp() {
@@ -134,7 +283,17 @@ public abstract class Pokemon {
 		
 		public double getSpd() {
 			return spd;
+		}		
+		
+		public double getMaxHp() {
+			return maxHp;
 		}
+		
+		public void setMaxHp(double maxHp) {
+			this.maxHp=maxHp;
+		}
+
+		
 		
 		public void setHp(double hp) {
 			this.hp=hp;
@@ -144,12 +303,12 @@ public abstract class Pokemon {
 			this.atk=atk;
 		}
 		
-		public void setDef(double def) {
-			this.def=def;
-		}
-		
 		public void setSatk(double satk) {
 			this.satk=satk;
+		}
+		
+		public void setDef(double def) {
+			this.def=def;
 		}
 		
 		public void setSdef(double sdef) {
@@ -158,7 +317,17 @@ public abstract class Pokemon {
 		
 		public void setSpd(double spd) {
 			this.spd=spd;
+		}		
+		
+		public void setXp(double xp) {
+			this.xp=xp;
 		}
+		
+		public void giveXp(double xp) {
+			this.xp+=xp;
+			
+		}
+
 		
 	}
 }

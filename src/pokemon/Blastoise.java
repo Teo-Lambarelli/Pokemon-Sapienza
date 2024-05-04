@@ -1,5 +1,5 @@
 package pokemon;
 
-public class Blastoise extends Wartortle{
+public class Blastoise{
 
 }

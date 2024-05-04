@@ -23,7 +23,7 @@ public class Typechart {
 	 * 
 	 */
 	
-	static final double[][] typechart = {
+	public static final double[][] typechart = {
 //Def:		Nor   Fir  Wat  Grs  Ele  Ice  Fig  Poi  Grd  Fly  Psy  Bug  Roc  Gho  Drg  Drk  Stl  Fry	// Atc:		
 			{1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   0.5, 0,   1,   1,   0.5, 1  }, // Normal
 		    {1,   0.5, 0.5, 2,   1,   2,   1,   1,   1,   1,   1,   2,   0.5, 1,   0.5, 1,   2,   1  }, // Fire
