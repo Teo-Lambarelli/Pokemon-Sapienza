@@ -65,7 +65,21 @@ public class BattleManager {
 	
 	public void battleStatus() {
 		System.out.println("-------------------------------------------------------------------------");
-		
+		for (Fighter f:fighter) {
+			
+			System.out.println("name: "+f.pokemon.getName());
+			System.out.println("maxHp "+f.pokemon.getStats().getMaxHp());
+			System.out.println("currentHp: "+f.pokemon.getStats().getHp());
+			System.out.println("atk: "+f.pokemon.getStats().getAtk());
+			System.out.println("def: "+f.pokemon.getStats().getDef());
+			System.out.println("satk: "+f.pokemon.getStats().getSatk());
+			System.out.println("sdef: "+f.pokemon.getStats().getSdef());
+			System.out.println("spd: "+f.pokemon.getStats().getSpd());
+			for(Move m:f.pokemon.getMoves()) {
+				System.out.print(m+" ");
+			}
+			System.out.println("\n");
+		}
 		
 		
 		System.out.println("-------------------------------------------------------------------------");
