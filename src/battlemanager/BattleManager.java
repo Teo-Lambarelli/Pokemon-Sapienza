@@ -1,22 +1,24 @@
 package battlemanager; import pokemon.*; import java.util.Random; import moves.*; import types.*;
 
 public class BattleManager {
-	protected Pokemon fighter0;
-	protected Pokemon fighter1;
-	protected Team team0;
-	protected Team team1;
-	protected Choice choice0;
-	protected Choice choice1;
+	private Fighter[] fighter;
 	private int turnCounter;
-	private StatsChange statsChange0=new StatsChange();
-	private StatsChange statsChange1=new StatsChange();
 	public final static double STAB_VALUE=1.3;
+	public final static int ON_FIELD = 2;
+	public final static int PLAYER1_FIGHTER_SLOT = 0;
+	public final static int PLAYER2_FIGHTER_SLOT = 1;
+	public final static int SWITCH_PRIORITY = 6;
+	public final static int CRITICAL_CHANCE = 24;
+	public final static int CRITICAL_DAMAGE = 2;
+	public final static int RANDOM_DAMAGE_SCALE = 100;
+	public final static int RANDOM_DAMAGE_RANGE = 25;
 	
 	public BattleManager(Team team0, Team team1) {
-		this.fighter0=team0.pokemon.get(0);
-		this.fighter1=team1.pokemon.get(0);
-		this.team0=team0;
-		this.team1=team1;
+		fighter = new Fighter[ON_FIELD];
+		fighter[PLAYER1_FIGHTER_SLOT] = new Fighter(team0.pokemon.get(0), team0);
+		fighter[PLAYER2_FIGHTER_SLOT] = new Fighter(team1.pokemon.get(0), team1);
+		fighter[PLAYER1_FIGHTER_SLOT].opponent = fighter[PLAYER2_FIGHTER_SLOT];
+		fighter[PLAYER2_FIGHTER_SLOT].opponent = fighter[PLAYER1_FIGHTER_SLOT];
 		startFight();
 	}
 	
@@ -34,214 +36,262 @@ public class BattleManager {
 		
 	}
 	
-	public void turnOption0(Choice choice) {
-		this.choice0=choice;
-	
-	}
-	
-	public void turnOption1(Choice choice) {
-		this.choice1=choice;
-	
+	public void turnOption(int index, Choice choice) {
+		fighter[index].choice = choice;
 	}
 	
 	
-	public double getCurrentSpd(Pokemon fighter) {
-		if(fighter==fighter0) {
-			return fighter.getStats().getSpd() + fighter.getStats().getSpd()*statsChange0.spd/100;
-		}
-		return fighter.getStats().getSpd() + fighter.getStats().getSpd()*statsChange1.spd/100;
+	public double getCurrentSpd(Fighter fighter) {
+		return fighter.pokemon.getStats().getSpd() + fighter.pokemon.getStats().getSpd()*fighter.statsChange.spd/100;
 	}
 	
-	public double getCurrentAtk(Pokemon fighter) {
-		if(fighter==fighter0) {
-			return fighter.getStats().getAtk() + fighter.getStats().getAtk()*statsChange0.atk/100;
-		}
-		return fighter.getStats().getAtk() + fighter.getStats().getAtk()*statsChange1.atk/100;
+	public double getCurrentAtk(Fighter fighter) {
+		return fighter.pokemon.getStats().getAtk() + fighter.pokemon.getStats().getAtk()*fighter.statsChange.atk/100;
 	}
 	
-	public double getCurrentDef(Pokemon fighter) {
-		if(fighter==fighter0) {
-			return fighter.getStats().getDef() + fighter.getStats().getDef()*statsChange0.def/100;
-		}
-		return fighter.getStats().getDef() + fighter.getStats().getDef()*statsChange1.def/100;
+	public double getCurrentDef(Fighter fighter) {
+		return fighter.pokemon.getStats().getDef() + fighter.pokemon.getStats().getDef()*fighter.statsChange.def/100;
 	}
 	
-	public double getCurrentSatk(Pokemon fighter) {
-		if(fighter==fighter0) {
-			return fighter.getStats().getSatk() + fighter.getStats().getSatk()*statsChange0.satk/100;
-		}
-		return fighter.getStats().getSatk() + fighter.getStats().getSatk()*statsChange1.satk/100;
+	public double getCurrentSatk(Fighter fighter) {
+		return fighter.pokemon.getStats().getSatk() + fighter.pokemon.getStats().getSatk()*fighter.statsChange.satk/100;
 	}
 	
-	public double getCurrentSdef(Pokemon fighter) {
-		if(fighter==fighter0) {
-			return fighter.getStats().getSdef() + fighter.getStats().getSdef()*statsChange0.sdef/100;
-		}
-		return fighter.getStats().getSdef() + fighter.getStats().getSdef()*statsChange1.sdef/100;
+	public double getCurrentSdef(Fighter fighter) {
+		return fighter.pokemon.getStats().getSdef() + fighter.pokemon.getStats().getSdef()*fighter.statsChange.sdef/100;
 	}
 	
-	
-	//spd+ spd*0-300/100
-	public boolean speedRoll() {
-		double cs0=getCurrentSpd(fighter0);
-		double cs1=getCurrentSpd(fighter1);
-		
-		if(cs0>cs1) {
-			return false;
-		}
-		else if(cs0<cs1) {
-			return true;
-		}
-		else {
-			return new Random().nextBoolean();
-		}
-	}
-	
-	
-	public boolean priorityCalculator(Move m0, Move m1) {
-		if (m0.getPriority()== m1.getPriority()) {
-			return speedRoll();
-		}
-		else {
-			if(m0.getPriority()>m1.getPriority()) {
-				return false;
-			}
-			else {
-				return true;
-			}
-		}
-	}
 	
 	
 	public void battleStatus() {
-		System.out.println(fighter0);
-		System.out.println(fighter1);
+		System.out.println("-------------------------------------------------------------------------");
+		
+		
+		
+		System.out.println("-------------------------------------------------------------------------");
 	}
 	
-	public void executeAttack(Pokemon user, Pokemon target, Move move, StatsChange statsChangeUser, StatsChange statsChangeTarget) {
-		double percent=move.getAcc()+statsChangeUser.accuracy-statsChangeTarget.evasion;
-		Random number=new Random();
-		int randomNum = number.nextInt(101);
-		/*
-		 * 
-		 * TODO fare i danni, yay!
-		 * 
-		 * 
-		 */
-//		if(randomNum<percent) {
-//			//colpisce
-//			if(move.getCat()== Category.PHYSICAL) {
-//				//fai danni
-//				double damage=(getCurrentAtk(user)*move.getDmg()/100);
-//				if (user.getType0()==move.getType() || user.getType1()==move.getType()) {
-//					damage*=STAB_VALUE;
-//				}
-//				damage*=Typechart.typechart[move.getType().getValue()][target.getType0().getValue()];
-//				if (target.getType1()!=null) {
-//					damage*=Typechart.typechart[move.getType().getValue()][target.getType1().getValue()];
-//				}
-//				damage-=getCurrentDef(target);
-//				target.damage(damage);
-//				System.out.println(user.getName()+" ha attaccato "+target.getName()+" con "+ move.toString()+" facendo "+damage+"hp!");
-//			}
-//			else if(move.getCat()== Category.SPECIAL) {
-//				//fai danni
-//				double damage=(getCurrentSatk(user)*move.getDmg()/100);
-//				if (user.getType0()==move.getType() || user.getType1()==move.getType()) {
-//					damage*=STAB_VALUE;
-//				}
-//				damage*=Typechart.typechart[move.getType().getValue()][target.getType0().getValue()];
-//				if (target.getType1()!=null) {
-//					damage*=Typechart.typechart[move.getType().getValue()][target.getType1().getValue()];
-//				}
-//				damage-=getCurrentSdef(target);
-//				target.damage(damage);
-//				System.out.println(user.getName()+" ha attaccato "+target.getName()+" con "+ move.toString()+" facendo "+damage+"hp!");
-//			}
-//			else if(move.getCat()== Category.STATUS) {
-//				//fai robe 
-//			}
-//		}
-//		else {
-			//missa
-//			System.out.println("Hai missato!");
-//		}
-//		
-	}
-	public void caccona(Pokemon user, Pokemon target, Move move) { //la difesa e l'attacco cambieranno dal tipo di danno
-		double basedamage=(((2*user.getStats().getLvl()/5+2)*move.getDmg()*getCurrentAtk(user)*getCurrentDef(target))/50+2);
-		double stab;
-		double critical=1;
-		double type=Typechart.typechart[move.getType().getValue()][target.getType1().getValue()];
-		Random r=new Random();
-		int random=r.nextInt(86)/100;
-		if(isCritical) {//TODO nn l'abbiamo ancora fatto ig
-			critical=1.5;
-		}
-		if (user.getType0()==move.getType() || user.getType1()==move.getType()) {
-			stab=1.5;
+	public boolean isFaster(Fighter f0, Fighter f1) {
+		if (f0.choice.option == f1.choice.option) {
+			if (f0.choice.option == Choice.Option.MOVE) {
+				Move m0 = f0.pokemon.getMoves()[f0.choice.index];
+				Move m1 = f1.pokemon.getMoves()[f1.choice.index];
+				
+				int p0 = m0.getPriority();
+				int p1 = m1.getPriority();
+				
+				if (p0 > p1)
+					return true;
+				else if (p1 > p0)
+					return false;
+				else {
+					double s0 = getCurrentSpd(f0);
+					double s1 = getCurrentSpd(f1);
+					
+					if (s0 > s1)
+						return true;
+					else if (s1 > s0)
+						return false;
+					else
+						return new Random().nextBoolean();
+				}
+			}
+			else if (f0.choice.option == Choice.Option.SWITCH) {
+				double s0 = getCurrentSpd(f0);
+				double s1 = getCurrentSpd(f1);
+				
+				if (s0 > s1)
+					return true;
+				else if (s1 > s0)
+					return false;
+				else
+					return new Random().nextBoolean();
+			}
+			double s0 = getCurrentSpd(f0);
+			double s1 = getCurrentSpd(f1);
+			
+			if (s0 > s1)
+				return true;
+			else if (s1 > s0)
+				return false;
+			else
+				return new Random().nextBoolean();
 		}
 		else {
-			stab=1;
+			int p0 = 6;
+			if (f0.choice.option == Choice.Option.MOVE) {
+				Move m0 = f0.pokemon.getMoves()[f0.choice.index];
+				p0 = m0.getPriority();
+			}
+			int p1 = 6;
+			if (f1.choice.option == Choice.Option.MOVE) {
+				Move m1 = f1.pokemon.getMoves()[f1.choice.index];
+				p0 = m1.getPriority();
+			}
+			
+			if (p0 > p1)
+				return true;
+			else if (p1 > p0)
+				return false;
+			else {
+				double s0 = getCurrentSpd(f0);
+				double s1 = getCurrentSpd(f1);
+				
+				if (s0 > s1)
+					return true;
+				else if (s1 > s0)
+					return false;
+				else
+					return new Random().nextBoolean();
+			}
 		}
-		double damage=basedamage*0.25*critical*random*stab*type;
+	}
+	
+	public Fighter[] getTurnOrder() {
+		Fighter[] turnOrder = fighter.clone();
+		
+		boolean correct;
+		do {
+			correct = true;
+			for (int i = 0; i < turnOrder.length-1; i++) {
+				if (!isFaster(turnOrder[i], turnOrder[i+1])) {
+					Fighter temp = turnOrder[i];
+					turnOrder[i] = turnOrder[i+1];
+					turnOrder[i+1] = temp;
+					correct = false;
+				}
+			}
+		} while (!correct); 
+		
+		return turnOrder;
+	}
+	
+	public void executeAttack(Fighter fighter) {
+		// Data
+		Move move = fighter.pokemon.getMoves()[fighter.choice.index];
+		Random rng = new Random();
+		
+		// Accuracy calculation
+		double percent = move.getAcc() + fighter.statsChange.accuracy - fighter.opponent.statsChange.evasion;
+		if (percent >= rng.nextInt(101)) {
+			// We got an hit!
+			if (move.getCat() == Category.STATUS) {
+				// TODO: STATUS MOVES
+				
+				
+			}
+			else {
+				
+				boolean critical = rng.nextInt(CRITICAL_CHANCE) == 0;
+				
+				double levelDamage = (fighter.pokemon.getStats().getLvl() * 2 / 5) + 2;
+				
+				double moveDamage = move.getDmg();
+				
+				double atk = 1, def = 1;
+				if (critical) {
+					if (move.getCat() == Category.PHYSICAL) {
+						if (fighter.statsChange.atk <= 0)
+							atk = fighter.pokemon.getStats().getAtk();
+						else
+							atk = getCurrentAtk(fighter);
+						if (fighter.opponent.statsChange.def >= 0)
+							def = fighter.opponent.pokemon.getStats().getDef();
+						else
+							def = getCurrentDef(fighter.opponent);
+					}
+					else if (move.getCat() == Category.SPECIAL) {
+						if (fighter.statsChange.satk <= 0)
+							atk = fighter.pokemon.getStats().getSatk();
+						else
+							atk = getCurrentSatk(fighter);
+						if (fighter.opponent.statsChange.sdef >= 0)
+							def = fighter.opponent.pokemon.getStats().getSdef();
+						else
+							def = getCurrentSdef(fighter.opponent);
+					}
+				}
+				else {
+					if (move.getCat() == Category.PHYSICAL) {
+						atk = getCurrentAtk(fighter);
+						def = getCurrentDef(fighter.opponent);
+					}
+					else if (move.getCat() == Category.SPECIAL) {
+						atk = getCurrentSatk(fighter);
+						def = getCurrentSdef(fighter.opponent);
+					}
+				}
+				double statDamage = atk / def;
+				
+				double baseDamage = (levelDamage * moveDamage * statDamage / 50) + 2;
+				
+				// weatherDamage
+				
+				double criticalDamage = 1;
+				if (critical)
+					criticalDamage *= CRITICAL_DAMAGE;
+				
+				double randomDamage = (rng.nextDouble(RANDOM_DAMAGE_RANGE + 1) + RANDOM_DAMAGE_SCALE - RANDOM_DAMAGE_RANGE) / 100;
+				
+				double stabDamage = 1;
+				if (move.getType() == fighter.pokemon.getType0() || move.getType() == fighter.pokemon.getType1())
+					stabDamage = 1.5;
+				
+				double typeDamage = Typechart.typechart[move.getType().getValue()][fighter.opponent.pokemon.getType0().getValue()];
+				if (fighter.opponent.pokemon.getType1() != null)
+					typeDamage *= Typechart.typechart[move.getType().getValue()][fighter.opponent.pokemon.getType1().getValue()];
+				
+				// burnDamage
+				
+				// TOTAL DAMAGE
+				double totalDamage = baseDamage * criticalDamage * randomDamage * stabDamage * typeDamage;
+				
+				// Deal damage
+				fighter.opponent.pokemon.damage(totalDamage);
+				System.out.println("-------------------------------------------------------------------------");
+				System.out.println(fighter.pokemon.getName() + " ha colpito il suo bersaglio " + fighter.opponent.pokemon.getName() + " usando " + move.toString());
+				System.out.println("Danno totale: " + totalDamage);
+				System.out.println("Danno base: " + baseDamage);
+				System.out.println("Danno critico: " + criticalDamage);
+				System.out.println("Danno casuale: " + randomDamage);
+				System.out.println("Danno STAB: " + stabDamage);
+				System.out.println("Danno tipo: " + typeDamage);
+				System.out.println("-------------------------------------------------------------------------");
+				
+				// Apply effects
+			}
 		}
+		else {
+			// Move misses
+			System.out.println(fighter.pokemon.getName() + " ha mancato il suo bersaglio " + fighter.opponent.pokemon.getName() + " usando " + move.toString() + ". (" + percent + "%)ACCURATEZZA");
+		}
+	}
+	
+	public void executeAction(Fighter fighter) {
+		if (fighter.choice.option == Choice.Option.MOVE) {
+			// Attack the enemy!
+			// TODO: ANIMATION
+			executeAttack(fighter);
+		}
+		else if (fighter.choice.option == Choice.Option.SWITCH) {
+			// Switch out pokemon!
+			// TODO: ANIMATION
+			fighter.pokemon = fighter.team.pokemon.get(fighter.choice.index);
+			fighter.statsChange.statsReset();
+		}
+		else if (fighter.choice.option == Choice.Option.FLEE) {
+			// ESCAPE! RUUUN!
+			// TODO: END FIGHT
+		}
+	}
 	
 	public void executeTurn() {
+		Fighter[] turnOrder = getTurnOrder();
 
-		/*
-		 * se menano
-		 * priority:  DEVO PRANZARE TORNO TRA POCO
-		 * 1)switch
-		 * 
-		 */
+		for (Fighter f : turnOrder)
+			System.out.println(f.pokemon);
 		
-		//SWITCH
-		if (choice1.option==Choice.Option.SWITCH && choice0.option==Choice.Option.SWITCH) {
-			if(!speedRoll()) {
-				//switch di fighter0
-				fighter0=team0.pokemon.get(choice0.index);
-				//switch di fighter1
-				fighter1=team1.pokemon.get(choice1.index);
-			}
-			else {
-				//switch di fighter1
-				fighter1=team1.pokemon.get(choice1.index);
-				//switch di fighter0
-				fighter0=team0.pokemon.get(choice0.index);
-			}	
-		}
-		
-		else if(choice0.option==Choice.Option.SWITCH){
-			//switch di fighter0
-			fighter0=team0.pokemon.get(choice0.index);
-			
-		}
-		
-		else if(choice1.option==Choice.Option.SWITCH){
-			//switch di fighter1
-			fighter1=team1.pokemon.get(choice1.index);
-			
-		}
-		
-		if (choice1.option==Choice.Option.MOVE && choice0.option==Choice.Option.MOVE) {
-			Move move0=fighter0.getMoves()[choice0.index];
-			Move move1=fighter1.getMoves()[choice1.index];
-			if(!priorityCalculator(move0, move1)) {
-				
-				//attacca fighter0
-				executeAttack(fighter0, fighter1, move0, statsChange0, statsChange1);
-				executeAttack(fighter1, fighter0, move1, statsChange1, statsChange0);
-				
-			}
-			else {
-				//attacca fighter1
-				executeAttack(fighter1, fighter0, move1, statsChange1, statsChange0);
-				executeAttack(fighter0, fighter1, move0, statsChange0, statsChange1);
-				
-			}
-		}
-		
-		
+		for (Fighter f : turnOrder)
+			executeAction(f);
 	}
 }
