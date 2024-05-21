@@ -1,11 +1,13 @@
 package pokemon;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import moves.Move;
 import types.Type;
 
 public class Charmeleon extends Pokemon{
+	public final static ArrayList<Move> PECULIARMOVES= new ArrayList<Move>();
     public final static Map<Integer, Move> REWARD_LVL = Map.ofEntries(
             Map.entry(1, Move.GROWL),
             Map.entry(2, Move.SCRATCH),
@@ -22,7 +24,7 @@ public class Charmeleon extends Pokemon{
         );
 
 	public Charmeleon(int lvl) {
-		super("Charmeleon", Type.FIRE, REWARD_LVL, 58, 64, 58, 80, 65, 80, lvl, 0, "Charizard",36, Ability.BLAZE);
+		super("Charmeleon", Type.FIRE, REWARD_LVL, 58, 64, 58, 80, 65, 80, lvl, 0, "Charizard",36, Ability.BLAZE,PECULIARMOVES);
 	}
 
 	

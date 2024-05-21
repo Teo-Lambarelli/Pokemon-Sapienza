@@ -1,4 +1,4 @@
-package pokemon; import types.Type; import moves.Move;
+package pokemon; import types.Type; import moves.Move;import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,110 +9,120 @@ public abstract class Pokemon {
 	private String name;
 	private Type type0;
 	private Type type1=null;
-	private final Map<Integer, Move> rewardlvl;
+	private final Map<Integer, Move> REWARD_LVL;
+	private final ArrayList<Move> PECULIARMOVES;
 	private final String evolution;
 	private final int evolutionlvl;
 	private Ability ability;
 	
 	
-	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> rewardlvl, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability){
+	
+	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability,ArrayList<Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.type1=type1;
 		this.moves=new Move[4];
-		this.rewardlvl=rewardlvl; 
+		this.REWARD_LVL=REWARD_LVL; 
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
 		generateMoves();
 		this.evolution=null;
 		this.evolutionlvl=101;
+		this.PECULIARMOVES=PECULIARMOVES;
         }
         
-	Pokemon(String name, Type type0, Map<Integer, Move> rewardlvl, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability){
+	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability,ArrayList<Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.moves=new Move[4];
-		this.rewardlvl=rewardlvl;
+		this.REWARD_LVL=REWARD_LVL;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);	
 		generateMoves();
 		this.evolution=null;
 		this.evolutionlvl=101;
+		this.PECULIARMOVES=PECULIARMOVES;
         }
 	
-	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> rewardlvl, Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability){
+	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability,ArrayList<Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.type1=type1;
 		this.moves=new Move[4];
-		this.rewardlvl=rewardlvl;
+		this.REWARD_LVL=REWARD_LVL;
 		this.moves=moves;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
 		this.evolution=null;
 		this.evolutionlvl=101;
+		this.PECULIARMOVES=PECULIARMOVES;
         }
 	
-	Pokemon(String name, Type type0, Map<Integer, Move> rewardlvl,Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, Ability ability){
+	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL,Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, Ability ability,ArrayList<Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.moves=new Move[4];
-		this.rewardlvl=rewardlvl;
+		this.REWARD_LVL=REWARD_LVL;
 		this.moves=moves;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);	
 		this.evolution=null;
 		this.evolutionlvl=101;
+		this.PECULIARMOVES=PECULIARMOVES;
         }
 	
-	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> rewardlvl, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,String evolution, int evolutionlvl, Ability ability){
+	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,String evolution, int evolutionlvl, Ability ability,ArrayList<Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.type1=type1;
 		this.moves=new Move[4];
-		this.rewardlvl=rewardlvl;
+		this.REWARD_LVL=REWARD_LVL;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
 		generateMoves();
 		this.evolution=evolution;
 		this.evolutionlvl=evolutionlvl;
+		this.PECULIARMOVES=PECULIARMOVES;
         }
         
-	Pokemon(String name, Type type0, Map<Integer, Move> rewardlvl, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability){
+	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability,ArrayList<Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.moves=new Move[4];
-		this.rewardlvl=rewardlvl;
+		this.REWARD_LVL=REWARD_LVL;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
 		generateMoves();
 		this.evolution=evolution;
 		this.evolutionlvl=evolutionlvl;
+		this.PECULIARMOVES=PECULIARMOVES;
         }
 	
-	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> rewardlvl, Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability){
+	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability,ArrayList<Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.type1=type1;
 		this.moves=new Move[4];
-		this.rewardlvl=rewardlvl;
+		this.REWARD_LVL=REWARD_LVL;
 		this.moves=moves;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
 		this.evolution=evolution;
 		this.evolutionlvl=evolutionlvl;
+		this.PECULIARMOVES=PECULIARMOVES;
         }
 	
-	Pokemon(String name, Type type0, HashMap<Integer, Move> rewardlvl,Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability){
+	Pokemon(String name, Type type0, HashMap<Integer, Move> REWARD_LVL,Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability,ArrayList<Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.moves=new Move[4];
-		this.rewardlvl=rewardlvl;
+		this.REWARD_LVL=REWARD_LVL;
 		this.moves=moves;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);	
 		this.evolution=evolution;
 		this.evolutionlvl=evolutionlvl;
+		this.PECULIARMOVES=PECULIARMOVES;
         }
 	
 	
 	public void generateMoves() {
 		int counter=0;
 		for(int i=this.stats.lvl; i>0 && counter<4; i--) {
-			if(rewardlvl.containsKey(i)) {
-				moves[counter]=rewardlvl.get(i);
+			if(REWARD_LVL.containsKey(i)) {
+				moves[counter]=REWARD_LVL.get(i);
 				counter++;
 			}
 			
@@ -123,7 +133,7 @@ public abstract class Pokemon {
 	
 	
 	public Map<Integer, Move> getRewardLvl(){
-		return rewardlvl;
+		return REWARD_LVL;
 	}
 	
 	public String getName() {

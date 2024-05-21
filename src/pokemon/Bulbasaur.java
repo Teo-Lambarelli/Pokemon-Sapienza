@@ -1,10 +1,12 @@
 package pokemon;
 import java.util.Map;
+import java.util.ArrayList;
 
 import types.Type;
 import moves.Move;
 
 public class Bulbasaur extends Pokemon{
+	public final static ArrayList<Move> PECULIARMOVES= new ArrayList<Move>();
     public final static Map<Integer, Move> REWARD_LVL = Map.ofEntries(
             Map.entry(2, Move.TACKLE),
             Map.entry(1, Move.GROWL),
@@ -24,7 +26,7 @@ public class Bulbasaur extends Pokemon{
 	
 	
 	public Bulbasaur(int lvl) {//					           hp   atk   def   satk  sdef  spd lvl xp
-		super("Bulbasaur", Type.GRASS, Type.POISON,REWARD_LVL, 45.0, 49.0, 49.0, 65.0, 65.0, 45.0,lvl,0,"Ivysaur",16, Ability.OVERGROW);
+		super("Bulbasaur", Type.GRASS, Type.POISON,REWARD_LVL, 45.0, 49.0, 49.0, 65.0, 65.0, 45.0,lvl,0,"Ivysaur",16, Ability.OVERGROW,PECULIARMOVES);
 
 
 	}

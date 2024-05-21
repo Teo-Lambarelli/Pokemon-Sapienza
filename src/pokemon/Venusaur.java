@@ -1,11 +1,13 @@
 package pokemon;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import moves.Move;
 import types.Type;
 
 public class Venusaur extends Pokemon {
+	public final static ArrayList<Move> PECULIARMOVES= new ArrayList<Move>();
     public final static Map<Integer, Move> REWARD_LVL = Map.ofEntries(
             Map.entry(2, Move.TACKLE),
             Map.entry(1, Move.GROWL),
@@ -24,7 +26,7 @@ public class Venusaur extends Pokemon {
         );
 	Venusaur(String name, Type type0, Type type1, Map<Integer, Move> rewardlvl, double baseHp, double baseAtk,
 			double baseDef, double baseSatk, double baseSdef, double baseSpd, int lvl, int xp, Ability ability) {
-		super(name, type0, type1, rewardlvl, baseHp, baseAtk, baseDef, baseSatk, baseSdef, baseSpd, lvl, xp, ability);
+		super(name, type0, type1, rewardlvl, baseHp, baseAtk, baseDef, baseSatk, baseSdef, baseSpd, lvl, xp, ability,PECULIARMOVES);
 		// TODO Auto-generated constructor stub
 	}
 

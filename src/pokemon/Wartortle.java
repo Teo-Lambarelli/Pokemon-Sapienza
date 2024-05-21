@@ -1,10 +1,12 @@
 package pokemon;
+import java.util.ArrayList;
 import java.util.Map;
 
 import moves.Move;
 import types.Type;
 
 public class Wartortle extends Pokemon {
+	public final static ArrayList<Move> PECULIARMOVES= new ArrayList<Move>();
     public final static Map<Integer, Move> REWARD_LVL = Map.ofEntries(
             Map.entry(2, Move.TACKLE),
             Map.entry(1, Move.TAIL_WHIP),
@@ -23,7 +25,7 @@ public class Wartortle extends Pokemon {
         );
 
 	Wartortle(int lvl) {
-		super("Wartortle", Type.WATER, REWARD_LVL, 59, 63, 80, 65,80, 58, lvl, 36, "Blastoise",36, Ability.TORRENT);
+		super("Wartortle", Type.WATER, REWARD_LVL, 59, 63, 80, 65,80, 58, lvl, 36, "Blastoise",36, Ability.TORRENT,PECULIARMOVES);
 	}
 
 	
