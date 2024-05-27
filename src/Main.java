@@ -1,10 +1,14 @@
 import pokemon.*; 
 import battlemanager.*;
+import frame.BattleGUI;
+import frame.MenuGUI;
 import moves.*;
 public class Main {
 
 	public static void main(String[] args) {
 		
+		MenuGUI n=new MenuGUI();
+		//BattleGUI m1=new BattleGUI();
 		Team team0=new Team(
 			new Pokemon[]{
 			new Charmander(30),
