@@ -19,7 +19,7 @@ public class BattleGUI extends JFrame {
         mainPanel.setLayout(new BorderLayout());
 
         // Aggiungi bordi neri ai lati
-        mainPanel.setBorder(BorderFactory.createMatteBorder(0, 240, 0, 240, Color.BLACK));
+        mainPanel.setBorder(BorderFactory.createMatteBorder(0, 210, 0, 210, Color.BLACK));
         mainPanel.setBackground(new Color(210, 220, 190));
         
         add(mainPanel);

@@ -18,7 +18,7 @@ public class MenuGUI extends JFrame {
         mainPanel.setLayout(new BorderLayout());
 
         // Aggiungi bordi neri ai lati
-        mainPanel.setBorder(BorderFactory.createMatteBorder(0, 240, 0, 240, Color.BLACK));
+        mainPanel.setBorder(BorderFactory.createMatteBorder(0, 210, 0, 210, Color.BLACK));
         mainPanel.setBackground(new Color(210, 220, 190));
         
         add(mainPanel);
@@ -83,7 +83,7 @@ public class MenuGUI extends JFrame {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Quando il bottone "Start" viene cliccato, l'applicazione si chiude
+             
                 System.exit(0);
             }
         });
