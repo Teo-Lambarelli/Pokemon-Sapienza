@@ -7,7 +7,7 @@ import moves.Move;
 import types.Type;
 
 public class Charmeleon extends Pokemon{
-	public final static ArrayList<Move> PECULIARMOVES= new ArrayList<Move>();
+	public final static Map<Integer, Move> PECULIARMOVES= null;
     public final static Map<Integer, Move> REWARD_LVL = Map.ofEntries(
             Map.entry(1, Move.GROWL),
             Map.entry(2, Move.SCRATCH),

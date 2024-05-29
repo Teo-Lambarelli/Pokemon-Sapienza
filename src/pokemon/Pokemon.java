@@ -1,4 +1,4 @@
-package pokemon; import types.Type; import moves.Move;import java.util.ArrayList;
+package pokemon; import types.Type; import moves.*;import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,39 +10,43 @@ public abstract class Pokemon {
 	private Type type0;
 	private Type type1=null;
 	private final Map<Integer, Move> REWARD_LVL;
-	private final ArrayList<Move> PECULIARMOVES;
+	private final Map<Integer, Move> PECULIARMOVES;
 	private final String evolution;
 	private final int evolutionlvl;
 	private Ability ability;
+	private StatusEffect STATUS_EFFECT;
 	
 	
 	
-	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability,ArrayList<Move> PECULIARMOVES){
+	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability,Map<Integer, Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.type1=type1;
 		this.moves=new Move[4];
 		this.REWARD_LVL=REWARD_LVL; 
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
+		this.PECULIARMOVES=PECULIARMOVES;
 		generateMoves();
 		this.evolution=null;
 		this.evolutionlvl=101;
-		this.PECULIARMOVES=PECULIARMOVES;
+		
+		this.STATUS_EFFECT=StatusEffect.DEFAULT;
         }
         
-	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability,ArrayList<Move> PECULIARMOVES){
+	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability,Map<Integer, Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.moves=new Move[4];
 		this.REWARD_LVL=REWARD_LVL;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);	
+		this.PECULIARMOVES=PECULIARMOVES;
 		generateMoves();
 		this.evolution=null;
 		this.evolutionlvl=101;
-		this.PECULIARMOVES=PECULIARMOVES;
+		this.STATUS_EFFECT=StatusEffect.DEFAULT;
         }
 	
-	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability,ArrayList<Move> PECULIARMOVES){
+	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability,Map<Integer, Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.type1=type1;
@@ -53,9 +57,10 @@ public abstract class Pokemon {
 		this.evolution=null;
 		this.evolutionlvl=101;
 		this.PECULIARMOVES=PECULIARMOVES;
+		this.STATUS_EFFECT=StatusEffect.DEFAULT;
         }
 	
-	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL,Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, Ability ability,ArrayList<Move> PECULIARMOVES){
+	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL,Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, Ability ability,Map<Integer, Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.moves=new Move[4];
@@ -65,34 +70,39 @@ public abstract class Pokemon {
 		this.evolution=null;
 		this.evolutionlvl=101;
 		this.PECULIARMOVES=PECULIARMOVES;
+		this.STATUS_EFFECT=StatusEffect.DEFAULT;
         }
 	
-	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,String evolution, int evolutionlvl, Ability ability,ArrayList<Move> PECULIARMOVES){
+	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,String evolution, int evolutionlvl, Ability ability,Map<Integer, Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.type1=type1;
 		this.moves=new Move[4];
 		this.REWARD_LVL=REWARD_LVL;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
+		this.PECULIARMOVES=PECULIARMOVES;
 		generateMoves();
 		this.evolution=evolution;
 		this.evolutionlvl=evolutionlvl;
-		this.PECULIARMOVES=PECULIARMOVES;
+		
+		this.STATUS_EFFECT=StatusEffect.DEFAULT;
         }
         
-	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability,ArrayList<Move> PECULIARMOVES){
+	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability,Map<Integer, Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.moves=new Move[4];
 		this.REWARD_LVL=REWARD_LVL;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
+		this.PECULIARMOVES=PECULIARMOVES;
 		generateMoves();
 		this.evolution=evolution;
 		this.evolutionlvl=evolutionlvl;
-		this.PECULIARMOVES=PECULIARMOVES;
+		
+		this.STATUS_EFFECT=StatusEffect.DEFAULT;
         }
 	
-	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability,ArrayList<Move> PECULIARMOVES){
+	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability,Map<Integer, Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.type1=type1;
@@ -103,9 +113,10 @@ public abstract class Pokemon {
 		this.evolution=evolution;
 		this.evolutionlvl=evolutionlvl;
 		this.PECULIARMOVES=PECULIARMOVES;
+		this.STATUS_EFFECT=StatusEffect.DEFAULT;
         }
 	
-	Pokemon(String name, Type type0, HashMap<Integer, Move> REWARD_LVL,Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability,ArrayList<Move> PECULIARMOVES){
+	Pokemon(String name, Type type0, HashMap<Integer, Move> REWARD_LVL,Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability,Map<Integer, Move> PECULIARMOVES){
 		this.name=name;
 		this.type0=type0;
 		this.moves=new Move[4];
@@ -115,11 +126,20 @@ public abstract class Pokemon {
 		this.evolution=evolution;
 		this.evolutionlvl=evolutionlvl;
 		this.PECULIARMOVES=PECULIARMOVES;
+		this.STATUS_EFFECT=StatusEffect.DEFAULT;
         }
 	
 	
 	public void generateMoves() {
 		int counter=0;
+		if (PECULIARMOVES!=null) {
+			for (int i=0; i<PECULIARMOVES.size() && counter<4; i++) {
+				moves[counter]=PECULIARMOVES.get(i);
+				
+				counter++;
+			}
+		}
+		
 		for(int i=this.stats.lvl; i>0 && counter<4; i--) {
 			if(REWARD_LVL.containsKey(i)) {
 				moves[counter]=REWARD_LVL.get(i);
@@ -128,6 +148,7 @@ public abstract class Pokemon {
 			
 			
 		}
+
 	}
 	
 	
@@ -181,6 +202,10 @@ public abstract class Pokemon {
 	
 	public void setType1(Type type1) {
 		this.type1=type1;
+	}
+	
+	public void setStatusEffect(StatusEffect STATUS_EFFECT) {
+		this.STATUS_EFFECT=STATUS_EFFECT;
 	}
 	
 	public void damage(double dmg) {

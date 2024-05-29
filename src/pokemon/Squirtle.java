@@ -6,7 +6,7 @@ import types.Type;
 import moves.Move;
 
 public class Squirtle extends Pokemon{
-	public final static ArrayList<Move> PECULIARMOVES= new ArrayList<Move>();
+	public final static Map<Integer, Move> PECULIARMOVES= null;
     public final static Map<Integer, Move> REWARD_LVL = Map.ofEntries(
             Map.entry(2, Move.TACKLE),
             Map.entry(1, Move.TAIL_WHIP),

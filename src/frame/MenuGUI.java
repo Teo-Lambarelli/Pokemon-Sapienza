@@ -8,10 +8,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class MenuGUI extends JFrame {
-
+	final static Color MAIN_COLOR =new Color(210, 220, 190);
+	//final static ImageIcon BUTTON_TEXTURE=new ImageIcon(------);
+	final static Color BUTTON_COLOR=new Color(54, 45, 62);
+	final static Color BUTTON_BORDER=new Color(0,0,0);
+	
     public MenuGUI() {
         super("Pokemon Battle");
-
+        
         this.setLayout(new BorderLayout());
         // Imposta il layout del contenuto principale
         JPanel mainPanel = new JPanel();
@@ -19,14 +23,14 @@ public class MenuGUI extends JFrame {
 
         // Aggiungi bordi neri ai lati
         mainPanel.setBorder(BorderFactory.createMatteBorder(0, 210, 0, 210, Color.BLACK));
-        mainPanel.setBackground(new Color(210, 220, 190));
+        mainPanel.setBackground(MAIN_COLOR);
         
         add(mainPanel);
 
         // Create a panel for the buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridBagLayout());
-        buttonPanel.setBackground(Color.decode("#ff2244")); // Imposta il colore di sfondo utilizzando un valore esadecimale
+        buttonPanel.setBackground(MAIN_COLOR); // Imposta il colore di sfondo utilizzando un valore esadecimale
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -36,19 +40,20 @@ public class MenuGUI extends JFrame {
         // Create buttons
         JButton newPlayerButton = new JButton("New Player");
         newPlayerButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK, 2),
-                BorderFactory.createEmptyBorder(5, 15, 5, 15)));
+                BorderFactory.createLineBorder(BUTTON_BORDER, 4),
+                BorderFactory.createEmptyBorder(5, 5, 5, 15)));
         newPlayerButton.setFont(new Font("Arial", Font.BOLD, 14)); // Set font
+        
         
         JButton loadPlayerButton = new JButton("Load Player");
         loadPlayerButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK, 2),
+                BorderFactory.createLineBorder(BUTTON_BORDER, 4),
                 BorderFactory.createEmptyBorder(5, 15, 5, 15)));
         loadPlayerButton.setFont(new Font("Arial", Font.BOLD, 14)); // Set font
         
         JButton exitButton = new JButton("Exit");
         exitButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK, 2),
+                BorderFactory.createLineBorder(BUTTON_BORDER, 4),
                 BorderFactory.createEmptyBorder(5, 15, 5, 15)));
         exitButton.setFont(new Font("Arial", Font.BOLD, 14)); // Set font
         
@@ -69,14 +74,17 @@ public class MenuGUI extends JFrame {
         newPlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(MenuGUI.this, "New Player button clicked");
+                //JOptionPane.showMessageDialog(MenuGUI.this, "New Player button clicked");
+            	
+            	new NewPlayerGUI();
+            	
             }
         });
 
         loadPlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new BattleGUI();
+                new PokemonButtonBox();
             }
         });
 

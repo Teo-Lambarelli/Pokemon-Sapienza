@@ -1,6 +1,7 @@
 package pokemon;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import moves.Move;
@@ -9,7 +10,10 @@ import types.Type;
 
 
 public class Charizard extends Pokemon{
-	public final static ArrayList<Move> PECULIARMOVES= new ArrayList<Move>();
+    public final static Map<Integer, Move> PECULIARMOVES = Map.ofEntries(
+            Map.entry(0,  Move.AIR_SLASH)
+    );
+    
     public final static Map<Integer, Move> REWARD_LVL = Map.ofEntries(
             Map.entry(1, Move.GROWL),
             Map.entry(2, Move.SCRATCH),
@@ -19,7 +23,6 @@ public class Charizard extends Pokemon{
             Map.entry(19, Move.FIRE_FANG),
             Map.entry(24, Move.SLASH),
             Map.entry(30, Move.FLAMETHROWER),
-            Map.entry(36, Move.AIR_SLASH),
             Map.entry(37, Move.DRAGON_CLAW),
             Map.entry(38, Move.SCARY_FACE),
             Map.entry(32, Move.FIRE_SPIN),
@@ -30,7 +33,6 @@ public class Charizard extends Pokemon{
     
 	public Charizard(int lvl) {
 		super("Charizard", Type.FIRE, Type.FLYING, REWARD_LVL, 78, 84, 78, 109, 85, 100, lvl, 0, Ability.BLAZE,PECULIARMOVES);
-
 	}
 
 
