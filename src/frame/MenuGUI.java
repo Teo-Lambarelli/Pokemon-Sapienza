@@ -57,7 +57,7 @@ public class MenuGUI extends JFrame {
                 BorderFactory.createEmptyBorder(5, 15, 5, 15)));
         exitButton.setFont(new Font("Arial", Font.BOLD, 14)); // Set font
         
-
+        
         // Set preferred size to reduce button width
         Dimension buttonSize = new Dimension(350, 120); // larghezza e altezza desiderate
         Dimension exitSize = new Dimension(250, 90); // larghezza e altezza desiderate
@@ -77,14 +77,8 @@ public class MenuGUI extends JFrame {
                 //JOptionPane.showMessageDialog(MenuGUI.this, "New Player button clicked");
             	
             	new NewPlayerGUI();
+            	JOptionPane.showMessageDialog(null, "Team1 is now chosing!");
             	
-            }
-        });
-
-        loadPlayerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new PokemonButtonBox();
             }
         });
 
@@ -114,26 +108,3 @@ public class MenuGUI extends JFrame {
             }
         });
     }}
-
-
-
-
-//private JButton createCustomButton(String text) {
-//    JButton button = new JButton(text);
-//
-//    // Customizing the button
-//    button.setPreferredSize(new Dimension(150, 40));
-//    button.setBackground(new Color(70, 130, 180)); // Set background color
-//    button.setForeground(Color.WHITE); // Set text color
-//    button.setFont(new Font("Arial", Font.BOLD, 14)); // Set font
-//
-//    // Customizing the button border
-//    button.setBorder(BorderFactory.createCompoundBorder(
-//            BorderFactory.createLineBorder(Color.BLACK, 2),
-//            BorderFactory.createEmptyBorder(5, 15, 5, 15)
-//    ));
-//    button.setFocusPainted(false); // Remove focus border
-//    button.setOpaque(true);
-//
-//    return button;
-//}

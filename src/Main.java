@@ -11,21 +11,7 @@ public class Main {
 		//BattleGUI m1=new BattleGUI();
 		PokemonButtonBox x=new PokemonButtonBox();
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		Team team0=new Team(
 			new Pokemon[]{
 					

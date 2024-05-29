@@ -26,18 +26,17 @@ import battlemanager.*;
 import moves.Move;
 import pokemon.*;
 
-
-
-//selezioni pokemon, nomi giocatori //TODO
-
 public class NewPlayerGUI extends JFrame {
 	protected int ct0=0;
 	protected int ct1=0;
 	protected Pokemon[] team0 = new Pokemon[Team.MAX];
 	protected Pokemon[] team1 = new Pokemon[Team.MAX];
+	public JPanel p=new JPanel();
+	public JPanel p1=new JPanel();
+	public JPanel p2=new JPanel();
+	public JPanel p3=new JPanel();
     public NewPlayerGUI() {
         super("Pokemon Battle");
-        
         
         // Configurazione della finestra principale
         this.setLayout(new BorderLayout());
@@ -45,12 +44,11 @@ public class NewPlayerGUI extends JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null); // Centra la finestra
-        
-        
-        JPanel p=new JPanel();
-        JPanel p1=new JPanel();
-        JPanel p2=new JPanel();
-        JPanel p3=new JPanel();
+
+        p.setLayout(new GridLayout(4, 3)); // Disposizione a griglia 4x3
+        p1.setLayout(new GridLayout(4, 3)); // Disposizione a griglia 4x3
+        p2.setLayout(new GridLayout(4, 3)); // Disposizione a griglia 4x3
+        p3.setLayout(new GridLayout(4, 3)); // Disposizione a griglia 4x3
         
         // Pannello principale con bordo e colore di sfondo
         JPanel mainPanel = new JPanel();
@@ -73,11 +71,9 @@ public class NewPlayerGUI extends JFrame {
         buttonPanel.setLayout(new GridLayout(4, 3)); // Disposizione a griglia 4x3
         buttonPanel.add(p);
         buttonPanel.add(p1);
-        buttonPanel.add(p3);
         buttonPanel.add(p2);
-        
-        
-        
+        buttonPanel.add(p3);   
+
         // Creazione dei pulsanti
         for (int i = 0; i <= 11; i++) {
             JButton button = new JButton("" + i);
@@ -85,7 +81,7 @@ public class NewPlayerGUI extends JFrame {
             buttonPanel.add(button);
             button.setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createLineBorder(new Color(0,0,0), 4),
-                    BorderFactory.createEmptyBorder(5, 5, 5, 15)));
+                    BorderFactory.createEmptyBorder(0, 0, 0, 15)));
             		button.setFont(new Font("Arial", Font.BOLD, 0));
                     switch (i) {
                     case 0: photoButton("src/frame/charmander.png",button);break;
@@ -103,7 +99,6 @@ public class NewPlayerGUI extends JFrame {
                     default: break;
                 }
         }
-        
         
         // Aggiunta del pannello dei pulsanti al pannello principale
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
@@ -124,6 +119,50 @@ public class NewPlayerGUI extends JFrame {
  
     }
     
+    protected void selectedPokemon(Pokemon pokemon, int o) {
+    	
+        switch (pokemon.getName()) {
+        case "Charmander": addSelection("src/frame/charmander.png",o);break;
+        case "Squirtle": addSelection("src/frame/squirtle.png",o);break;
+        case "Bulbasaur": addSelection("src/frame/bulbasaur.png",o);break;
+//        case "3": return new Pikachu(5);break;
+//        case "4": return new Eevee(5);break;
+//        case "5": return new Jigglypuff(5);break;
+//        case "6": return new Meowth(5);break;
+//        case "7": return new Psyduck(5);break;
+//        case "8": return new Machop(5);break;
+//        case "9": return new Geodude(5);break;
+//        case "10": return new Abra(5);break;
+//        case "11": return new Gastly(5);break;
+        default: break;
+        }
+    	
+    }
+    
+    protected void addSelection(String i,int o) {
+    	if(o==0) {
+    	JLabel pippo= new JLabel();
+    	ImageIcon icon=new ImageIcon(i);
+        Image image= icon.getImage();
+        Image newimage = image.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+        icon=new ImageIcon(newimage);
+        pippo.setIcon(icon);
+        p.add(pippo);
+        p.revalidate();
+        p.repaint();
+    	}
+    	else {
+    		JLabel pippo= new JLabel();
+        	ImageIcon icon=new ImageIcon(i);
+            Image image= icon.getImage();
+            Image newimage = image.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+            icon=new ImageIcon(newimage);
+            pippo.setIcon(icon);
+            p3.add(pippo);
+            p3.revalidate();
+            p3.repaint();
+    	}
+    }
     
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -155,14 +194,17 @@ public class NewPlayerGUI extends JFrame {
             
             
             private void addPokemon(Pokemon pokemon) {
-            if(ct0<Team.MAX) {
+            if(ct0<Team.MAX) { if(ct0==0)
             	team0[ct0]=pokemon;
-            	JOptionPane.showMessageDialog(null, team0[ct0].getName()+ " has been added to team 1!");
+            	//JOptionPane.showMessageDialog(null, team0[ct0].getName()+ " has been added to team 1!");
+            	selectedPokemon(pokemon,0);
             	ct0++;
+            	if(ct0==6) {JOptionPane.showMessageDialog(null, "Team2 is now chosing!");}
             }
-            else if(ct1<Team.MAX){
+            else if(ct1<Team.MAX){ 
             	team0[ct1]=pokemon;
-            	JOptionPane.showMessageDialog(null, team0[ct1].getName()+ " has been added to team 2!");
+            	//JOptionPane.showMessageDialog(null, team0[ct1].getName()+ " has been added to team 2!");
+            	selectedPokemon(pokemon,1);
             	ct1++;
             	if(ct1==6) {
             		JOptionPane.showMessageDialog(null, "Let's battle!");
