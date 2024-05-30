@@ -84,18 +84,18 @@ public class NewPlayerGUI extends JFrame {
                     BorderFactory.createEmptyBorder(0, 0, 0, 15)));
             		button.setFont(new Font("Arial", Font.BOLD, 0));
                     switch (i) {
-                    case 0: photoButton("src/frame/charmander.png",button);break;
-                    case 1: photoButton("src/frame/squirtle.png",button);break;
-                    case 2: photoButton("src/frame/bulbasaur.png",button);break;
-                    case 3: photoButton("src/frame/charmander.png",button);break;	
-                    case 4: photoButton("src/frame/charmander.png",button);break;
-                    case 5: photoButton("src/frame/charmander.png",button);break;
-                    case 6: photoButton("src/frame/charmander.png",button);break;
-                    case 7: photoButton("src/frame/charmander.png",button);break;
-                    case 8: photoButton("src/frame/charmander.png",button);break;
-                    case 9: photoButton("src/frame/charmander.png",button);break;
-                    case 10: photoButton("src/frame/charmander.png",button);break;
-                    case 11: photoButton("src/frame/charmander.png",button);break;
+                    case 0: photoButton("src/sprites/charmander.png",button);break;
+                    case 1: photoButton("src/sprites/squirtle.png",button);break;
+                    case 2: photoButton("src/sprites/bulbasaur.png",button);break;
+                    case 3: photoButton("src/sprites/charmander.png",button);break;	
+                    case 4: photoButton("src/sprites/charmander.png",button);break;
+                    case 5: photoButton("src/sprites/charmander.png",button);break;
+                    case 6: photoButton("src/sprites/charmander.png",button);break;
+                    case 7: photoButton("src/sprites/charmander.png",button);break;
+                    case 8: photoButton("src/sprites/charmander.png",button);break;
+                    case 9: photoButton("src/sprites/charmander.png",button);break;
+                    case 10: photoButton("src/sprites/charmander.png",button);break;
+                    case 11: photoButton("src/sprites/charmander.png",button);break;
                     default: break;
                 }
         }
@@ -122,9 +122,9 @@ public class NewPlayerGUI extends JFrame {
     protected void selectedPokemon(Pokemon pokemon, int o) {
     	
         switch (pokemon.getName()) {
-        case "Charmander": addSelection("src/frame/charmander.png",o);break;
-        case "Squirtle": addSelection("src/frame/squirtle.png",o);break;
-        case "Bulbasaur": addSelection("src/frame/bulbasaur.png",o);break;
+        case "Charmander": addSelection("src/sprites/charmander.png",o);break;
+        case "Squirtle": addSelection("src/sprites/squirtle.png",o);break;
+        case "Bulbasaur": addSelection("src/sprites/bulbasaur.png",o);break;
 //        case "3": return new Pikachu(5);break;
 //        case "4": return new Eevee(5);break;
 //        case "5": return new Jigglypuff(5);break;
@@ -194,15 +194,15 @@ public class NewPlayerGUI extends JFrame {
             
             
             private void addPokemon(Pokemon pokemon) {
-            if(ct0<Team.MAX) { if(ct0==0)
+            if(ct0<Team.MAX) { 
             	team0[ct0]=pokemon;
             	//JOptionPane.showMessageDialog(null, team0[ct0].getName()+ " has been added to team 1!");
             	selectedPokemon(pokemon,0);
             	ct0++;
-            	if(ct0==6) {JOptionPane.showMessageDialog(null, "Team2 is now chosing!");}
+            	if(ct0==6) {JOptionPane.showMessageDialog(null, "Team2 is now choosing!");}
             }
             else if(ct1<Team.MAX){ 
-            	team0[ct1]=pokemon;
+            	team1[ct1]=pokemon;
             	//JOptionPane.showMessageDialog(null, team0[ct1].getName()+ " has been added to team 2!");
             	selectedPokemon(pokemon,1);
             	ct1++;
@@ -211,7 +211,9 @@ public class NewPlayerGUI extends JFrame {
             		Team BattleTeam0= new Team(team0);
             		Team BattleTeam1= new Team(team1);
             		BattleManager bg= new BattleManager(BattleTeam0,BattleTeam1);
-                    new BattleGUI();
+                    new BattleGUI(bg);
+
+                   
             	}
             }
         }

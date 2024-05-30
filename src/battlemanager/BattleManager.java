@@ -20,6 +20,9 @@ public class BattleManager {
 		fighter[PLAYER1_FIGHTER_SLOT].opponent = fighter[PLAYER2_FIGHTER_SLOT];
 		fighter[PLAYER2_FIGHTER_SLOT].opponent = fighter[PLAYER1_FIGHTER_SLOT];
 		startFight();
+//		for(Fighter Fighter:fighter) {
+//			System.out.println(Fighter.pokemon.getName());
+//		}
 	}
 	
 	public void startFight() {
@@ -34,6 +37,10 @@ public class BattleManager {
 	
 	public void startTurnEffects() {
 		
+	}
+	
+	public Fighter[] getFighter() {
+		return fighter;
 	}
 	
 	public void turnOption(int index, Choice choice) {

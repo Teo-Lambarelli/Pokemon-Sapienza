@@ -199,6 +199,7 @@ public enum Move {
         this.priority=priority;
     }
     
+ 
     public Type getType() {
     	return type;
     }
@@ -218,6 +219,8 @@ public enum Move {
     public int getPp() {
     	return pp;
     }
+    
+
     
     public Category getCat() {
     	return cat;

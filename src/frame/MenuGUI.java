@@ -77,7 +77,7 @@ public class MenuGUI extends JFrame {
                 //JOptionPane.showMessageDialog(MenuGUI.this, "New Player button clicked");
             	
             	new NewPlayerGUI();
-            	JOptionPane.showMessageDialog(null, "Team1 is now chosing!");
+            	JOptionPane.showMessageDialog(null, "Team1 is now choosing!");
             	
             }
         });
