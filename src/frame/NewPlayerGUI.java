@@ -31,8 +31,8 @@ public class NewPlayerGUI extends JFrame {
 	protected int ct0=0;
 	protected boolean cp=false; //controllo pokemon
 	protected boolean cn=false; //controllo nome
-	protected Pokemon[] team0 = new Pokemon[Team.MAX];
-	//protected Pokemon[] team1 = new Pokemon[Team.MAX];
+	protected static Pokemon[] team0 = new Pokemon[Team.MAX];
+	protected static Pokemon[] team1 = new Pokemon[Team.MAX];
 	public JPanel p=new JPanel();
 	public JPanel p1=new JPanel();
 	public JPanel p2=new JPanel();
@@ -68,11 +68,6 @@ public class NewPlayerGUI extends JFrame {
             }
         });
         
-
-        
-        
-        
-        
         p.add(new JPanel());
         JTextField inputField = new JTextField();
         inputField.setBounds(50, 50, 200, 30);
@@ -97,19 +92,12 @@ public class NewPlayerGUI extends JFrame {
                 String userInput = inputField.getText();
                 cn=true;
                 if(cp==true && cn==true) {
-            		//TODO
+            		
+                	finish(player);
                 	
-                	JOptionPane.showMessageDialog(null, "squadra finitpTODOnext");
-            		System.out.println("finiscisquadra");
             	}
             }
         });
-    
-        
-        
-        
-        
-        
         
         // Pannello per i pulsanti
         JPanel buttonPanel = new JPanel();
@@ -156,6 +144,34 @@ public class NewPlayerGUI extends JFrame {
         
         this.setVisible(true);
     }
+    
+    
+    public void finish(int o) {
+    	if(cp==true && cn==true && o==0) {
+    		//TODO
+    		
+    		System.out.println("SUCAMINKIA");
+    		player++;
+    		new Select2ndPlayerGUI();		//TODO far decidere tra nuovo player e load player
+    		dispose();
+    	}
+        	
+    	else if(cp==true && cn==true && o==1){
+    		player=0;
+    		BattleManager bg=new BattleManager(new Team(team0),new Team(team1));
+    		new BattleGUI(bg);
+    		Pokemon[] team0 = new Pokemon[Team.MAX];
+    		Pokemon[] team1 = new Pokemon[Team.MAX];
+    		dispose();
+    	}
+    	
+    }
+    
+    
+    
+    
+    
+    
     
     private void photoButton(String i, JButton button) {
        
@@ -233,38 +249,23 @@ public class NewPlayerGUI extends JFrame {
             
             private void addPokemon(Pokemon pokemon) {
             if(ct0<Team.MAX) { 
-            	team0[ct0]=pokemon;
-            	//JOptionPane.showMessageDialog(null, team0[ct0].getName()+ " has been added to team 1!");
+            	if (player==0) {
+            		team0[ct0]=pokemon;
+            		}
+            	else {
+            		team1[ct0]=pokemon;
+            		}
             	selectedPokemon(pokemon);
             	ct0++;
             	if(ct0==6) {
-            		cp=true;//JOptionPane.showMessageDialog(null, "Team2 is now choosing!");}
+            		cp=true;
             	}
             	if(cp==true && cn==true) {
-            		//TODO
-            		JOptionPane.showMessageDialog(null, "squadra finitpTODOnext");
-            		System.out.println("finiscisquadra");
+            		finish(player);
             	}
             }
-//            else if(ct1<Team.MAX){ 
-//            	team1[ct1]=pokemon;
-//            	//JOptionPane.showMessageDialog(null, team0[ct1].getName()+ " has been added to team 2!");
-//            	selectedPokemon(pokemon,1);
-//            	ct1++;
-//            	if(ct1==6) {
-//            		JOptionPane.showMessageDialog(null, "Let's battle!");
-//            		Team BattleTeam0= new Team(team0);
-            		//Team BattleTeam1= new Team(team1);
-            	   // BattleManager bg= new BattleManager(BattleTeam0,BattleTeam1);
-                  //  new BattleGUI(bg);//TODO
-                 //   dispose();
 
-                   
-              //}
             }
         }
-   
-            
-        
-    }
+   }
     

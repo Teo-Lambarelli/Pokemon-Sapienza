@@ -7,13 +7,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class MenuGUI extends JFrame {
+
+
+public class Select2ndPlayerGUI extends Frame{
 	final static Color MAIN_COLOR =new Color(210, 220, 190);
 	//final static ImageIcon BUTTON_TEXTURE=new ImageIcon(------);
 	final static Color BUTTON_COLOR=new Color(54, 45, 62);
 	final static Color BUTTON_BORDER=new Color(0,0,0);
-	
-    public MenuGUI() {
+	public Select2ndPlayerGUI() {
         super("Pokemon Battle");
         
         this.setLayout(new BorderLayout());
@@ -22,7 +23,7 @@ public class MenuGUI extends JFrame {
         mainPanel.setLayout(new BorderLayout());
 
         // Aggiungi bordi neri ai lati
-        mainPanel.setBorder(BorderFactory.createMatteBorder(0, 210, 0, 210, Color.BLACK));
+        mainPanel.setBorder(BorderFactory.createMatteBorder(0, 210, 0, 210,BUTTON_BORDER));
         mainPanel.setBackground(MAIN_COLOR);
         
         add(mainPanel);
@@ -38,24 +39,19 @@ public class MenuGUI extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10); // margini tra i bottoni
 
         // Create buttons
-        JButton newPlayerButton = new JButton("New Player");
+        JButton newPlayerButton = new JButton("New 2nd Player");
         newPlayerButton.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(BUTTON_BORDER, 4),
                 BorderFactory.createEmptyBorder(5, 5, 5, 15)));
         newPlayerButton.setFont(new Font("Arial", Font.BOLD, 14)); // Set font
         
         
-        JButton loadPlayerButton = new JButton("Load Player");
+        JButton loadPlayerButton = new JButton("Load 2nd Player");
         loadPlayerButton.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(BUTTON_BORDER, 4),
                 BorderFactory.createEmptyBorder(5, 15, 5, 15)));
         loadPlayerButton.setFont(new Font("Arial", Font.BOLD, 14)); // Set font
         
-        JButton exitButton = new JButton("Exit");
-        exitButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(BUTTON_BORDER, 4),
-                BorderFactory.createEmptyBorder(5, 15, 5, 15)));
-        exitButton.setFont(new Font("Arial", Font.BOLD, 14)); // Set font
         
         
         // Set preferred size to reduce button width
@@ -63,27 +59,24 @@ public class MenuGUI extends JFrame {
         Dimension exitSize = new Dimension(250, 90); // larghezza e altezza desiderate
         newPlayerButton.setPreferredSize(buttonSize);
         loadPlayerButton.setPreferredSize(buttonSize);
-        exitButton.setPreferredSize(exitSize);
+
 
         // Add buttons to the panel
         buttonPanel.add(newPlayerButton, gbc);
         buttonPanel.add(loadPlayerButton, gbc);
-        buttonPanel.add(exitButton, gbc);
+
 
         // Add action listeners to the buttons
         newPlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //JOptionPane.showMessageDialog(MenuGUI.this, "New Player button clicked");
-            	
             	new NewPlayerGUI();
             	dispose();
-
             	JOptionPane.showMessageDialog(null, "Team"+(NewPlayerGUI.player+1)+" is now choosing!");
             	
             }
         });
-        
+
         loadPlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -93,22 +86,15 @@ public class MenuGUI extends JFrame {
             }
         });
 
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-             
-                System.exit(0);
-            }
-        });
-
         // Add the button panel to the center of the main panel
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
 
         this.setUndecorated(true); 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      //  this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); TODO
         this.setLocationRelativeTo(null); // Centra la finestra
         this.setVisible(true);
+        
 
         this.addKeyListener(new KeyAdapter() {
             @Override
