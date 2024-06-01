@@ -5,11 +5,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -44,7 +46,9 @@ public class BattleGUI extends JFrame {
          
         this.setLayout(new BorderLayout());
         // Imposta il layout del contenuto principale
-        JPanel mainPanel = new JPanel();
+        ImageIcon icon = new ImageIcon("src/sprites/semenano2.png");
+        Image image = icon.getImage();
+        BackgroundPanel mainPanel = new BackgroundPanel(image);
         mainPanel.setLayout(new BorderLayout());
 
         // Aggiungi bordi neri ai lati
@@ -55,24 +59,32 @@ public class BattleGUI extends JFrame {
         JPanel abilityPanel = new JPanel();
         abilityPanel.setBorder(BorderFactory.createMatteBorder(30, 65, 30, 65, new Color(210, 220, 190)));
         abilityPanel.setLayout(new GridLayout(6, 2));
+        abilityPanel.setOpaque(false);
+//        p0.setBackground(new Color(210, 220, 190));
+//        p1.setBackground(new Color(210, 220, 190));
+//        p2.setBackground(new Color(210, 220, 190));
+//        p3.setBackground(new Color(210, 220, 190));
+//        p4.setBackground(new Color(210, 220, 190));
+//        p5.setBackground(new Color(210, 220, 190));
+//        p6.setBackground(new Color(210, 220, 190));
+//        p7.setBackground(new Color(210, 220, 190));
         
-        p0.setBackground(new Color(210, 220, 190));
-        p1.setBackground(new Color(210, 220, 190));
-        p2.setBackground(new Color(210, 220, 190));
-        p3.setBackground(new Color(210, 220, 190));
-        p4.setBackground(new Color(210, 220, 190));
-        p5.setBackground(new Color(210, 220, 190));
-        p6.setBackground(new Color(210, 220, 190));
-        p7.setBackground(new Color(210, 220, 190));
-
         abilityPanel.add(p0);
+        p0.setOpaque(false);
         abilityPanel.add(p1);
+        p1.setOpaque(false);
         abilityPanel.add(p2);
+        p2.setOpaque(false);
         abilityPanel.add(p3);
+        p3.setOpaque(false);
         abilityPanel.add(p4);
+        p4.setOpaque(false);
         abilityPanel.add(p5);
+        p5.setOpaque(false);
         abilityPanel.add(p6);
+        p6.setOpaque(false);
         abilityPanel.add(p7);
+        p7.setOpaque(false);
 
         makeButtons(abilityPanel, 0, true);
         
@@ -101,7 +113,7 @@ public class BattleGUI extends JFrame {
                     if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                         System.exit(0);
                     }
-                }
+                } 
                 return false;
             }
         });

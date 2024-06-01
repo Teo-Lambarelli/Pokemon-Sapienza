@@ -33,6 +33,8 @@ public class NewPlayerGUI extends JFrame {
 	protected boolean cn=false; //controllo nome
 	protected static Pokemon[] team0 = new Pokemon[Team.MAX];
 	protected static Pokemon[] team1 = new Pokemon[Team.MAX];
+	protected String name0;
+	protected String name1;
 	public JPanel p=new JPanel();
 	public JPanel p1=new JPanel();
 	public JPanel p2=new JPanel();
@@ -96,12 +98,21 @@ public class NewPlayerGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Ottenere il testo dall'inputField e visualizzarlo nell'etichetta
                 String userInput = inputField.getText();
+                
+                
+                if(userInput.length()>0) { //TODO l'input vuoto funziona cmq idk why
+                if(player==0) {name0=userInput;System.out.println(name0);}
+                if(player==1) {name1=userInput;System.out.println(name1);}
+                
                 cn=true;
                 if(cp==true && cn==true) {
             		
                 	finish(player);
-                	
+                }
             	}
+                else {
+                	JOptionPane.showMessageDialog(null, "Your name must be at least 1 char.");
+                }
             }
         });
         
@@ -158,25 +169,19 @@ public class NewPlayerGUI extends JFrame {
     	}
         	
     	else if(cp==true && cn==true && o==1){
-    		player=0;
-    		BattleManager bg=new BattleManager(new Team(team0),new Team(team1));
-    		Team a=new Team(team0);
-    		Team b=new Team(team1);
+    		BattleManager bg=new BattleManager(new Team(team0,name0),new Team(team1,name1));
     		new BattleGUI(bg);
+    		dispose();
+    		player=0;
+    		name0="";
+    		name1="";
     		Pokemon[] team0 = new Pokemon[Team.MAX];
     		Pokemon[] team1 = new Pokemon[Team.MAX];
-    		dispose();
-    		a.printTeamInfo();
-    		b.printTeamInfo();
+    		
+    		
     	}
     	
     }
-    
-    
-    
-    
-    
-    
     
     private void photoButton(String i, JButton button) {
        
@@ -250,7 +255,6 @@ public class NewPlayerGUI extends JFrame {
             default: break;
             }
         }
-            
             
             private void addPokemon(Pokemon pokemon) {
             if(ct0<Team.MAX) { 

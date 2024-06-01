@@ -12,6 +12,8 @@ public class BattleManager {
 	public final static int CRITICAL_DAMAGE = 2;
 	public final static int RANDOM_DAMAGE_SCALE = 100;
 	public final static int RANDOM_DAMAGE_RANGE = 25;
+	private Team team0;
+	private Team team1;
 	
 	public BattleManager(Team team0, Team team1) {
 		fighter = new Fighter[ON_FIELD];

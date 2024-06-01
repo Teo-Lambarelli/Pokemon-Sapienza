@@ -1,6 +1,6 @@
 package frame;
 
-import javax.swing.*;
+import javax.swing.*; 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,12 +18,39 @@ public class MenuGUI extends JFrame {
         
         this.setLayout(new BorderLayout());
         // Imposta il layout del contenuto principale
-        JPanel mainPanel = new JPanel();
+//        JPanel mainPanel = new JPanel();
+//        mainPanel.setLayout(new BorderLayout());
+        ImageIcon icon = new ImageIcon("src/sprites/ni2.png");
+        Image image = icon.getImage();
+        BackgroundPanel mainPanel = new BackgroundPanel(image);
         mainPanel.setLayout(new BorderLayout());
-
+        
+        
         // Aggiungi bordi neri ai lati
         mainPanel.setBorder(BorderFactory.createMatteBorder(0, 210, 0, 210, Color.BLACK));
         mainPanel.setBackground(MAIN_COLOR);
+        
+        
+     
+        
+        
+        
+        
+        
+        
+//    	JLabel pippo= new JLabel();
+//    	ImageIcon icon=new ImageIcon("src/sprites/bulbasaur.png" );
+//        Image image= icon.getImage();
+//        Image newimage = image.getScaledInstance(320, 320, Image.SCALE_SMOOTH);
+//        icon=new ImageIcon(newimage);
+//        pippo.setIcon(icon);
+//        mainPanel.add(pippo);
+//        mainPanel.revalidate();
+//        mainPanel.repaint();
+        
+        
+        
+        
         
         add(mainPanel);
 
@@ -56,6 +83,11 @@ public class MenuGUI extends JFrame {
                 BorderFactory.createLineBorder(BUTTON_BORDER, 4),
                 BorderFactory.createEmptyBorder(5, 15, 5, 15)));
         exitButton.setFont(new Font("Arial", Font.BOLD, 14)); // Set font
+        
+        
+        buttonPanel.setOpaque(false);
+        
+        
         
         
         // Set preferred size to reduce button width
