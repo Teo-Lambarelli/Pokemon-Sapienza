@@ -169,6 +169,10 @@ public abstract class Pokemon {
     	return type1;
     }
 	
+	public StatusEffect getStatusEffect() {
+		return STATUS_EFFECT;
+	}
+	
 	public Stats getStats() {
     	return stats;
     }
