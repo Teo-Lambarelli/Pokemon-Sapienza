@@ -51,31 +51,71 @@ public class BattleManager {
 	public double getCurrentSpd(Fighter fighter) {
 		double stat=fighter.pokemon.getStats().getSpd();
 		if(fighter.statsChange.spd>=0) {	
-			stat+=stat*fighter.statsChange.atk/2;
+			stat+=stat*fighter.statsChange.spd/2;
 			return stat;
 		}							
 		else {
 			double s0=stat*2;
-			double s1=2*fighter.statsChange.spd;
+			double s1=2-fighter.statsChange.spd;
 			double s2=s0/s1;
 			return s2;
 		}
 	}
 	
 	public double getCurrentAtk(Fighter fighter) {
-		return fighter.pokemon.getStats().getAtk() + fighter.pokemon.getStats().getAtk()*fighter.statsChange.atk/100;
+		double stat=fighter.pokemon.getStats().getAtk();
+		if(fighter.statsChange.atk>=0) {	
+			stat+=stat*fighter.statsChange.atk/2;
+			return stat;
+		}							
+		else {
+			double s0=stat*2;
+			double s1=2-fighter.statsChange.atk;
+			double s2=s0/s1;
+			return s2;
+		}
 	}
 	
 	public double getCurrentDef(Fighter fighter) {
-		return fighter.pokemon.getStats().getDef() + fighter.pokemon.getStats().getDef()*fighter.statsChange.def/100;
+		double stat=fighter.pokemon.getStats().getDef();
+		if(fighter.statsChange.def>=0) {	
+			stat+=stat*fighter.statsChange.def/2;
+			return stat;
+		}							
+		else {
+			double s0=stat*2;
+			double s1=2-fighter.statsChange.def;
+			double s2=s0/s1;
+			return s2;
+		}
 	}
 	
 	public double getCurrentSatk(Fighter fighter) {
-		return fighter.pokemon.getStats().getSatk() + fighter.pokemon.getStats().getSatk()*fighter.statsChange.satk/100;
+		double stat=fighter.pokemon.getStats().getSatk();
+		if(fighter.statsChange.satk>=0) {	
+			stat+=stat*fighter.statsChange.satk/2;
+			return stat;
+		}							
+		else {
+			double s0=stat*2;
+			double s1=2-fighter.statsChange.satk;
+			double s2=s0/s1;
+			return s2;
+		}
 	}
 	
 	public double getCurrentSdef(Fighter fighter) {
-		return fighter.pokemon.getStats().getSdef() + fighter.pokemon.getStats().getSdef()*fighter.statsChange.sdef/100;
+		double stat=fighter.pokemon.getStats().getSdef();
+		if(fighter.statsChange.sdef>=0) {	
+			stat+=stat*fighter.statsChange.sdef/2;
+			return stat;
+		}							
+		else {
+			double s0=stat*2;
+			double s1=2-fighter.statsChange.sdef;
+			double s2=s0/s1;
+			return s2;
+		}
 	}
 	
 	
@@ -208,13 +248,25 @@ public class BattleManager {
 			// We got an hit!
 			if (move.getCat() == Category.STATUS) {
 				// TODO: STATUS MOVES
+				System.out.println("-------------------------------------------------------------------------");
+				System.out.println(fighter.pokemon.getName() + " usa " + move.toString() + " su di " + fighter.opponent.pokemon.getName());
+				System.out.println("Descrizione mossa: " + move.getDescr());
 				switch(move) {
-				case Move.GROWL:
-				
-				
-				default:
+					case Move.GROWL:
+						System.out.println("Diminuisce la difesa di " + fighter.opponent.pokemon.getName() + " fino a: " + fighter.opponent.statsChange.def);
+						if (fighter.opponent.statsChange.bonusDef(-1))
+							System.out.println("La statistica era già troppo bassa per essere modificata");
+						break;
+					case Move.SMOKESCREEN:
+						System.out.println("Diminuisce l'accuratezza di " + fighter.opponent.pokemon.getName() + " fino a: " + fighter.opponent.statsChange.accuracy);
+						if (fighter.opponent.statsChange.bonusAccuracy(-1))
+							System.out.println("La statistica era già troppo bassa per essere modificata");
+						break;
+					default:
+						System.out.println("ERRORE: La mossa non è STATUS, ma è" + move.getCat().toString());
+						break;
 				}
-				
+				System.out.println("-------------------------------------------------------------------------");
 				
 			}
 			else {
@@ -283,6 +335,11 @@ public class BattleManager {
 				// TOTAL DAMAGE
 				double totalDamage = baseDamage * criticalDamage * randomDamage * stabDamage * typeDamage;
 				
+				//Exception damage
+				if (move == Move.DRAGON_RAGE) {
+					totalDamage = 40 * ((typeDamage != 0) ? 1 : 0);
+				}
+				
 				// Deal damage
 				fighter.opponent.pokemon.damage(totalDamage);
 				System.out.println("-------------------------------------------------------------------------");
@@ -293,9 +350,47 @@ public class BattleManager {
 				System.out.println("Danno casuale: " + randomDamage);
 				System.out.println("Danno STAB: " + stabDamage);
 				System.out.println("Danno tipo: " + typeDamage);
-				System.out.println("-------------------------------------------------------------------------");
 				
 				// Apply effects
+				switch (move) {
+					case Move.EMBER:
+						if (rng.nextInt(10) == 0)
+							if (fighter.opponent.pokemon.getStatusEffect() == StatusEffect.DEFAULT) {
+								fighter.opponent.pokemon.setStatusEffect(StatusEffect.BURN);
+								System.out.println("Effetto: L'avversario è stato bruiato");
+							}
+							else
+								System.out.println("Effetto: L'avversario ha già uno effetto di stato e non può essere bruciato");
+						else
+							System.out.println("Effetto: L'effetto non si è attivvato");
+						break;
+					case Move.DRAGON_BREATH:
+						if (rng.nextInt(30) == 0)
+							if (fighter.opponent.pokemon.getStatusEffect() == StatusEffect.DEFAULT) {
+								fighter.opponent.pokemon.setStatusEffect(StatusEffect.PARALYZED);
+								System.out.println("Effetto: L'avversario è stato paralizzato");
+							}
+							else
+								System.out.println("Effetto: L'avversario ha già uno effetto di stato e non può essere bruciato");
+						else
+							System.out.println("Effetto: L'effetto non si è attivvato");
+						break;
+					case Move.FIRE_FANG:
+						if (rng.nextInt(10) == 0)
+							if (fighter.opponent.pokemon.getStatusEffect() == StatusEffect.DEFAULT) {
+								fighter.opponent.pokemon.setStatusEffect(StatusEffect.BURN);
+								System.out.println("Effetto: L'avversario è stato bruiato");
+							}
+							else
+								System.out.println("Effetto: L'avversario ha già uno effetto di stato e non può essere bruciato");
+						else
+							System.out.println("Effetto: L'effetto non si è attivvato");
+						break;
+					default:
+						System.out.println("Effetto: La mossa non ha effetti particolari");
+						break;
+				}
+				System.out.println("-------------------------------------------------------------------------");
 			}
 		}
 		else {
