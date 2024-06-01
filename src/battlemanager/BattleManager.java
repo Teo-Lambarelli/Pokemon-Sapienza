@@ -49,7 +49,17 @@ public class BattleManager {
 	
 	
 	public double getCurrentSpd(Fighter fighter) {
-		return fighter.pokemon.getStats().getSpd() + fighter.pokemon.getStats().getSpd()*fighter.statsChange.spd/100;
+		double stat=fighter.pokemon.getStats().getSpd();
+		if(fighter.statsChange.spd>=0) {	
+			stat+=stat*fighter.statsChange.atk/2;
+			return stat;
+		}							
+		else {
+			double s0=stat*2;
+			double s1=2*fighter.statsChange.spd;
+			double s2=s0/s1;
+			return s2;
+		}
 	}
 	
 	public double getCurrentAtk(Fighter fighter) {
@@ -198,6 +208,12 @@ public class BattleManager {
 			// We got an hit!
 			if (move.getCat() == Category.STATUS) {
 				// TODO: STATUS MOVES
+				switch(move) {
+				case Move.GROWL:
+				
+				
+				default:
+				}
 				
 				
 			}
