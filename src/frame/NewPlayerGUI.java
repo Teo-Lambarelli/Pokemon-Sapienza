@@ -27,10 +27,12 @@ import moves.Move;
 import pokemon.*;
 
 public class NewPlayerGUI extends JFrame {
+	protected static int player;
 	protected int ct0=0;
-	protected int ct1=0;
+	protected boolean cp=false; //controllo pokemon
+	protected boolean cn=false; //controllo nome
 	protected Pokemon[] team0 = new Pokemon[Team.MAX];
-	protected Pokemon[] team1 = new Pokemon[Team.MAX];
+	//protected Pokemon[] team1 = new Pokemon[Team.MAX];
 	public JPanel p=new JPanel();
 	public JPanel p1=new JPanel();
 	public JPanel p2=new JPanel();
@@ -65,10 +67,56 @@ public class NewPlayerGUI extends JFrame {
                 }
             }
         });
+        
 
+        
+        
+        
+        
+        p.add(new JPanel());
+        JTextField inputField = new JTextField();
+        inputField.setBounds(50, 50, 200, 30);
+        inputField.setFont(new Font("Arial", Font.BOLD, 15));
+        inputField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(0,0,0), 4),
+                BorderFactory.createEmptyBorder(0, 0, 0, 15)));
+        p.add(inputField);
+        
+        JButton submitButton = new JButton("Choose your name!");
+        submitButton.setBounds(270, 50, 80, 30);
+        submitButton.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(0,0,0), 4),
+                BorderFactory.createEmptyBorder(0, 0, 0, 15)));
+        submitButton.setFont(new Font("Arial", Font.BOLD, 15));
+        p.add(submitButton);
+        
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Ottenere il testo dall'inputField e visualizzarlo nell'etichetta
+                String userInput = inputField.getText();
+                cn=true;
+                if(cp==true && cn==true) {
+            		//TODO
+                	
+                	JOptionPane.showMessageDialog(null, "squadra finitpTODOnext");
+            		System.out.println("finiscisquadra");
+            	}
+            }
+        });
+    
+        
+        
+        
+        
+        
+        
         // Pannello per i pulsanti
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 3)); // Disposizione a griglia 4x3
+//        for (int i = 0; i <= 3; i++) {
+//        	buttonPanel.add(new JPanel());
+//        }
         buttonPanel.add(p);
         buttonPanel.add(p1);
         buttonPanel.add(p2);
@@ -119,12 +167,12 @@ public class NewPlayerGUI extends JFrame {
  
     }
     
-    protected void selectedPokemon(Pokemon pokemon, int o) {
+    protected void selectedPokemon(Pokemon pokemon) {
     	
         switch (pokemon.getName()) {
-        case "Charmander": addSelection("src/sprites/charmander.png",o);break;
-        case "Squirtle": addSelection("src/sprites/squirtle.png",o);break;
-        case "Bulbasaur": addSelection("src/sprites/bulbasaur.png",o);break;
+        case "Charmander": addSelection("src/sprites/charmander.png");break;
+        case "Squirtle": addSelection("src/sprites/squirtle.png");break;
+        case "Bulbasaur": addSelection("src/sprites/bulbasaur.png");break;
 //        case "3": return new Pikachu(5);break;
 //        case "4": return new Eevee(5);break;
 //        case "5": return new Jigglypuff(5);break;
@@ -139,29 +187,19 @@ public class NewPlayerGUI extends JFrame {
     	
     }
     
-    protected void addSelection(String i,int o) {
-    	if(o==0) {
+    protected void addSelection(String i) {
+    	
     	JLabel pippo= new JLabel();
     	ImageIcon icon=new ImageIcon(i);
         Image image= icon.getImage();
         Image newimage = image.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         icon=new ImageIcon(newimage);
         pippo.setIcon(icon);
-        p.add(pippo);
-        p.revalidate();
-        p.repaint();
-    	}
-    	else {
-    		JLabel pippo= new JLabel();
-        	ImageIcon icon=new ImageIcon(i);
-            Image image= icon.getImage();
-            Image newimage = image.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
-            icon=new ImageIcon(newimage);
-            pippo.setIcon(icon);
-            p3.add(pippo);
-            p3.revalidate();
-            p3.repaint();
-    	}
+        p3.add(pippo);
+        p3.revalidate();
+        p3.repaint();
+    	
+  
     }
     
     public void keyPressed(KeyEvent e) {
@@ -197,31 +235,36 @@ public class NewPlayerGUI extends JFrame {
             if(ct0<Team.MAX) { 
             	team0[ct0]=pokemon;
             	//JOptionPane.showMessageDialog(null, team0[ct0].getName()+ " has been added to team 1!");
-            	selectedPokemon(pokemon,0);
+            	selectedPokemon(pokemon);
             	ct0++;
-            	if(ct0==6) {JOptionPane.showMessageDialog(null, "Team2 is now choosing!");}
-            }
-            else if(ct1<Team.MAX){ 
-            	team1[ct1]=pokemon;
-            	//JOptionPane.showMessageDialog(null, team0[ct1].getName()+ " has been added to team 2!");
-            	selectedPokemon(pokemon,1);
-            	ct1++;
-            	if(ct1==6) {
-            		JOptionPane.showMessageDialog(null, "Let's battle!");
-            		Team BattleTeam0= new Team(team0);
-            		Team BattleTeam1= new Team(team1);
-            		BattleManager bg= new BattleManager(BattleTeam0,BattleTeam1);
-                    new BattleGUI(bg);
-
-                   
+            	if(ct0==6) {
+            		cp=true;//JOptionPane.showMessageDialog(null, "Team2 is now choosing!");}
+            	}
+            	if(cp==true && cn==true) {
+            		//TODO
+            		JOptionPane.showMessageDialog(null, "squadra finitpTODOnext");
+            		System.out.println("finiscisquadra");
             	}
             }
-        }
-        public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                System.exit(0);
+//            else if(ct1<Team.MAX){ 
+//            	team1[ct1]=pokemon;
+//            	//JOptionPane.showMessageDialog(null, team0[ct1].getName()+ " has been added to team 2!");
+//            	selectedPokemon(pokemon,1);
+//            	ct1++;
+//            	if(ct1==6) {
+//            		JOptionPane.showMessageDialog(null, "Let's battle!");
+//            		Team BattleTeam0= new Team(team0);
+            		//Team BattleTeam1= new Team(team1);
+            	   // BattleManager bg= new BattleManager(BattleTeam0,BattleTeam1);
+                  //  new BattleGUI(bg);//TODO
+                 //   dispose();
+
+                   
+              //}
             }
         }
+   
+            
+        
     }
     
-}    

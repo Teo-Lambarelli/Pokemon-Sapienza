@@ -1,4 +1,6 @@
-import pokemon.*; 
+import pokemon.*;
+
+import javax.swing.JFrame;
 
 import battlemanager.*;
 import frame.*;
@@ -9,9 +11,11 @@ public class Main {
 		
 		MenuGUI n=new MenuGUI();
 		//BattleGUI m1=new BattleGUI();
-		PokemonButtonBox x=new PokemonButtonBox();
+		//PokemonButtonBox x=new PokemonButtonBox();
 		
 	
+		
+
 //		Team team0=new Team(
 //			new Pokemon[]{
 //					
