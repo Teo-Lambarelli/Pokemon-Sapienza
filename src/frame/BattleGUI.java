@@ -1,5 +1,6 @@
 package frame;
-
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -8,11 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import types.*;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import battlemanager.BattleManager;
@@ -84,7 +83,7 @@ public class BattleGUI extends JFrame {
         this.setUndecorated(true); 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null); // Centra la finestra
+        //this.setLocationRelativeTo(null); // Centra la finestra,ma nn ci serve
         this.setVisible(true);
         this.addKeyListener(new KeyAdapter() {
             @Override
@@ -95,7 +94,24 @@ public class BattleGUI extends JFrame {
             }
         });   
         
-}
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+            @Override
+            public boolean dispatchKeyEvent(KeyEvent e) {
+                if (e.getID() == KeyEvent.KEY_PRESSED) {
+                    if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                        System.exit(0);
+                    }
+                }
+                return false;
+            }
+        });
+    }
+        
+        
+        
+        
+        
+
     public void makeButtons(JPanel abilityPanel, int index, boolean bool) {
     for (int i = 0; i <= 3; i++) {
     	Move move=bg.getFighter()[index].pokemon.getMoves()[i];
@@ -145,11 +161,6 @@ private class ButtonClickListener implements ActionListener {
         
     }
         
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            System.exit(0);
-        }
-    }
 }
 
 }    

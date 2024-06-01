@@ -48,9 +48,13 @@ public class NewPlayerGUI extends JFrame {
         this.setLocationRelativeTo(null); // Centra la finestra
 
         p.setLayout(new GridLayout(4, 3)); // Disposizione a griglia 4x3
+        p.setBackground(new Color(210, 220, 190));
         p1.setLayout(new GridLayout(4, 3)); // Disposizione a griglia 4x3
+        p1.setBackground(new Color(210, 220, 190));
         p2.setLayout(new GridLayout(4, 3)); // Disposizione a griglia 4x3
+        p2.setBackground(new Color(210, 220, 190));
         p3.setLayout(new GridLayout(4, 3)); // Disposizione a griglia 4x3
+        p3.setBackground(new Color(210, 220, 190));
         
         // Pannello principale con bordo e colore di sfondo
         JPanel mainPanel = new JPanel();
@@ -68,7 +72,9 @@ public class NewPlayerGUI extends JFrame {
             }
         });
         
-        p.add(new JPanel());
+        JPanel p4=new JPanel();
+        p4.setBackground(new Color(210, 220, 190));
+        p.add(p4);
         JTextField inputField = new JTextField();
         inputField.setBounds(50, 50, 200, 30);
         inputField.setFont(new Font("Arial", Font.BOLD, 15));
@@ -99,12 +105,11 @@ public class NewPlayerGUI extends JFrame {
             }
         });
         
-        // Pannello per i pulsanti
+        	// Pannello per i pulsanti
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 3)); // Disposizione a griglia 4x3
-//        for (int i = 0; i <= 3; i++) {
-//        	buttonPanel.add(new JPanel());
-//        }
+
+        	
         buttonPanel.add(p);
         buttonPanel.add(p1);
         buttonPanel.add(p2);
@@ -138,10 +143,8 @@ public class NewPlayerGUI extends JFrame {
         
         // Aggiunta del pannello dei pulsanti al pannello principale
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
-        
         // Aggiunta del pannello principale alla finestra
         add(mainPanel, BorderLayout.CENTER);
-        
         this.setVisible(true);
     }
     
@@ -149,8 +152,6 @@ public class NewPlayerGUI extends JFrame {
     public void finish(int o) {
     	if(cp==true && cn==true && o==0) {
     		//TODO
-    		
-    		System.out.println("SUCAMINKIA");
     		player++;
     		new Select2ndPlayerGUI();		//TODO far decidere tra nuovo player e load player
     		dispose();
@@ -159,10 +160,14 @@ public class NewPlayerGUI extends JFrame {
     	else if(cp==true && cn==true && o==1){
     		player=0;
     		BattleManager bg=new BattleManager(new Team(team0),new Team(team1));
+    		Team a=new Team(team0);
+    		Team b=new Team(team1);
     		new BattleGUI(bg);
     		Pokemon[] team0 = new Pokemon[Team.MAX];
     		Pokemon[] team1 = new Pokemon[Team.MAX];
     		dispose();
+    		a.printTeamInfo();
+    		b.printTeamInfo();
     	}
     	
     }

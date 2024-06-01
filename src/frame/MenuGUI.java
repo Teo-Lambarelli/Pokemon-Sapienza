@@ -110,12 +110,4 @@ public class MenuGUI extends JFrame {
         this.setLocationRelativeTo(null); // Centra la finestra
         this.setVisible(true);
 
-        this.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    System.exit(0);
-                }
-            }
-        });
     }}
