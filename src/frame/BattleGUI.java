@@ -14,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import battlemanager.BattleManager;
@@ -81,6 +82,36 @@ public class BattleGUI extends JFrame {
         p4.setOpaque(false);
         abilityPanel.add(p5);
         p5.setOpaque(false);
+        
+        
+        
+        p6.setLayout(new GridLayout(2,2));
+        JPanel n0=new JPanel();
+        n0.setOpaque(false);
+        p6.add(n0);
+        JPanel n1=new JPanel();
+        n1.setOpaque(false);
+        p6.add(n1);
+        JButton n2=new JButton("Change Pkmn");
+        n2.setFont(new Font("Arial", Font.BOLD, 20));
+        n2.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(0,0,0), 4),
+                BorderFactory.createEmptyBorder(0, 0, 0, 0)));
+        n2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+            	//TODO
+
+            	JOptionPane.showMessageDialog(null, "TODO");
+            	
+            }
+        });
+        p6.add(n2);
+         
+        
+        
+        
         abilityPanel.add(p6);
         p6.setOpaque(false);
         abilityPanel.add(p7);

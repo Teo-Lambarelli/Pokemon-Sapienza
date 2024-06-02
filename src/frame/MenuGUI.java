@@ -30,28 +30,6 @@ public class MenuGUI extends JFrame {
         mainPanel.setBorder(BorderFactory.createMatteBorder(0, 210, 0, 210, Color.BLACK));
         mainPanel.setBackground(MAIN_COLOR);
         
-        
-     
-        
-        
-        
-        
-        
-        
-//    	JLabel pippo= new JLabel();
-//    	ImageIcon icon=new ImageIcon("src/sprites/bulbasaur.png" );
-//        Image image= icon.getImage();
-//        Image newimage = image.getScaledInstance(320, 320, Image.SCALE_SMOOTH);
-//        icon=new ImageIcon(newimage);
-//        pippo.setIcon(icon);
-//        mainPanel.add(pippo);
-//        mainPanel.revalidate();
-//        mainPanel.repaint();
-        
-        
-        
-        
-        
         add(mainPanel);
 
         // Create a panel for the buttons
