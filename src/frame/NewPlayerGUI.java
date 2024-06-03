@@ -100,9 +100,9 @@ public class NewPlayerGUI extends JFrame {
                 String userInput = inputField.getText();
                 
                 
-                if(userInput.length()>0) { //TODO l'input vuoto funziona cmq idk why
-                if(player==0) {name0=userInput;System.out.println(name0);}
-                if(player==1) {name1=userInput;System.out.println(name1);}
+                if(userInput.length()>0) {
+                if(player==0) {name0=userInput;}
+                if(player==1) {name1=userInput;}
                 
                 cn=true;
                 if(cp==true && cn==true) {

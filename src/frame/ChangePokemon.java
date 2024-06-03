@@ -39,29 +39,20 @@ public class ChangePokemon extends JFrame {
         
         JPanel mainPanel2 = new JPanel(new GridLayout(3, 2));
         
-//        // Creazione di due pannelli interni
-//        JPanel p0 = new JPanel();
-//        p0.setBackground(new Color(210, 220, 190));
-//        JPanel p1 = new JPanel();
-//        p1.setBackground(new Color(210, 220, 190));
-//        
-//        // Aggiunta dei pannelli interni a mainPanel2
-//        mainPanel2.add(p0);
-//        mainPanel2.add(p1);
-
         // Aggiunta delle immagini dei Pokemon
         for (Pokemon p : team.getArrayTeam()) {
         	JButton button=new JButton();
             ImageIcon icon=new ImageIcon(p.getFrontSprite());
             Image image= icon.getImage();
-            Image newimage = image.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+            Image newimage = image.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
             icon=new ImageIcon(newimage);
             button.setIcon(icon);
             mainPanel2.add(button);
+            button.setText(p.getStats().getHp()+"/"+p.getStats().getMaxHp()+"Hp");
             button.setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createLineBorder(new Color(0,0,0), 4),
                     BorderFactory.createEmptyBorder(0, 0, 0, 15)));
-            		button.setFont(new Font("Arial", Font.BOLD, 0));
+            		button.setFont(new Font("Arial", Font.BOLD, 15));
         }
         
         // Aggiunta di mainPanel2 a mainPanel

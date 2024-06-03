@@ -62,14 +62,6 @@ public class BattleGUI extends JFrame {
         abilityPanel.setBorder(BorderFactory.createMatteBorder(30, 65, 30, 65, new Color(210, 220, 190)));
         abilityPanel.setLayout(new GridLayout(6, 2));
         abilityPanel.setOpaque(false);
-//        p0.setBackground(new Color(210, 220, 190));
-//        p1.setBackground(new Color(210, 220, 190));
-//        p2.setBackground(new Color(210, 220, 190));
-//        p3.setBackground(new Color(210, 220, 190));
-//        p4.setBackground(new Color(210, 220, 190));
-//        p5.setBackground(new Color(210, 220, 190));
-//        p6.setBackground(new Color(210, 220, 190));
-//        p7.setBackground(new Color(210, 220, 190));
         
         abilityPanel.add(p0);
         p0.setOpaque(false);
