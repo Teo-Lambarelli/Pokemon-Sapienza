@@ -10,7 +10,7 @@ public class Team {
 	public Team(Pokemon[] pokemon,String player_name) {
 	
 		
-		if (pokemon.length>6) {
+		if (pokemon.length>MAX) {
 			this.pokemon=new ArrayList<Pokemon>(Arrays.asList(Arrays.copyOfRange(pokemon, 0, MAX)));
 		}
 		else {
