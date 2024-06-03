@@ -1,4 +1,7 @@
-package battlemanager; import pokemon.*; import java.util.Random; import moves.*; import types.*;
+package battlemanager; import pokemon.*;
+
+import java.util.Arrays;
+import java.util.Random; import moves.*; import types.*;
 
 public class BattleManager {
 	private Fighter[] fighter;
@@ -8,7 +11,6 @@ public class BattleManager {
 	public final static int PLAYER1_FIGHTER_SLOT = 0;
 	public final static int PLAYER2_FIGHTER_SLOT = 1;
 	public final static int SWITCH_PRIORITY = 6;
-	public final static int CRITICAL_CHANCE = 24;
 	public final static int CRITICAL_DAMAGE = 2;
 	public final static int RANDOM_DAMAGE_SCALE = 100;
 	public final static int RANDOM_DAMAGE_RANGE = 25;
@@ -264,6 +266,11 @@ public class BattleManager {
 						if (fighter.opponent.statsChange.bonusAccuracy(-1))
 							System.out.println("La statistica era già troppo bassa per essere modificata");
 						break;
+					case Move.SCARY_FACE:
+						System.out.println("Diminuisce la velocità di " + fighter.opponent.pokemon.getName() + " fino a: " + fighter.opponent.statsChange.def);
+						if (fighter.opponent.statsChange.bonusDef(-2))
+							System.out.println("La statistica era già troppo bassa per essere modificata");
+						break;
 					default:
 						System.out.println("ERRORE: La mossa non è STATUS, ma è" + move.getCat().toString());
 						break;
@@ -273,7 +280,22 @@ public class BattleManager {
 			}
 			else {
 				
-				boolean critical = rng.nextInt(CRITICAL_CHANCE) == 0;
+				boolean critical = rng.nextInt(fighter.statsChange.getCritChance()) == 0;
+				//Exception critical
+				if (Arrays.asList(
+						Move.AIR_CUTTER,
+						Move.DRILL_RUN,
+						Move.NIGHT_SLASH,
+						Move.PSYCHO_CUT,
+						Move.RAZOR_LEAF,
+						Move.SHADOW_CLAW,
+						Move.SKY_ATTACK,
+						Move.SLASH
+					).contains(move)) {
+					fighter.statsChange.bonusCritical(1);
+					critical = rng.nextInt(fighter.statsChange.getCritChance()) == 0;
+					fighter.statsChange.bonusCritical(-1);
+				}
 				
 				double levelDamage = (fighter.pokemon.getStats().getLvl() * 2 / 5) + 2;
 				
@@ -356,6 +378,8 @@ public class BattleManager {
 				// Apply effects
 				switch (move) {
 					case Move.EMBER:
+					case Move.FIRE_FANG:
+					case Move.FLAMETHROWER:
 						if (rng.nextInt(10) == 0)
 							if (fighter.opponent.pokemon.getStatusEffect() == StatusEffect.DEFAULT) {
 								fighter.opponent.pokemon.setStatusEffect(StatusEffect.BURN);
@@ -371,17 +395,6 @@ public class BattleManager {
 							if (fighter.opponent.pokemon.getStatusEffect() == StatusEffect.DEFAULT) {
 								fighter.opponent.pokemon.setStatusEffect(StatusEffect.PARALYZED);
 								System.out.println("Effetto: L'avversario è stato paralizzato");
-							}
-							else
-								System.out.println("Effetto: L'avversario ha già uno effetto di stato e non può essere bruciato");
-						else
-							System.out.println("Effetto: L'effetto non si è attivvato");
-						break;
-					case Move.FIRE_FANG:
-						if (rng.nextInt(10) == 0)
-							if (fighter.opponent.pokemon.getStatusEffect() == StatusEffect.DEFAULT) {
-								fighter.opponent.pokemon.setStatusEffect(StatusEffect.BURN);
-								System.out.println("Effetto: L'avversario è stato bruiato");
 							}
 							else
 								System.out.println("Effetto: L'avversario ha già uno effetto di stato e non può essere bruciato");

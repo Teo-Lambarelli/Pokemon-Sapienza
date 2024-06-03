@@ -8,6 +8,7 @@ public class StatsChange {
 	protected double spd;
 	protected double accuracy;
 	protected double evasion;
+	protected int critical;
 	
 	static final double MIN_STAT = -6;
 	static final double MAX_STAT = 6;
@@ -15,6 +16,9 @@ public class StatsChange {
 	static final double PERCENT_STACK = 12.5;
 	static final double PERCENT_MIN = -75;
 	static final double PERCENT_MAX = 75;
+	
+	static final int[] CRITICAL_CHANCE = {24, 8, 2};
+	static final int CRITICAL_MAX = 3;
 	
 	public StatsChange () {
 		statsReset();
@@ -28,6 +32,7 @@ public class StatsChange {
 		this.spd=0;
 		this.accuracy=0;
 		this.evasion=0;
+		this.critical = 0;
 	}
 	
 	public boolean bonusAtk(int bonus) {
@@ -119,6 +124,23 @@ public class StatsChange {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean bonusCritical(int bonus) {
+		critical += bonus;
+		if (critical > CRITICAL_MAX) {
+			critical = CRITICAL_MAX;
+			return true;
+		}
+		return false;
+	}
+	
+	public int getCritChance() {
+		if (critical >= CRITICAL_CHANCE.length)
+			return 1;
+		if (critical < 0)
+			return CRITICAL_CHANCE[0];
+		return CRITICAL_CHANCE[critical];
 	}
 
 }
