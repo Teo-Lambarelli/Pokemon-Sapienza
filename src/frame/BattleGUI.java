@@ -32,6 +32,7 @@ import pokemon.Squirtle;
 public class BattleGUI extends JFrame {
 //	public JButton[] moves0=
 //	public JButton[] moves1=
+	private int tm=0;
 	public JPanel p0=new JPanel();
 	public JPanel p1=new JPanel();
 	public JPanel p2=new JPanel();
@@ -100,8 +101,8 @@ public class BattleGUI extends JFrame {
         n2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	
-            	//TODO
+            	if(tm==0) {new ChangePokemon(bg.getTeam0());}
+            	if(tm==1) {new ChangePokemon(bg.getTeam1());}
 
             	JOptionPane.showMessageDialog(null, "TODO");
             	

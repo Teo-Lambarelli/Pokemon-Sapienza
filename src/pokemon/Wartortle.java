@@ -6,6 +6,8 @@ import moves.Move;
 import types.Type;
 
 public class Wartortle extends Pokemon {
+	public final static String FRONTSPRITE="src/sprites/wartortle.png";
+	public final static String BACKSPRITE="src/sprites/backwartortle.png";
 	public final static Map<Integer, Move> PECULIARMOVES= null;
     public final static Map<Integer, Move> REWARD_LVL = Map.ofEntries(
             Map.entry(2, Move.TACKLE),
@@ -25,7 +27,7 @@ public class Wartortle extends Pokemon {
         );
 
 	Wartortle(int lvl) {
-		super("Wartortle", Type.WATER, REWARD_LVL, 59, 63, 80, 65,80, 58, lvl, 36, "Blastoise",36, Ability.TORRENT,PECULIARMOVES);
+		super("Wartortle", Type.WATER, REWARD_LVL, 59, 63, 80, 65,80, 58, lvl, 36, "Blastoise",36, Ability.TORRENT,PECULIARMOVES, FRONTSPRITE,BACKSPRITE);
 	}
 
 	

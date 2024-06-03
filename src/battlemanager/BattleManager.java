@@ -23,6 +23,8 @@ public class BattleManager {
 		fighter[PLAYER2_FIGHTER_SLOT] = new Fighter(team1.pokemon.get(0), team1);
 		fighter[PLAYER1_FIGHTER_SLOT].opponent = fighter[PLAYER2_FIGHTER_SLOT];
 		fighter[PLAYER2_FIGHTER_SLOT].opponent = fighter[PLAYER1_FIGHTER_SLOT];
+		this.team0=team0;
+		this.team1=team1;
 		startFight();
 //		for(Fighter Fighter:fighter) {
 //			System.out.println(Fighter.pokemon.getName());
@@ -123,6 +125,13 @@ public class BattleManager {
 	}
 	
 	
+	public Team getTeam0() {
+		return team0;
+	}
+	
+	public Team getTeam1() {
+		return team1;
+	}
 	
 	public void battleStatus() {
 		System.out.println("-------------------------------------------------------------------------");

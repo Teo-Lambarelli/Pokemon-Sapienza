@@ -193,26 +193,6 @@ public class NewPlayerGUI extends JFrame {
  
     }
     
-    protected void selectedPokemon(Pokemon pokemon) {
-    	
-        switch (pokemon.getName()) {
-        case "Charmander": addSelection("src/sprites/charmander.png");break;
-        case "Squirtle": addSelection("src/sprites/squirtle.png");break;
-        case "Bulbasaur": addSelection("src/sprites/bulbasaur.png");break;
-//        case "3": return new Pikachu(5);break;
-//        case "4": return new Eevee(5);break;
-//        case "5": return new Jigglypuff(5);break;
-//        case "6": return new Meowth(5);break;
-//        case "7": return new Psyduck(5);break;
-//        case "8": return new Machop(5);break;
-//        case "9": return new Geodude(5);break;
-//        case "10": return new Abra(5);break;
-//        case "11": return new Gastly(5);break;
-        default: break;
-        }
-    	
-    }
-    
     protected void addSelection(String i) {
     	
     	JLabel pippo= new JLabel();
@@ -264,7 +244,7 @@ public class NewPlayerGUI extends JFrame {
             	else {
             		team1[ct0]=pokemon;
             		}
-            	selectedPokemon(pokemon);
+            	addSelection(pokemon.getFrontSprite());
             	ct0++;
             	if(ct0==6) {
             		cp=true;

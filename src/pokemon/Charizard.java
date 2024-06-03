@@ -10,6 +10,8 @@ import types.Type;
 
 
 public class Charizard extends Pokemon{
+	public final static String FRONTSPRITE="src/sprites/charmender.png";
+	public final static String BACKSPRITE="src/sprites/backcharmender.png";
     public final static Map<Integer, Move> PECULIARMOVES = Map.ofEntries(
             Map.entry(0,  Move.AIR_SLASH)
     );
@@ -32,7 +34,7 @@ public class Charizard extends Pokemon{
     
     
 	public Charizard(int lvl) {
-		super("Charizard", Type.FIRE, Type.FLYING, REWARD_LVL, 78, 84, 78, 109, 85, 100, lvl, 0, Ability.BLAZE,PECULIARMOVES);
+		super("Charizard", Type.FIRE, Type.FLYING, REWARD_LVL, 78, 84, 78, 109, 85, 100, lvl, 0, Ability.BLAZE,PECULIARMOVES, FRONTSPRITE,BACKSPRITE);
 	}
 
 

@@ -7,6 +7,8 @@ import moves.Move;
 import types.Type;
 
 public class Venusaur extends Pokemon {
+	public final static String FRONTSPRITE="src/sprites/venosaur.png";
+	public final static String BACKSPRITE="src/sprites/backvenosaur.png";
 	public final static Map<Integer, Move> PECULIARMOVES= null;
     public final static Map<Integer, Move> REWARD_LVL = Map.ofEntries(
             Map.entry(2, Move.TACKLE),
@@ -26,7 +28,7 @@ public class Venusaur extends Pokemon {
         );
 	Venusaur(String name, Type type0, Type type1, Map<Integer, Move> rewardlvl, double baseHp, double baseAtk,
 			double baseDef, double baseSatk, double baseSdef, double baseSpd, int lvl, int xp, Ability ability) {
-		super(name, type0, type1, rewardlvl, baseHp, baseAtk, baseDef, baseSatk, baseSdef, baseSpd, lvl, xp, ability,PECULIARMOVES);
+		super(name, type0, type1, rewardlvl, baseHp, baseAtk, baseDef, baseSatk, baseSdef, baseSpd, lvl, xp, ability,PECULIARMOVES, FRONTSPRITE,BACKSPRITE);
 		// TODO Auto-generated constructor stub
 	}
 

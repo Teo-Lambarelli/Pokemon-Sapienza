@@ -6,6 +6,8 @@ import types.Type;
 import moves.Move;
 
 public class Bulbasaur extends Pokemon{
+	public final static String FRONTSPRITE="src/sprites/bulbasaur.png";
+	public final static String BACKSPRITE="src/sprites/backbulbasaur.png";
 	public final static Map<Integer, Move> PECULIARMOVES= null;
     public final static Map<Integer, Move> REWARD_LVL = Map.ofEntries(
             Map.entry(2, Move.TACKLE),
@@ -26,7 +28,7 @@ public class Bulbasaur extends Pokemon{
 	
 	
 	public Bulbasaur(int lvl) {//					           hp   atk   def   satk  sdef  spd lvl xp
-		super("Bulbasaur", Type.GRASS, Type.POISON,REWARD_LVL, 45.0, 49.0, 49.0, 65.0, 65.0, 45.0,lvl,0,"Ivysaur",16, Ability.OVERGROW,PECULIARMOVES);
+		super("Bulbasaur", Type.GRASS, Type.POISON,REWARD_LVL, 45.0, 49.0, 49.0, 65.0, 65.0, 45.0,lvl,0,"Ivysaur",16, Ability.OVERGROW,PECULIARMOVES, FRONTSPRITE,BACKSPRITE);
 
 
 	}

@@ -7,6 +7,8 @@ import moves.Move;
 import types.Type;
 
 public class Charmeleon extends Pokemon{
+	public final static String FRONTSPRITE="src/sprites/charmeleon.png";
+	public final static String BACKSPRITE="src/sprites/backcharmeleon.png";
 	public final static Map<Integer, Move> PECULIARMOVES= null;
     public final static Map<Integer, Move> REWARD_LVL = Map.ofEntries(
             Map.entry(1, Move.GROWL),
@@ -24,7 +26,7 @@ public class Charmeleon extends Pokemon{
         );
 
 	public Charmeleon(int lvl) {
-		super("Charmeleon", Type.FIRE, REWARD_LVL, 58, 64, 58, 80, 65, 80, lvl, 0, "Charizard",36, Ability.BLAZE,PECULIARMOVES);
+		super("Charmeleon", Type.FIRE, REWARD_LVL, 58, 64, 58, 80, 65, 80, lvl, 0, "Charizard",36, Ability.BLAZE,PECULIARMOVES, FRONTSPRITE,BACKSPRITE);
 	}
 
 	
