@@ -41,12 +41,23 @@ public class BattleManager {
 		 */
 	}
 	
+	public void setTeam0(Team team0) {
+		this.team0=team0;
+	}
+	public void setTeam1(Team team1) {
+		this.team0=team1;
+	}
+	
 	public void startTurnEffects() {
 		
 	}
 	
 	public Fighter[] getFighter() {
 		return fighter;
+	}
+	
+	public void setFighter(Pokemon pkmn, Team team,int index) {
+		fighter[index]=new Fighter(pkmn, team);
 	}
 	
 	public void turnOption(int index, Choice choice) {

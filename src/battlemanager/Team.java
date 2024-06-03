@@ -32,5 +32,15 @@ public class Team {
 			System.out.println(elem.getName());
 		}
 	}
+	
+	public void setPkmn(Pokemon poke, int index) {
+		
+		Pokemon[] pkmn=new Pokemon[pokemon.size()];
+		pkmn=getArrayTeam();
+		pkmn[index]=poke;
+		this.pokemon=new ArrayList<Pokemon>(Arrays.asList(pkmn));
+		
+		
+	}
 
 }

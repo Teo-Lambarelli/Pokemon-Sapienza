@@ -14,8 +14,10 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import battlemanager.BattleManager;
 import battlemanager.Choice;
@@ -39,18 +41,67 @@ public class BattleGUI extends JFrame {
 	public JPanel p3=new JPanel();
 	public JPanel p4=new JPanel();
 	public JPanel p5=new JPanel();
-	public JPanel p6=new JPanel();
 	public JPanel p7=new JPanel();
+	public JPanel p6=new JPanel();
+	private int indx;
+	private int yCoordinate=113;
 	protected BattleManager bg;
-    public BattleGUI(BattleManager bg) {
+    public BattleGUI(BattleManager bg, int indx) {
         super("Pokemon Battle");
         this.bg=bg;
-         
+        this.indx=indx;
+        JPanel p000=new JPanel();
+        JLabel label=new JLabel();
+        p000.setOpaque(false);
+        p000.setBounds(320, 0, 1000, 850);
+        
+        ImageIcon ico = new ImageIcon(bg.getFighter()[indx].pokemon.getBackSprite());
+        Image imag = ico.getImage();
+        Image scaledImage = imag.getScaledInstance(750, 820, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        label.setIcon(scaledIcon);
+        
+        
+        Timer timer = new Timer(300, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Aggiorna la posizione della label
+                if (yCoordinate < 116) {
+                    yCoordinate += 1; // Muovi verso il basso
+                } else {
+                    yCoordinate -= 2; // Muovi verso l'alto
+                }
+                label.setLocation(0, yCoordinate); // Imposta la nuova posizione
+            }
+        });
+        timer.start(); // Avvia il timer
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        p000.setVisible(true);
+        p000.add(label);
+        add(p000);
         this.setLayout(new BorderLayout());
         // Imposta il layout del contenuto principale
         ImageIcon icon = new ImageIcon("src/sprites/semenano2.png");
         Image image = icon.getImage();
-        BackgroundPanel mainPanel = new BackgroundPanel(image);
+        
+        
+        BackgroundPanel background=new BackgroundPanel(image);
+        background.setLocation(0, 0);
+        background.setBounds(503, -130, 1000, 850);
+        background.setBackground(new Color(210, 220, 190));
+        
+        
+        
+        
+        JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
         // Aggiungi bordi neri ai lati
@@ -58,8 +109,10 @@ public class BattleGUI extends JFrame {
         mainPanel.setBackground(new Color(210, 220, 190));
         
         mainPanel.setLayout(new BorderLayout());
+     
+        
         JPanel abilityPanel = new JPanel();
-        abilityPanel.setBorder(BorderFactory.createMatteBorder(30, 65, 30, 65, new Color(210, 220, 190)));
+        abilityPanel.setBorder(BorderFactory.createMatteBorder(0, 65, 0, 65, new Color(210, 220, 190)));
         abilityPanel.setLayout(new GridLayout(6, 2));
         abilityPanel.setOpaque(false);
         
@@ -78,10 +131,17 @@ public class BattleGUI extends JFrame {
         
         
         
-        p6.setLayout(new GridLayout(2,2));
+        p6.setLayout(new GridLayout(2,3));
         JPanel n0=new JPanel();
         n0.setOpaque(false);
         p6.add(n0);
+        JPanel n3=new JPanel();
+        n3.setOpaque(false);
+        p6.add(n3);
+        JPanel n4=new JPanel();
+        n4.setOpaque(false);
+        
+        
         JPanel n1=new JPanel();
         n1.setOpaque(false);
         p6.add(n1);
@@ -93,16 +153,18 @@ public class BattleGUI extends JFrame {
         n2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	if(tm==0) {new ChangePokemon(bg.getTeam0());}
-            	if(tm==1) {new ChangePokemon(bg.getTeam1());}
-
-            	JOptionPane.showMessageDialog(null, "TODO");
+            	if(tm==0) {new ChangePokemon(bg.getTeam0(),bg, tm, bg.getTeam1());dispose();}
+            	else if(tm==1) {new ChangePokemon(bg.getTeam1(),bg, tm, bg.getTeam0());dispose();}
             	
+            	
+            	
+            	
+           
             }
         });
         p6.add(n2);
-         
         
+        p6.add(n4);
         
         
         abilityPanel.add(p6);
@@ -111,11 +173,13 @@ public class BattleGUI extends JFrame {
         p7.setOpaque(false);
 
         makeButtons(abilityPanel, 0, true);
-        
+       
+        add(background);
         mainPanel.add(abilityPanel);
+//        mainPanel.setOpaque(false);
         
         add(mainPanel);
-        
+       
         this.setUndecorated(true); 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -141,10 +205,14 @@ public class BattleGUI extends JFrame {
                 return false;
             }
         });
+        p000.revalidate();
+        p000.repaint();
+        mainPanel.revalidate();
+        mainPanel.repaint();
+        abilityPanel.revalidate();
+        abilityPanel.repaint();
+    	
     }
-        
-        
-        
         
         
 
@@ -196,7 +264,7 @@ private class ButtonClickListener implements ActionListener {
         }
         
     }
-        
+    
 }
 
 }    

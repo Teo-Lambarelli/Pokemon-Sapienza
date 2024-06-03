@@ -170,7 +170,7 @@ public class NewPlayerGUI extends JFrame {
         	
     	else if(cp==true && cn==true && o==1){
     		BattleManager bg=new BattleManager(new Team(team0,name0),new Team(team1,name1));
-    		new BattleGUI(bg);
+    		new BattleGUI(bg,0);
     		dispose();
     		player=0;
     		name0="";
