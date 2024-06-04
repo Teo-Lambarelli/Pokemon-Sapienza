@@ -25,6 +25,7 @@ public class BattleGUI extends JFrame {		//di chi è il turno
 	private int indx2;
 	private int yCoordinate=5;
 	protected BattleManager bg;
+	protected BattleGUI bGUI;
     public BattleGUI(BattleManager bg, int indx) {
         super("Pokemon Battle");
         this.bg=bg;
@@ -35,7 +36,7 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         JPanel p000=new JPanel();
         JLabel label=new JLabel();
         JLabel label2=new JLabel();
-        
+        this.bGUI=this;
         
         p001.setOpaque(false);//qui metterò label2
         p001.setBounds(1020, 20, 500, 500);
@@ -175,7 +176,7 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         abilityPanel.add(p7);
         p7.setOpaque(false);
 
-        makeButtons(abilityPanel, 0, true);
+        makeButtons(abilityPanel, indx, true);
        
         add(background);
         mainPanel.add(abilityPanel);
@@ -230,13 +231,23 @@ public class BattleGUI extends JFrame {		//di chi è il turno
                 BorderFactory.createLineBorder(new Color(0,0,0), 4),
                 BorderFactory.createEmptyBorder(0, 0, 0, 15)));
         		button.setFont(new Font("Arial", Font.BOLD, 20));
-                setBut(i, button, move,index); 
+                setBut(i, button, move,index);
+                
+             
 
     }}
 
     public void setBut(int i, JButton button, Move move, int index){
 	if(move!=null) {button.setText(move.toString()+" "+move.getPp()+"/"+move.getPp()+" "+move.getType().toString());
-	button.addActionListener(new ButtonClickListener(move,button,move.getPp(),i,index));}else{button.setText("////");};
+	button.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        	bg.turnOption(indx, new Choice(Choice.Option.MOVE,i));;
+        	if (indx==1) {bg.executeTurn();}
+        	new BattleGUI(bg,indx2);
+        	bGUI.dispose();
+        }
+    });;}else{button.setText("////");};
 	}
     
     public void setTxt(JButton b, String txt) {
@@ -263,10 +274,20 @@ private class ButtonClickListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton source = (JButton) e.getSource();
         Choice choice=new Choice(Option.MOVE,i);
+        
+        
+        
+        
+        
+        
+        
         if(current_pp>0) {
         	current_pp--;
         	setTxt(button,move.toString()+" "+(current_pp)+"/"+(move.getPp())+" "+move.getType().toString());
         	bg.turnOption(fighter, choice);
+        	 new BattleGUI(bg, indx2);
+        	 bGUI.dispose();
+        	 
         }
         
     }
