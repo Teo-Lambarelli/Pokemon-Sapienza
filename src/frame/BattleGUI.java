@@ -32,11 +32,46 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         this.indx=indx;
         if (indx==0) {indx2=1;}
         if (indx==1) {indx2=0;}
+        JPanel p002=new JPanel();
         JPanel p001=new JPanel();
         JPanel p000=new JPanel();
+        JPanel p003=new JPanel();
+        JPanel p005=new JPanel();
+        JPanel p004=new JPanel();
         JLabel label=new JLabel();
         JLabel label2=new JLabel();
+        JLabel label2Name1=new JLabel();
+        JLabel labelName1=new JLabel(bg.getFighter()[indx2].pokemon.getName()+"     lvl:"+bg.getFighter()[indx2].pokemon.getStats().getLvl()+"     hp:"+(String.format("%.2f",bg.getFighter()[indx2].pokemon.getStats().getHp())));
+        JLabel labelName=new JLabel();
+        JLabel labelName0=new JLabel(bg.getFighter()[indx].pokemon.getName()+"     lvl:"+bg.getFighter()[indx].pokemon.getStats().getLvl()+"     hp:"+(String.format("%.2f",bg.getFighter()[indx].pokemon.getStats().getHp())));
         this.bGUI=this;
+        labelName.setOpaque(true);
+        
+
+        p004.setOpaque(false);//qui metterò labelName
+        p004.setBounds(1210, 430, 500, 500);
+        
+
+        p005.setLayout(new BorderLayout());
+        p005.setBorder(BorderFactory.createMatteBorder(11, 105, 10, 0, Color.WHITE));
+        p005.setBackground(Color.WHITE);
+        p005.setLayout(new BorderLayout());
+        p005.setOpaque(true);
+        p005.setBounds(1235, 437, 475, 95);
+        
+        
+        p003.setLayout(new BorderLayout());
+        p003.setBorder(BorderFactory.createMatteBorder(34, 65, 10, 0, Color.WHITE));
+        p003.setBackground(Color.WHITE);
+        p003.setLayout(new BorderLayout());
+        
+        
+        p003.setOpaque(true);
+        p003.setBounds(210, 177, 470, 95);
+        
+        
+        p002.setOpaque(false);//qui metterò labelName
+        p002.setBounds(210, 170, 500, 500);
         
         p001.setOpaque(false);//qui metterò label2
         p001.setBounds(1020, 20, 500, 500);
@@ -44,8 +79,22 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         
         p000.setOpaque(false);//qui metterò label
         p000.setBounds(400, 118, 600, 600);
+
+        
+        ImageIcon i = new ImageIcon("src/sprites/focussedpkmnname.png");
+        Image m = i.getImage();
+        Image sm = m.getScaledInstance(500, 100, Image.SCALE_SMOOTH);
+        ImageIcon si = new ImageIcon(sm);
+        labelName.setIcon(si);
         
         
+        ImageIcon i0 = new ImageIcon("src/sprites/notfocussedpkmnname.png");
+        Image m0 = i0.getImage();
+        Image sm0 = m0.getScaledInstance(500, 100, Image.SCALE_SMOOTH);
+        ImageIcon si0 = new ImageIcon(sm0);
+        label2Name1.setIcon(si0);
+        
+
         ImageIcon ico = new ImageIcon(bg.getFighter()[indx].pokemon.getBackSprite()); //label=pokemon0
         Image imag = ico.getImage();
         Image scaledImage = imag.getScaledInstance(750, 820, Image.SCALE_SMOOTH);
@@ -66,24 +115,47 @@ public class BattleGUI extends JFrame {		//di chi è il turno
             	//Aggiorna la posizione della label
                 if (yCoordinate < 7) {
                     yCoordinate += 1; // Muovi verso il basso
+              
                 } else {
                     yCoordinate -= 2; // Muovi verso l'alto
                 }
                 label.setLocation(label.getX(), yCoordinate); // Imposta la nuova posizione
                 label2.setLocation(label2.getX(), yCoordinate);
+                
             }
         });
         timer.start(); // Avvia il timer
 
         
-        p000.setVisible(true);
+        p005.add(labelName1);
+        p004.add(label2Name1);
         p000.add(label);
         p001.add(label2);
+        p002.add(labelName);
+        p003.add(labelName0,BorderLayout.NORTH);
+        
+        
+        labelName0.setSize(400, 400);
+        labelName0.setFont(new Font("Arial", Font.BOLD, 20));
+        labelName1.setSize(400, 400);
+        labelName1.setFont(new Font("Arial", Font.BOLD, 20));
+        
+        
+        p004.setVisible(true);
+        p000.setVisible(true);
         p001.setVisible(true);
+        p002.setVisible(true);
+        
+        
+        labelName.setOpaque(false);
         label2.setOpaque(false);
         label.setOpaque(false);
         
-        
+
+        add(p004);
+        add(p005);
+        add(p002);
+        add(p003);
         add(p000);
         add(p001);
         
@@ -124,10 +196,12 @@ public class BattleGUI extends JFrame {		//di chi è il turno
     	JPanel p6=new JPanel();
     	JPanel p7=new JPanel();
     	
-    	JLabel nt0=new JLabel(bg.getTeam0().getName()+"'s POV");
-    	JLabel nt1=new JLabel(bg.getTeam1().getName()+"'s POV");
+    	
+    	JLabel nt0=new JLabel(bg.getTeam0().getName()+"'s turn:");
+    	JLabel nt1=new JLabel(bg.getTeam1().getName()+"'s turn:");
     	nt0.setFont(new Font("Arial", Font.BOLD, 20));
     	nt1.setFont(new Font("Arial", Font.BOLD, 20));
+    	
     	
         abilityPanel.add(p0);
         p0.setLayout(new GridLayout(2,1));
@@ -137,15 +211,18 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         abilityPanel.add(p1);
         p1.setOpaque(false);
         abilityPanel.add(p2);
-        p2.setOpaque(false);					//aggiungo pannelli invisibili per mettere i 4 pulsanti alla fine
+        p2.setOpaque(false);
+        								//aggiungo pannelli invisibili per mettere i 4 pulsanti alla fine
+        
+        p3.setLayout(new GridLayout(2,1));
         abilityPanel.add(p3);
         p3.setOpaque(false);
+        
+        
         abilityPanel.add(p4);
         p4.setOpaque(false);
         abilityPanel.add(p5);
         p5.setOpaque(false);
-        
-        
         
         p6.setLayout(new GridLayout(2,3));
         JPanel n0=new JPanel();
@@ -183,17 +260,23 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         abilityPanel.add(p7);
         p7.setOpaque(false);
 
-        makeButtons(abilityPanel, indx, true);
+        
+        makeButtons(abilityPanel, indx, true); //uso il metodo makeButtons(.....) per creare i pulsanti del pokemon presente sul terreno che deve decidere che fare
        
+        
         add(background);
         mainPanel.add(abilityPanel);
         
+        
         add(mainPanel);
        
+        
         this.setUndecorated(true); 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        this.setResizable(true);
+        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //this.setLocationRelativeTo(null); // Centra la finestra,ma nn ci serve
+        //this.setLocationRelativeTo(null); // Centra la finestra, ma nn ci serve
         this.setVisible(true);
         this.addKeyListener(new KeyAdapter() {
             @Override
@@ -207,7 +290,7 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
             @Override
             public boolean dispatchKeyEvent(KeyEvent e) {
-                if (e.getID() == KeyEvent.KEY_PRESSED) {
+                if (e.getID() == KeyEvent.KEY_PRESSED) {					//se premi esc esci dal gioco
                     if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                         System.exit(0);
                     }
@@ -217,18 +300,13 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         });
         p000.revalidate();
         p000.repaint();
-        mainPanel.revalidate();
+        mainPanel.revalidate();						//non credo servi, ma aggiorna i vari componenti
         mainPanel.repaint();
         abilityPanel.revalidate();
         abilityPanel.repaint();
-        
-//        bg.getFighter()[0].choice=null;
-//        bg.getFighter()[1].choice=null;
-        
     }
-        
-        
 
+    
     public void makeButtons(JPanel abilityPanel, int index, boolean bool) {
     for (int i = 0; i <= 3; i++) {
     	Move move=bg.getFighter()[index].pokemon.getMoves()[i];
@@ -239,11 +317,9 @@ public class BattleGUI extends JFrame {		//di chi è il turno
                 BorderFactory.createEmptyBorder(0, 0, 0, 15)));
         		button.setFont(new Font("Arial", Font.BOLD, 20));
                 setBut(i, button, move,index);
-                
-             
-
     }}
 
+    
     public void setBut(int i, JButton button, Move move, int index){
 	if(move!=null) {button.setText(move.toString()+" "+move.getPp()+"/"+move.getPp()+" "+move.getType().toString());
 	button.addActionListener(new ActionListener() {
@@ -257,13 +333,10 @@ public class BattleGUI extends JFrame {		//di chi è il turno
     });;}else{button.setText("////");};
 	}
     
+    
     public void setTxt(JButton b, String txt) {
     	b.setText(txt);
         b.revalidate();
         b.repaint();
     }
-
-    
-
-
 }    

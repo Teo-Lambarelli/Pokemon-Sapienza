@@ -400,7 +400,7 @@ public class BattleManager {
 				fighter.opponent.pokemon.damage(totalDamage);
 				System.out.println("-------------------------------------------------------------------------");
 				System.out.println(fighter.pokemon.getName() + " ha colpito il suo bersaglio " + fighter.opponent.pokemon.getName() + " usando " + move.toString());
-				System.out.println("Danno totale: " + totalDamage);
+				System.out.println("Danno totale: " + (String.format("%.2f",totalDamage)));
 				System.out.println("Danno base: " + baseDamage);
 				System.out.println("Danno critico: " + criticalDamage);
 				System.out.println("Danno casuale: " + randomDamage);

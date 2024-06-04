@@ -139,7 +139,7 @@ public class NewPlayerGUI extends JFrame {
                     case 0: photoButton("src/sprites/charmander.png",button);break;
                     case 1: photoButton("src/sprites/squirtle.png",button);break;
                     case 2: photoButton("src/sprites/bulbasaur.png",button);break;
-                    case 3: photoButton("src/sprites/charmander.png",button);break;	
+                    case 3: photoButton("src/sprites/pikachu.png",button);break;	
                     case 4: photoButton("src/sprites/charmander.png",button);break;
                     case 5: photoButton("src/sprites/charmander.png",button);break;
                     case 6: photoButton("src/sprites/charmander.png",button);break;
@@ -223,7 +223,7 @@ public class NewPlayerGUI extends JFrame {
             case "0": addPokemon(new Charmander(5));break;
             case "1": addPokemon(new Squirtle(5));break;
             case "2": addPokemon(new Bulbasaur(5));break;
-//            case "3": return new Pikachu(5);break;
+            case "3": addPokemon( new Pikachu(5));break;
 //            case "4": return new Eevee(5);break;
 //            case "5": return new Jigglypuff(5);break;
 //            case "6": return new Meowth(5);break;

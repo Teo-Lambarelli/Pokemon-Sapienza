@@ -164,10 +164,10 @@ public enum Move {
 	
 	IRON_DEFENCE(Type.STEEL,0,100,"Sharply raises user's Defense.",15,Category.STATUS,0),
     METAL_CLAW(Type.STEEL, 50, 95, "May raise user's Attack.", 35, Category.PHYSICAL,0),
-    IRON_HEAD(Type.STEEL, 80, 100, "May cause flinching.", 15, Category.PHYSICAL,0),
+    IRON_TAIL(Type.STEEL, 80, 100, "May cause flinching.", 15, Category.PHYSICAL,0),
     STEEL_WING(Type.STEEL, 70, 90, "May raise user's Defense.", 25, Category.PHYSICAL,0),
     FLASH_CANNON(Type.STEEL, 80, 100, "May lower opponent's Special Defense.", 10, Category.SPECIAL,0),
-    METAL_BURST(Type.STEEL, -1, 100, "If hit by an attack, returns double the damage.", 10, Category.PHYSICAL,0),
+    METAL_BURST(Type.STEEL, 100, 100, "If hit by an attack, returns double the damage.", 10, Category.PHYSICAL,0),
     IRON_DEFENSE(Type.STEEL, 0, 100, "Sharply raises user's Defense.", 15, Category.STATUS,0),
     AUTOTOMIZE(Type.STEEL, 0, 100, "Raises user's Speed and lowers its weight.", 15, Category.STATUS,0),
     SHIFT_GEAR(Type.STEEL, 0, 100, "Raises user's Attack and sharply raises its Speed.", 10, Category.STATUS,0),

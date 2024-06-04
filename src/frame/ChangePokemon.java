@@ -60,7 +60,7 @@ public class ChangePokemon extends JFrame {
             icon=new ImageIcon(newimage);
             button.setIcon(icon);
             mainPanel2.add(button);
-            button.setText(team.getArrayTeam()[i].getStats().getHp()+"/"+team.getArrayTeam()[i].getStats().getMaxHp()+"Hp");
+            button.setText((String.format("%.2f", team.getArrayTeam()[i].getStats().getHp()))+"/"+(String.format("%.2f", team.getArrayTeam()[i].getStats().getMaxHp()))+"Hp");
             button.setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createLineBorder(new Color(0,0,0), 4),
                     BorderFactory.createEmptyBorder(0, 0, 0, 15)));
