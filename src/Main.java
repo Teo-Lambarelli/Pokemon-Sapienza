@@ -24,7 +24,7 @@ public class Main {
 //			new Bulbasaur(6),
 //			new Charmander(5),
 //			new Charmander(8),
-//			new Bulbasaur(6)});
+//			new Bulbasaur(6)},"obamna");
 //		
 //		Team team1=new Team(
 //				new Pokemon[]{
@@ -33,7 +33,7 @@ public class Main {
 //				new Bulbasaur(6),
 //				new Charmander(5),
 //				new Charmander(8),
-//				new Bulbasaur(6)});
+//				new Bulbasaur(6)},"obamnius");
 //		
 //		BattleManager bm= new BattleManager(team0,team1);
 //		

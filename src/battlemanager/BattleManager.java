@@ -1,10 +1,14 @@
 package battlemanager; import pokemon.*;
 
 import java.util.Arrays;
-import java.util.Random; import moves.*; import types.*;
+import java.util.Random;
+
+import frame.BattleGUI;
+import moves.*; import types.*;
 
 public class BattleManager {
 	private Fighter[] fighter;
+	private int counter=0;
 	private int turnCounter;
 	public final static double STAB_VALUE=1.3;
 	public final static int ON_FIELD = 2;
@@ -214,14 +218,22 @@ public class BattleManager {
 		}
 		else {
 			int p0 = 6;
+			
+//			System.out.println(f0.choice.option);
+			
 			if (f0.choice.option == Choice.Option.MOVE) {
 				Move m0 = f0.pokemon.getMoves()[f0.choice.index];
+				
+				
+				
 				p0 = m0.getPriority();
+				
+				
 			}
 			int p1 = 6;
 			if (f1.choice.option == Choice.Option.MOVE) {
 				Move m1 = f1.pokemon.getMoves()[f1.choice.index];
-				p0 = m1.getPriority();
+				p1 = m1.getPriority();
 			}
 			
 			if (p0 > p1)
@@ -443,7 +455,14 @@ public class BattleManager {
 		else if (fighter.choice.option == Choice.Option.SWITCH) {
 			// Switch out pokemon!
 			// TODO: ANIMATION
+			Pokemon[] appoggio=new Pokemon[1];
+			appoggio[0]=fighter.pokemon;
 			fighter.pokemon = fighter.team.pokemon.get(fighter.choice.index);
+			fighter.team.setPkmn(appoggio[0],fighter.choice.index);
+			new BattleGUI(this,0);counter=0;
+
+			
+			
 			fighter.statsChange.statsReset();
 		}
 		else if (fighter.choice.option == Choice.Option.FLEE) {

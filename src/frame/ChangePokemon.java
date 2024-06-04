@@ -7,19 +7,23 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import battlemanager.BattleManager;
+import battlemanager.Choice;
 import battlemanager.Team;
 import pokemon.Pokemon;
 
 public class ChangePokemon extends JFrame {
     private Team team;
     private BattleManager bg;
-    private int tm;
-    private Team t;
-    ChangePokemon(Team team, BattleManager bg, int tm, Team t) {
+    private int tm; //quale team sta cambiando 0 o 1
+
+    ChangePokemon(BattleManager bg, int tm) {
         this.team = team;
+        if (tm==0) {this.team=bg.getTeam0();}
+        if (tm==1) {this.team=bg.getTeam1();}
         this.bg=bg;
         this.tm=tm;
-        this.team=t;
+
+
         
         this.setLayout(new BorderLayout());
         JPanel mainPanel = new JPanel();
@@ -65,16 +69,13 @@ public class ChangePokemon extends JFrame {
            button.addActionListener(new ActionListener() {
                @Override
                public void actionPerformed(ActionEvent e) {
-            	Pokemon[] p=new Pokemon[1];
-            	
-            	p[0]=team.getArrayTeam()[0];
-            	team.setPkmn(team.getArrayTeam()[index],0);
-            	team.setPkmn(p[0],index);
-               	JOptionPane.showMessageDialog(null, "TODO "+(index+1));
-//               	System.out.println(team.getArrayTeam()[0].getName());
-               	if(tm==0) {bg.setTeam0(team); bg.setFighter(team.getArrayTeam()[0], team, tm);}
-               	else if(tm==1) {bg.setTeam1(team); bg.setFighter(team.getArrayTeam()[0], team, tm);}
-               	new BattleGUI(bg, tm);
+
+               	bg.turnOption(tm, new Choice(Choice.Option.SWITCH,index));
+               	
+               	if (tm==0) {new BattleGUI(bg,1);dispose();}
+               	
+               	if(tm==1 && bg.getFighter()[0].choice!=null && bg.getFighter()[1].choice!=null) {;bg.executeTurn();}
+               	
                	dispose();
                }
                

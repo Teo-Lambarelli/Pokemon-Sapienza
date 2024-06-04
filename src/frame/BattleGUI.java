@@ -10,83 +10,83 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
+import javax.swing.*;
 import battlemanager.BattleManager;
 import battlemanager.Choice;
 import battlemanager.Choice.Option;
 import battlemanager.Fighter;
 import battlemanager.Team;
 import moves.Move;
-import pokemon.Bulbasaur;
-import pokemon.Charmander;
-import pokemon.Pokemon;
-import pokemon.Squirtle;
 
 
-public class BattleGUI extends JFrame {
-//	public JButton[] moves0=
-//	public JButton[] moves1=
-	private int tm=0;
-	public JPanel p0=new JPanel();
-	public JPanel p1=new JPanel();
-	public JPanel p2=new JPanel();
-	public JPanel p3=new JPanel();
-	public JPanel p4=new JPanel();
-	public JPanel p5=new JPanel();
-	public JPanel p7=new JPanel();
-	public JPanel p6=new JPanel();
+
+public class BattleGUI extends JFrame {		//di chi è il turno
 	private int indx;
-	private int yCoordinate=113;
+	private int indx2;
+	private int yCoordinate=5;
 	protected BattleManager bg;
     public BattleGUI(BattleManager bg, int indx) {
         super("Pokemon Battle");
         this.bg=bg;
         this.indx=indx;
+        if (indx==0) {indx2=1;}
+        if (indx==1) {indx2=0;}
+        JPanel p001=new JPanel();
         JPanel p000=new JPanel();
         JLabel label=new JLabel();
-        p000.setOpaque(false);
-        p000.setBounds(320, 0, 1000, 850);
+        JLabel label2=new JLabel();
         
-        ImageIcon ico = new ImageIcon(bg.getFighter()[indx].pokemon.getBackSprite());
+        
+        p001.setOpaque(false);//qui metterò label2
+        p001.setBounds(1020, 20, 500, 500);
+        
+        
+        p000.setOpaque(false);//qui metterò label
+        p000.setBounds(400, 118, 600, 600);
+        
+        
+        ImageIcon ico = new ImageIcon(bg.getFighter()[indx].pokemon.getBackSprite()); //label=pokemon0
         Image imag = ico.getImage();
         Image scaledImage = imag.getScaledInstance(750, 820, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         label.setIcon(scaledIcon);
         
         
+        ImageIcon ic = new ImageIcon(bg.getFighter()[indx2].pokemon.getFrontSprite()); //label2=pokemon1
+        Image ima = ic.getImage();
+        Image scaledImag = ima.getScaledInstance(350,400, Image.SCALE_SMOOTH);
+        ImageIcon scaledIco = new ImageIcon(scaledImag);
+        label2.setIcon(scaledIco);
+        
+        
         Timer timer = new Timer(300, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Aggiorna la posizione della label
-                if (yCoordinate < 116) {
+            	//Aggiorna la posizione della label
+                if (yCoordinate < 7) {
                     yCoordinate += 1; // Muovi verso il basso
                 } else {
                     yCoordinate -= 2; // Muovi verso l'alto
                 }
-                label.setLocation(0, yCoordinate); // Imposta la nuova posizione
+                label.setLocation(label.getX(), yCoordinate); // Imposta la nuova posizione
+                label2.setLocation(label2.getX(), yCoordinate);
             }
         });
         timer.start(); // Avvia il timer
-        
-        
-        
-        
-        
-        
-        
-        
+
         
         p000.setVisible(true);
         p000.add(label);
+        p001.add(label2);
+        p001.setVisible(true);
+        label2.setOpaque(false);
+        label.setOpaque(false);
+        
+        
         add(p000);
+        add(p001);
+        
+        
         this.setLayout(new BorderLayout());
         // Imposta il layout del contenuto principale
         ImageIcon icon = new ImageIcon("src/sprites/semenano2.png");
@@ -97,9 +97,7 @@ public class BattleGUI extends JFrame {
         background.setLocation(0, 0);
         background.setBounds(503, -130, 1000, 850);
         background.setBackground(new Color(210, 220, 190));
-        
-        
-        
+ 
         
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -107,7 +105,6 @@ public class BattleGUI extends JFrame {
         // Aggiungi bordi neri ai lati
         mainPanel.setBorder(BorderFactory.createMatteBorder(0, 210, 0, 210, Color.BLACK));
         mainPanel.setBackground(new Color(210, 220, 190));
-        
         mainPanel.setLayout(new BorderLayout());
      
         
@@ -116,12 +113,23 @@ public class BattleGUI extends JFrame {
         abilityPanel.setLayout(new GridLayout(6, 2));
         abilityPanel.setOpaque(false);
         
+        
+        JPanel p0=new JPanel();
+        JPanel p1=new JPanel();
+    	JPanel p2=new JPanel();
+    	JPanel p3=new JPanel();
+    	JPanel p4=new JPanel();
+    	JPanel p5=new JPanel();
+    	JPanel p6=new JPanel();
+    	JPanel p7=new JPanel();
+    	
+        
         abilityPanel.add(p0);
         p0.setOpaque(false);
         abilityPanel.add(p1);
         p1.setOpaque(false);
         abilityPanel.add(p2);
-        p2.setOpaque(false);
+        p2.setOpaque(false);					//aggiungo pannelli invisibili per mettere i 4 pulsanti alla fine
         abilityPanel.add(p3);
         p3.setOpaque(false);
         abilityPanel.add(p4);
@@ -136,7 +144,7 @@ public class BattleGUI extends JFrame {
         n0.setOpaque(false);
         p6.add(n0);
         JPanel n3=new JPanel();
-        n3.setOpaque(false);
+        n3.setOpaque(false);										//divido il panel p6 (in basso a sx prima dei tasti move)
         p6.add(n3);
         JPanel n4=new JPanel();
         n4.setOpaque(false);
@@ -145,25 +153,20 @@ public class BattleGUI extends JFrame {
         JPanel n1=new JPanel();
         n1.setOpaque(false);
         p6.add(n1);
-        JButton n2=new JButton("Change Pkmn");
+        JButton n2=new JButton("Switch Pkmn");
         n2.setFont(new Font("Arial", Font.BOLD, 20));
         n2.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(0,0,0), 4),
-                BorderFactory.createEmptyBorder(0, 0, 0, 0)));
+                BorderFactory.createEmptyBorder(0, 0, 0, 0)));				//creo un button che mi permetta di cambiare i pokemon
         n2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	if(tm==0) {new ChangePokemon(bg.getTeam0(),bg, tm, bg.getTeam1());dispose();}
-            	else if(tm==1) {new ChangePokemon(bg.getTeam1(),bg, tm, bg.getTeam0());dispose();}
-            	
-            	
-            	
-            	
-           
+            	if(indx==0) {new ChangePokemon(bg, indx);dispose();}
+            	else if(indx==1) {new ChangePokemon(bg, indx); dispose();}
+            	dispose();
             }
         });
         p6.add(n2);
-        
         p6.add(n4);
         
         
@@ -176,7 +179,6 @@ public class BattleGUI extends JFrame {
        
         add(background);
         mainPanel.add(abilityPanel);
-//        mainPanel.setOpaque(false);
         
         add(mainPanel);
        
@@ -211,7 +213,10 @@ public class BattleGUI extends JFrame {
         mainPanel.repaint();
         abilityPanel.revalidate();
         abilityPanel.repaint();
-    	
+        
+//        bg.getFighter()[0].choice=null;
+//        bg.getFighter()[1].choice=null;
+        
     }
         
         
@@ -225,7 +230,8 @@ public class BattleGUI extends JFrame {
                 BorderFactory.createLineBorder(new Color(0,0,0), 4),
                 BorderFactory.createEmptyBorder(0, 0, 0, 15)));
         		button.setFont(new Font("Arial", Font.BOLD, 20));
-                setBut(i, button, move,index);     
+                setBut(i, button, move,index); 
+
     }}
 
     public void setBut(int i, JButton button, Move move, int index){
