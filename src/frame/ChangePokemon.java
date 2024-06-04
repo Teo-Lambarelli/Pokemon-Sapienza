@@ -72,7 +72,7 @@ public class ChangePokemon extends JFrame {
 
                	bg.turnOption(tm, new Choice(Choice.Option.SWITCH,index));
                	
-               	if (tm==0) {new BattleGUI(bg,1);dispose();System.out.println("nigga");}
+               	if (tm==0) {new BattleGUI(bg,1);dispose();}
                	
                	if(tm==1 && bg.getFighter()[0].choice!=null && bg.getFighter()[1].choice!=null) {;bg.executeTurn();}
                	

@@ -26,6 +26,9 @@ public class Team {
 		return pokemon.toArray(array);
 	}
 	
+	public String getName() {
+		return player_name;
+	}
 	
 	public void printTeamInfo() {
 		for (Pokemon elem:pokemon) {

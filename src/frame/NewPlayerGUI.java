@@ -39,8 +39,8 @@ public class NewPlayerGUI extends JFrame {
 	public JPanel p1=new JPanel();
 	public JPanel p2=new JPanel();
 	public JPanel p3=new JPanel();
-    public NewPlayerGUI() {
-        super("Pokemon Battle");
+    public NewPlayerGUI(String tmn) {
+        if (name0==null) {this.name0=tmn;}
         
         // Configurazione della finestra principale
         this.setLayout(new BorderLayout());
@@ -164,7 +164,7 @@ public class NewPlayerGUI extends JFrame {
     	if(cp==true && cn==true && o==0) {
     		//TODO
     		player++;
-    		new Select2ndPlayerGUI();		//TODO far decidere tra nuovo player e load player
+    		new Select2ndPlayerGUI(this.name0);		//TODO far decidere tra nuovo player e load player
     		dispose();
     	}
         	

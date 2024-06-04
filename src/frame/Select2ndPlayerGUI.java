@@ -14,8 +14,9 @@ public class Select2ndPlayerGUI extends Frame{
 	//final static ImageIcon BUTTON_TEXTURE=new ImageIcon(------);
 	final static Color BUTTON_COLOR=new Color(54, 45, 62);
 	final static Color BUTTON_BORDER=new Color(0,0,0);
-	public Select2ndPlayerGUI() {
-        super("Pokemon Battle");
+	private String name;
+	public Select2ndPlayerGUI(String name) {
+        this.name=name;
         
         this.setLayout(new BorderLayout());
         // Imposta il layout del contenuto principale
@@ -70,7 +71,7 @@ public class Select2ndPlayerGUI extends Frame{
         newPlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	new NewPlayerGUI();
+            	new NewPlayerGUI(name);
             	dispose();
             	JOptionPane.showMessageDialog(null, "Team"+(NewPlayerGUI.player+1)+" is now choosing!");
             	

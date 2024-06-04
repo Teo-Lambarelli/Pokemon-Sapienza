@@ -124,8 +124,15 @@ public class BattleGUI extends JFrame {		//di chi è il turno
     	JPanel p6=new JPanel();
     	JPanel p7=new JPanel();
     	
-        
+    	JLabel nt0=new JLabel(bg.getTeam0().getName()+"'s POV");
+    	JLabel nt1=new JLabel(bg.getTeam1().getName()+"'s POV");
+    	nt0.setFont(new Font("Arial", Font.BOLD, 20));
+    	nt1.setFont(new Font("Arial", Font.BOLD, 20));
+    	
         abilityPanel.add(p0);
+        p0.setLayout(new GridLayout(2,1));
+        if (indx==0) {p0.add(nt0);}
+        if (indx==1) {p0.add(nt1);}
         p0.setOpaque(false);
         abilityPanel.add(p1);
         p1.setOpaque(false);
@@ -255,43 +262,8 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         b.revalidate();
         b.repaint();
     }
+
     
-private class ButtonClickListener implements ActionListener {
-	private int i;
-	private int fighter;
-	private int current_pp;
-	private JButton button;
-	private Move move;
-	private ButtonClickListener(Move move, JButton button, int current_pp,int i, int fighter) {
-		this.current_pp=current_pp;
-		this.move=move;
-		this.i=i;
-		this.fighter=fighter;
-		this.button=button;
-	}
-	
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        JButton source = (JButton) e.getSource();
-        Choice choice=new Choice(Option.MOVE,i);
-        
-        
-        
-        
-        
-        
-        
-        if(current_pp>0) {
-        	current_pp--;
-        	setTxt(button,move.toString()+" "+(current_pp)+"/"+(move.getPp())+" "+move.getType().toString());
-        	bg.turnOption(fighter, choice);
-        	 new BattleGUI(bg, indx2);
-        	 bGUI.dispose();
-        	 
-        }
-        
-    }
-    
-}
+
 
 }    
