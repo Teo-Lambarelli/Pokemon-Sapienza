@@ -1,8 +1,13 @@
 package battlemanager; import pokemon.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Random;
 
+import javax.swing.Timer;
+
+import frame.Atkmn;
 import frame.BattleGUI;
 import moves.*; import types.*;
 
@@ -10,6 +15,7 @@ public class BattleManager {
 	private Fighter[] fighter;
 	private int counter=0;
 	private int turnCounter;
+	private int c=0;
 	public final static double STAB_VALUE=1.3;
 	public final static int ON_FIELD = 2;
 	public final static int PLAYER1_FIGHTER_SLOT = 0;
@@ -450,16 +456,42 @@ public class BattleManager {
 		if (fighter.choice.option == Choice.Option.MOVE) {
 			// Attack the enemy!
 			// TODO: ANIMATION
+//			if (counter==1) {counter=0;}
+//			if (counter==0) {counter++;}
+			
+			
+		       Timer timer = new Timer(100, new ActionListener() {
+		           @Override
+		           public void actionPerformed(ActionEvent e) {
+		        	   if(counter==0){
+		        		   if(c==0) {new Atkmn(fighter.pokemon,fighter.opponent.pokemon,0,false);counter++;c++;}
+		        		   if(c==1) {new Atkmn(fighter.opponent.pokemon,fighter.pokemon,1,false);counter++;c=0;}
+		        	   }
+		        	   else if(counter>0 && counter<130) {;counter++;}
+		        	   
+		           }});
+		       timer.start(); // Avvia il timer
+
+			
+			
+			
 			executeAttack(fighter);
+			
+			
+			
+			
 		}
 		else if (fighter.choice.option == Choice.Option.SWITCH) {
 			// Switch out pokemon!
 			// TODO: ANIMATION
+//			if (counter==1) {counter=0;}
+//			if (counter==0) {counter++;}
 			Pokemon[] appoggio=new Pokemon[1];
 			appoggio[0]=fighter.pokemon;
 			fighter.pokemon = fighter.team.pokemon.get(fighter.choice.index);
 			fighter.team.setPkmn(appoggio[0],fighter.choice.index);
-			new BattleGUI(this,0);counter=0;
+			BattleGUI.bGUI.dispose();
+			new BattleGUI(this,0);
 
 			
 			
@@ -477,7 +509,60 @@ public class BattleManager {
 		for (Fighter f : turnOrder)
 			System.out.println(f.pokemon);
 		
-		for (Fighter f : turnOrder)
-			executeAction(f);
+		
+		
+		if(turnOrder[0].choice.option==Choice.Option.MOVE && turnOrder[1].choice.option==Choice.Option.MOVE) {
+			
+				int mauro=0;
+				if(fighter[0].pokemon==turnOrder[1].pokemon) {mauro=1;}
+		       new Atkmn(fighter[0].pokemon,fighter[1].pokemon,mauro,true);
+
+			
+		}
+		
+		if(turnOrder[0].choice.option==Choice.Option.SWITCH && turnOrder[1].choice.option==Choice.Option.MOVE) {
+			
+			Pokemon[] appoggio=new Pokemon[1];
+			appoggio[0]=turnOrder[0].pokemon;
+			turnOrder[0].pokemon = turnOrder[0].team.pokemon.get(turnOrder[0].choice.index);
+			turnOrder[0].team.setPkmn(appoggio[0],turnOrder[0].choice.index);
+			BattleGUI.bGUI.dispose();
+
+			
+			
+			int mauro=1;
+			if(fighter[0].pokemon==turnOrder[1].pokemon) {mauro=0;}
+			
+			new Atkmn(fighter[0].pokemon,fighter[1].pokemon,mauro,false);
+		       executeAttack(turnOrder[1]);
+		
 	}
+		
+		
+		if(turnOrder[0].choice.option==Choice.Option.MOVE && turnOrder[1].choice.option==Choice.Option.SWITCH) {
+			
+
+
+			int mauro=1;
+			if(fighter[0].pokemon==turnOrder[0].pokemon) {mauro=0;}
+			
+			new Atkmn(fighter[1].pokemon,fighter[0].pokemon,mauro,false);
+		       executeAttack(turnOrder[0]);
+		
+		       
+		       Pokemon[] appoggio=new Pokemon[1];
+				appoggio[0]=turnOrder[1].pokemon;
+				turnOrder[1].pokemon = turnOrder[1].team.pokemon.get(turnOrder[1].choice.index);
+				turnOrder[1].team.setPkmn(appoggio[0],turnOrder[1].choice.index);
+				BattleGUI.bGUI.dispose();
+	}
+		
+		
+		
+
+		
+		else {
+		for (Fighter f : turnOrder)
+			executeAction(f);}}
+	
 }

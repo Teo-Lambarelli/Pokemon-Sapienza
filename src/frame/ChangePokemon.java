@@ -74,7 +74,7 @@ public class ChangePokemon extends JFrame {
                	
                	if (tm==0) {new BattleGUI(bg,1);dispose();}
                	
-               	if(tm==1 && bg.getFighter()[0].choice!=null && bg.getFighter()[1].choice!=null) {;bg.executeTurn();}
+               	if(tm==1) {;bg.executeTurn();}
                	
                	dispose();
                }

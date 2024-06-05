@@ -28,8 +28,8 @@ public class Pikachu extends Pokemon {
 
 	
 	
-	public Pikachu(int lvl) {//                  hp    atk   def   satk  sdef  spd lvl xp
-		super("Pikachu", Type.WATER, REWARD_LVL, 44.0, 48.0, 65.0, 50.0, 64.0, 43.0,lvl,0,null,16, Ability.TORRENT,PECULIARMOVES, FRONTSPRITE,BACKSPRITE);
+	public Pikachu(int lvl) {//          	        hp    atk   def   satk  sdef  spd lvl xp
+		super("Pikachu", Type.ELECTRIC, REWARD_LVL, 44.0, 48.0, 65.0, 50.0, 64.0, 43.0,lvl,0,null,16, Ability.TORRENT,PECULIARMOVES, FRONTSPRITE,BACKSPRITE);
   
 	}
 

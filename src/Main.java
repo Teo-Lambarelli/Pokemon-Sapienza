@@ -10,6 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 		new BackGroundFrame();
 		MenuGUI n=new MenuGUI();
+//		new Atkmn(new Charmander(3),new Pikachu(3),1,true);
 		//BattleGUI m1=new BattleGUI();
 		//PokemonButtonBox x=new PokemonButtonBox();
 		

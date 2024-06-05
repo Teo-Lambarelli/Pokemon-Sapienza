@@ -21,11 +21,13 @@ import moves.Move;
 
 
 public class BattleGUI extends JFrame {		//di chi è il turno
+
 	private int indx;
 	private int indx2;
 	private int yCoordinate=5;
 	protected BattleManager bg;
-	protected BattleGUI bGUI;
+	public static  BattleGUI bGUI;
+	protected  BattleGUI bGUIns;
     public BattleGUI(BattleManager bg, int indx) {
         super("Pokemon Battle");
         this.bg=bg;
@@ -41,10 +43,12 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         JLabel label=new JLabel();
         JLabel label2=new JLabel();
         JLabel label2Name1=new JLabel();
-        JLabel labelName1=new JLabel(bg.getFighter()[indx2].pokemon.getName()+"     lvl:"+bg.getFighter()[indx2].pokemon.getStats().getLvl()+"     hp:"+(String.format("%.2f",bg.getFighter()[indx2].pokemon.getStats().getHp())));
+        JLabel labelName0=new JLabel(bg.getFighter()[indx2].pokemon.getName()+"     lvl:"+bg.getFighter()[indx2].pokemon.getStats().getLvl()+"     hp:"+(String.format("%.2f",bg.getFighter()[indx2].pokemon.getStats().getHp())));
+        JLabel labelName1=new JLabel(bg.getFighter()[indx].pokemon.getName()+"     lvl:"+bg.getFighter()[indx].pokemon.getStats().getLvl()+"     hp:"+(String.format("%.2f",bg.getFighter()[indx].pokemon.getStats().getHp())));
         JLabel labelName=new JLabel();
-        JLabel labelName0=new JLabel(bg.getFighter()[indx].pokemon.getName()+"     lvl:"+bg.getFighter()[indx].pokemon.getStats().getLvl()+"     hp:"+(String.format("%.2f",bg.getFighter()[indx].pokemon.getStats().getHp())));
         this.bGUI=this;
+        this.bGUIns=this;
+
         labelName.setOpaque(true);
         
 
@@ -121,6 +125,25 @@ public class BattleGUI extends JFrame {		//di chi è il turno
                 }
                 label.setLocation(label.getX(), yCoordinate); // Imposta la nuova posizione
                 label2.setLocation(label2.getX(), yCoordinate);
+                
+                
+                
+//                if(atk==true) {
+//                	if(o==0) {
+//                		label.setLocation(label.getX()+25,label.getY()-30);
+//                		attack(label,atk,o);
+//                		
+//                		
+//                		
+//                	}
+//                	else if(o==1){
+//                		label2.setLocation(label2.getX()-25,label.getY()+30);
+//                		attack(label2,atk,o);
+//                		
+//                	}
+//                }
+                
+                
                 
             }
         });
@@ -304,8 +327,13 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         mainPanel.repaint();
         abilityPanel.revalidate();
         abilityPanel.repaint();
+        labelName0.revalidate();
+        labelName1.repaint();
+        p003.revalidate();
+        p003.repaint();
+        p005.revalidate();
+        p005.repaint();
     }
-
     
     public void makeButtons(JPanel abilityPanel, int index, boolean bool) {
     for (int i = 0; i <= 3; i++) {
@@ -319,6 +347,16 @@ public class BattleGUI extends JFrame {		//di chi è il turno
                 setBut(i, button, move,index);
     }}
 
+    public int getIndx() {
+    	return indx;
+    }
+    public int getIndx2() {
+    	return indx2;
+    }
+    
+    public void close() {
+    	dispose();
+    }
     
     public void setBut(int i, JButton button, Move move, int index){
 	if(move!=null) {button.setText(move.toString()+" "+move.getPp()+"/"+move.getPp()+" "+move.getType().toString());
@@ -328,7 +366,7 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         	bg.turnOption(indx, new Choice(Choice.Option.MOVE,i));;
         	if (indx==1) {bg.executeTurn();}
         	new BattleGUI(bg,indx2);
-        	bGUI.dispose();
+        	close();
         }
     });;}else{button.setText("////");};
 	}
