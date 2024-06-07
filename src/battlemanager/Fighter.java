@@ -22,4 +22,12 @@ public class Fighter {
 				return true;
 		return false;
 	}
+	
+	public void turnPass() {
+		for (int i = event.size() - 1; i >= 0; i--) {
+	        if (event.get(i).pass() <= 0) {
+	            event.remove(i);
+	        }
+	    }
+	}
 }

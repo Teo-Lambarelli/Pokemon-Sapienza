@@ -210,7 +210,7 @@ public class BattleManager {
 			int p1 = 6;
 			if (f1.choice.option == Choice.Option.MOVE) {
 				Move m1 = f1.pokemon.getMoves()[f1.choice.index];
-				p0 = m1.getPriority();
+				p1 = m1.getPriority();
 			}
 			
 			if (p0 > p1)
@@ -254,6 +254,9 @@ public class BattleManager {
 		// Data
 		Move move = fighter.pokemon.getMoves()[fighter.choice.index];
 		Random rng = new Random();
+		
+		// Remove 1 PP
+		fighter.pokemon.setPP(fighter.pokemon.getPP(fighter.choice.index), fighter.choice.index);
 		
 		// Accuracy calculation
 		double percent = move.getAcc() + fighter.statsChange.accuracy - fighter.opponent.statsChange.evasion;
@@ -448,6 +451,62 @@ public class BattleManager {
 		}
 	}
 	
+	private void executeFighterEvent(Fighter fighter) {
+		if (fighter.has(EventType.FIRE_SPIN)) {
+			Fighter opponent = fighter.opponent;
+			Move move = Move.FIRE_SPIN;
+			Random rng = new Random();
+			
+			double levelDamage = (opponent.pokemon.getStats().getLvl() * 2 / 5) + 2;
+			
+			double moveDamage = move.getDmg();
+			
+			double atk = 1, def = 1;
+			
+			if (move.getCat() == Category.PHYSICAL) {
+				atk = getCurrentAtk(opponent);
+				def = getCurrentDef(fighter);
+			}
+			else if (move.getCat() == Category.SPECIAL) {
+				atk = getCurrentSatk(opponent);
+				def = getCurrentSdef(fighter);
+			}
+			
+			double statDamage = atk / def;
+			
+			double baseDamage = (levelDamage * moveDamage * statDamage / 50) + 2;
+			
+			// weatherDamage
+			
+			double randomDamage = (rng.nextDouble(RANDOM_DAMAGE_RANGE + 1) + RANDOM_DAMAGE_SCALE - RANDOM_DAMAGE_RANGE) / 100;
+			
+			double stabDamage = 1;
+			if (move.getType() == opponent.pokemon.getType0() || move.getType() == opponent.pokemon.getType1())
+				stabDamage = 1.5;
+			
+			double typeDamage = Typechart.typechart[move.getType().getValue()][fighter.pokemon.getType0().getValue()];
+			if (fighter.pokemon.getType1() != null)
+				typeDamage *= Typechart.typechart[move.getType().getValue()][fighter.pokemon.getType1().getValue()];
+			
+			// burnDamage
+			
+			// TOTAL DAMAGE
+			double totalDamage = baseDamage * randomDamage * stabDamage * typeDamage;
+			
+			// Deal damage
+			fighter.pokemon.damage(totalDamage);
+			
+			System.out.println("-------------------------------------------------------------------------");
+			System.out.println(fighter.pokemon.getName() + " prende i danni di " + move.toString());
+			System.out.println("Danno totale: " + totalDamage);
+			System.out.println("Danno base: " + baseDamage);
+			System.out.println("Danno casuale: " + randomDamage);
+			System.out.println("Danno STAB: " + stabDamage);
+			System.out.println("Danno tipo: " + typeDamage);
+			System.out.println("-------------------------------------------------------------------------");
+		}
+	}
+	
 	public void executeTurn() {
 		Fighter[] turnOrder = getTurnOrder();
 
@@ -459,61 +518,8 @@ public class BattleManager {
 		
 		//EXECUTE EVENT
 		for (Fighter f : turnOrder) {
-			
-			//EXECUTE FIRE_SPIN EVENT
-			if (f.has(EventType.FIRE_SPIN)) {
-				Fighter fighter = f.opponent;
-				Move move = Move.FIRE_SPIN;
-				Random rng = new Random();
-				
-				double levelDamage = (fighter.pokemon.getStats().getLvl() * 2 / 5) + 2;
-				
-				double moveDamage = move.getDmg();
-				
-				double atk = 1, def = 1;
-				
-				if (move.getCat() == Category.PHYSICAL) {
-					atk = getCurrentAtk(fighter);
-					def = getCurrentDef(fighter.opponent);
-				}
-				else if (move.getCat() == Category.SPECIAL) {
-					atk = getCurrentSatk(fighter);
-					def = getCurrentSdef(fighter.opponent);
-				}
-				
-				double statDamage = atk / def;
-				
-				double baseDamage = (levelDamage * moveDamage * statDamage / 50) + 2;
-				
-				// weatherDamage
-				
-				double randomDamage = (rng.nextDouble(RANDOM_DAMAGE_RANGE + 1) + RANDOM_DAMAGE_SCALE - RANDOM_DAMAGE_RANGE) / 100;
-				
-				double stabDamage = 1;
-				if (move.getType() == fighter.pokemon.getType0() || move.getType() == fighter.pokemon.getType1())
-					stabDamage = 1.5;
-				
-				double typeDamage = Typechart.typechart[move.getType().getValue()][fighter.opponent.pokemon.getType0().getValue()];
-				if (fighter.opponent.pokemon.getType1() != null)
-					typeDamage *= Typechart.typechart[move.getType().getValue()][fighter.opponent.pokemon.getType1().getValue()];
-				
-				// burnDamage
-				
-				// TOTAL DAMAGE
-				double totalDamage = baseDamage * randomDamage * stabDamage * typeDamage;
-				
-				// Deal damage
-				fighter.opponent.pokemon.damage(totalDamage);
-				
-				System.out.println("-------------------------------------------------------------------------");
-				System.out.println(fighter.opponent.pokemon.getName() + " prende i danni di " + move.toString());
-				System.out.println("Danno totale: " + totalDamage);
-				System.out.println("Danno base: " + baseDamage);
-				System.out.println("Danno casuale: " + randomDamage);
-				System.out.println("Danno STAB: " + stabDamage);
-				System.out.println("Danno tipo: " + typeDamage);
-				System.out.println("-------------------------------------------------------------------------");
-			}
+			executeFighterEvent(f);
+			f.turnPass();
 		}
 	}
 }

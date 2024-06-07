@@ -8,6 +8,7 @@ public abstract class Pokemon {
 	public final String BACKSPRITE;
 	private Stats stats;
 	private Move[] moves;
+	private int[] pp;
 	private String name;
 	private Type type0;
 	private Type type1=null;
@@ -18,13 +19,15 @@ public abstract class Pokemon {
 	private Ability ability;
 	private StatusEffect STATUS_EFFECT;
 	
+	public final static int MAX_MOVES = 4;
+	
 	
 	
 	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability,Map<Integer, Move> PECULIARMOVES,String FRONTSPRITE,String BACKSPRITE){
 		this.name=name;
 		this.type0=type0;
 		this.type1=type1;
-		this.moves=new Move[4];
+		this.moves=new Move[MAX_MOVES];
 		this.REWARD_LVL=REWARD_LVL; 
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
 		this.PECULIARMOVES=PECULIARMOVES;
@@ -40,7 +43,7 @@ public abstract class Pokemon {
 	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability,Map<Integer, Move> PECULIARMOVES,String FRONTSPRITE,String BACKSPRITE){
 		this.name=name;
 		this.type0=type0;
-		this.moves=new Move[4];
+		this.moves=new Move[MAX_MOVES];
 		this.REWARD_LVL=REWARD_LVL;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);	
 		this.PECULIARMOVES=PECULIARMOVES;
@@ -56,7 +59,7 @@ public abstract class Pokemon {
 		this.name=name;
 		this.type0=type0;
 		this.type1=type1;
-		this.moves=new Move[4];
+		this.moves=new Move[MAX_MOVES];
 		this.REWARD_LVL=REWARD_LVL;
 		this.moves=moves;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
@@ -71,7 +74,7 @@ public abstract class Pokemon {
 	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL,Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, Ability ability,Map<Integer, Move> PECULIARMOVES,String FRONTSPRITE,String BACKSPRITE){
 		this.name=name;
 		this.type0=type0;
-		this.moves=new Move[4];
+		this.moves=new Move[MAX_MOVES];
 		this.REWARD_LVL=REWARD_LVL;
 		this.moves=moves;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);	
@@ -87,7 +90,7 @@ public abstract class Pokemon {
 		this.name=name;
 		this.type0=type0;
 		this.type1=type1;
-		this.moves=new Move[4];
+		this.moves=new Move[MAX_MOVES];
 		this.REWARD_LVL=REWARD_LVL;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
 		this.PECULIARMOVES=PECULIARMOVES;
@@ -103,7 +106,7 @@ public abstract class Pokemon {
 	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability,Map<Integer, Move> PECULIARMOVES,String FRONTSPRITE,String BACKSPRITE){
 		this.name=name;
 		this.type0=type0;
-		this.moves=new Move[4];
+		this.moves=new Move[MAX_MOVES];
 		this.REWARD_LVL=REWARD_LVL;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
 		this.PECULIARMOVES=PECULIARMOVES;
@@ -120,7 +123,7 @@ public abstract class Pokemon {
 		this.name=name;
 		this.type0=type0;
 		this.type1=type1;
-		this.moves=new Move[4];
+		this.moves=new Move[MAX_MOVES];
 		this.REWARD_LVL=REWARD_LVL;
 		this.moves=moves;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);
@@ -135,7 +138,7 @@ public abstract class Pokemon {
 	Pokemon(String name, Type type0, HashMap<Integer, Move> REWARD_LVL,Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability,Map<Integer, Move> PECULIARMOVES,String FRONTSPRITE,String BACKSPRITE){
 		this.name=name;
 		this.type0=type0;
-		this.moves=new Move[4];
+		this.moves=new Move[MAX_MOVES];
 		this.REWARD_LVL=REWARD_LVL;
 		this.moves=moves;
 		this.stats=new Stats(baseHp,baseAtk,baseDef,baseSatk,baseSdef,baseSpd,lvl,xp);	
@@ -167,6 +170,13 @@ public abstract class Pokemon {
 			
 		}
 
+	}
+	
+	public void resetPP() {
+		pp = new int[MAX_MOVES];
+		for (int i = 0; i < MAX_MOVES; i++)
+			if (moves[i] != null)
+				pp[i] = moves[i].getPp();
 	}
 	
 	
@@ -244,6 +254,14 @@ public abstract class Pokemon {
 	
 	public void heal(double hl) {
 		this.getStats().setHp(this.getStats().getHp()+hl);
+	}
+	
+	public int getPP(int i) {
+		return pp[i];
+	}
+	
+	public void setPP(int pp, int i) {
+		this.pp[i] = pp;
 	}
 	
 	public class Stats{
