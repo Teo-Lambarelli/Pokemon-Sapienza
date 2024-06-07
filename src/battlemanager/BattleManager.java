@@ -1,11 +1,21 @@
 package battlemanager; import pokemon.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
-import java.util.Random; import moves.*; import types.*;
+import java.util.Random;
+
+import javax.swing.Timer;
+
+import frame.Atkmn;
+import frame.BattleGUI;
+import moves.*; import types.*;
 
 public class BattleManager {
-	private Fighter[] fighter;
+	private  Fighter[] fighter;
+	private int counter=0;
 	private int turnCounter;
+	private int c=0;
 	public final static double STAB_VALUE=1.3;
 	public final static int ON_FIELD = 2;
 	public final static int PLAYER1_FIGHTER_SLOT = 0;
@@ -41,12 +51,23 @@ public class BattleManager {
 		 */
 	}
 	
+	public void setTeam0(Team team0) {
+		this.team0=team0;
+	}
+	public void setTeam1(Team team1) {
+		this.team0=team1;
+	}
+	
 	public void startTurnEffects() {
 		
 	}
 	
 	public Fighter[] getFighter() {
 		return fighter;
+	}
+	
+	public void setFighter(Pokemon pkmn, Team team,int index) {
+		fighter[index]=new Fighter(pkmn, team);
 	}
 	
 	public void turnOption(int index, Choice choice) {
@@ -203,9 +224,17 @@ public class BattleManager {
 		}
 		else {
 			int p0 = 6;
+			
+//			System.out.println(f0.choice.option);
+			
 			if (f0.choice.option == Choice.Option.MOVE) {
 				Move m0 = f0.pokemon.getMoves()[f0.choice.index];
+				
+				
+				
 				p0 = m0.getPriority();
+				
+				
 			}
 			int p1 = 6;
 			if (f1.choice.option == Choice.Option.MOVE) {
@@ -380,7 +409,7 @@ public class BattleManager {
 				fighter.opponent.pokemon.damage(totalDamage);
 				System.out.println("-------------------------------------------------------------------------");
 				System.out.println(fighter.pokemon.getName() + " ha colpito il suo bersaglio " + fighter.opponent.pokemon.getName() + " usando " + move.toString());
-				System.out.println("Danno totale: " + totalDamage);
+				System.out.println("Danno totale: " + (String.format("%.2f",totalDamage)));
 				System.out.println("Danno base: " + baseDamage);
 				System.out.println("Danno critico: " + criticalDamage);
 				System.out.println("Danno casuale: " + randomDamage);
@@ -428,10 +457,20 @@ public class BattleManager {
 	
 	public void executeAction(Fighter fighter) {
 		if (fighter.choice.option == Choice.Option.MOVE) {
-			// Attack the enemy!
-			// TODO: ANIMATION
-			executeAttack(fighter);
+			boolean cbg=false;
+			if (counter==1) {cbg=true;}
+			int mauro=1;
+			if(fighter==this.fighter[0]) {mauro=0;}
+			new Atkmn(this.fighter[0],this.fighter[1],mauro,false, this, cbg);
+			if (counter==1) {cbg=true;counter=0;}
+			else {counter++;}
+//			executeAttack(fighter);
+			
+			
+			
+			
 		}
+		
 		else if (fighter.choice.option == Choice.Option.SWITCH) {
 			// Switch out pokemon!
 			// TODO: ANIMATION
@@ -444,10 +483,18 @@ public class BattleManager {
 				System.out.println(fighter.pokemon.getName() + " non è stato in grado di scambiare perché sotto l'effetto di FIRE_SPIN");
 				System.out.println("-------------------------------------------------------------------------");
 			}
-		}
-		else if (fighter.choice.option == Choice.Option.FLEE) {
-			// ESCAPE! RUUUN!
-			// TODO: END FIGHT
+			
+			int mauro=1;
+			if(fighter==this.fighter[0]) {mauro=0;}
+
+			Pokemon[] appoggio=new Pokemon[1];
+			appoggio[0]=fighter.pokemon;
+			fighter.pokemon = fighter.team.pokemon.get(fighter.choice.index);
+			fighter.team.setPkmn(appoggio[0],fighter.choice.index);
+			this.setFighter(fighter.pokemon,fighter.team , mauro);
+			if (counter==1) {new BattleGUI(this,0);counter=0;}
+			counter++;
+			fighter.statsChange.statsReset();
 		}
 	}
 	
@@ -509,10 +556,94 @@ public class BattleManager {
 	
 	public void executeTurn() {
 		Fighter[] turnOrder = getTurnOrder();
-
+		
 		for (Fighter f : turnOrder)
 			System.out.println(f.pokemon);
 		
+		
+		
+		if(turnOrder[0].choice.option==Choice.Option.MOVE && turnOrder[1].choice.option==Choice.Option.MOVE) {
+			
+			
+				boolean scambio=true;
+				if(turnOrder[0]==fighter[0]) {scambio=false;}
+			
+				
+				int mauro=0;
+				if(fighter[0].pokemon==turnOrder[1].pokemon) {mauro=1;}
+				new Atkmn(fighter[0],fighter[1],mauro,true, this, false);
+		}
+		
+		else {
+//		
+//		if(turnOrder[0].choice.option==Choice.Option.SWITCH && turnOrder[1].choice.option==Choice.Option.MOVE) {
+//			
+//			
+//				int mauro=1;
+//				if(fighter[0].pokemon==turnOrder[1].pokemon) {mauro=0;}
+//			
+//				
+//			
+//				int giovanni=0;
+//				if(mauro==0) {giovanni=1;}
+//				
+//				Pokemon[] appoggio=new Pokemon[1];
+//				appoggio[0]=turnOrder[0].pokemon;
+//				turnOrder[0].pokemon = turnOrder[0].team.pokemon.get(turnOrder[0].choice.index);
+//				turnOrder[0].team.setPkmn(appoggio[0],turnOrder[1].choice.index);
+//				this.setFighter(turnOrder[0].pokemon,turnOrder[0].team , giovanni);
+//			
+////				Pokemon[] appoggio=new Pokemon[1];
+////				appoggio[0]=turnOrder[0].pokemon;
+////				turnOrder[0].pokemon = turnOrder[0].team.pokemon.get(turnOrder[0].choice.index);
+////				turnOrder[0].team.setPkmn(appoggio[0],turnOrder[0].choice.index);
+//
+//				
+//				new Atkmn(fighter[0],fighter[1],mauro,false, this);
+//	}
+//		
+//		if(turnOrder[0].choice.option==Choice.Option.MOVE && turnOrder[1].choice.option==Choice.Option.SWITCH) {		
+//
+//
+//				int mauro=1;
+//				if(fighter[0].pokemon==turnOrder[0].pokemon) {mauro=0;}
+//				new Atkmn(fighter[1],fighter[0],mauro,false, this);
+//		    
+//				int giovanni=0;
+//				if(mauro==0) {giovanni=1;}
+//		        Pokemon[] appoggio=new Pokemon[1];
+//				appoggio[0]=turnOrder[1].pokemon;
+//				turnOrder[1].pokemon = turnOrder[1].team.pokemon.get(turnOrder[1].choice.index);
+//				turnOrder[1].team.setPkmn(appoggio[0],turnOrder[1].choice.index);
+//				this.setFighter(turnOrder[1].pokemon,turnOrder[1].team , giovanni);
+//				
+//	}
+//		
+//		if(turnOrder[0].choice.option==Choice.Option.SWITCH && turnOrder[1].choice.option==Choice.Option.SWITCH) {
+//			
+//			
+//				Pokemon[] appogg=new Pokemon[1];
+//				appogg[0]=turnOrder[0].pokemon;
+//				turnOrder[0].pokemon = turnOrder[0].team.pokemon.get(turnOrder[0].choice.index);
+//				turnOrder[0].team.setPkmn(appogg[0],turnOrder[0].choice.index);
+//
+//			
+//		       
+//		        Pokemon[] appoggio=new Pokemon[1];
+//				appoggio[0]=turnOrder[1].pokemon;
+//				turnOrder[1].pokemon = turnOrder[1].team.pokemon.get(turnOrder[1].choice.index);
+//				turnOrder[1].team.setPkmn(appoggio[0],turnOrder[1].choice.index);
+//				
+//				new BattleGUI(this,0);
+//				
+//	}
+		
+		
+		
+		
+		
+		
+//		else {
 		for (Fighter f : turnOrder)
 			executeAction(f);
 		

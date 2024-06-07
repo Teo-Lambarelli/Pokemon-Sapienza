@@ -26,11 +26,24 @@ public class Team {
 		return pokemon.toArray(array);
 	}
 	
+	public String getName() {
+		return player_name;
+	}
 	
 	public void printTeamInfo() {
 		for (Pokemon elem:pokemon) {
 			System.out.println(elem.getName());
 		}
+	}
+	
+	public void setPkmn(Pokemon poke, int index) {
+		
+		Pokemon[] pkmn=new Pokemon[pokemon.size()];
+		pkmn=getArrayTeam();
+		pkmn[index]=poke;
+		this.pokemon=new ArrayList<Pokemon>(Arrays.asList(pkmn));
+		
+		
 	}
 
 }
