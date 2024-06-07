@@ -12,7 +12,7 @@ import frame.BattleGUI;
 import moves.*; import types.*;
 
 public class BattleManager {
-	private Fighter[] fighter;
+	private  Fighter[] fighter;
 	private int counter=0;
 	private int turnCounter;
 	private int c=0;
@@ -454,58 +454,42 @@ public class BattleManager {
 	
 	public void executeAction(Fighter fighter) {
 		if (fighter.choice.option == Choice.Option.MOVE) {
-			// Attack the enemy!
-			// TODO: ANIMATION
-//			if (counter==1) {counter=0;}
-//			if (counter==0) {counter++;}
-			
-			
-		       Timer timer = new Timer(100, new ActionListener() {
-		           @Override
-		           public void actionPerformed(ActionEvent e) {
-		        	   if(counter==0){
-		        		   if(c==0) {new Atkmn(fighter.pokemon,fighter.opponent.pokemon,0,false);counter++;c++;}
-		        		   if(c==1) {new Atkmn(fighter.opponent.pokemon,fighter.pokemon,1,false);counter++;c=0;}
-		        	   }
-		        	   else if(counter>0 && counter<130) {;counter++;}
-		        	   
-		           }});
-		       timer.start(); // Avvia il timer
-
-			
-			
-			
-			executeAttack(fighter);
+			boolean cbg=false;
+			if (counter==1) {cbg=true;}
+			int mauro=1;
+			if(fighter==this.fighter[0]) {mauro=0;}
+			new Atkmn(this.fighter[0],this.fighter[1],mauro,false, this, cbg);
+			if (counter==1) {cbg=true;counter=0;}
+			else {counter++;}
+//			executeAttack(fighter);
 			
 			
 			
 			
 		}
+		
 		else if (fighter.choice.option == Choice.Option.SWITCH) {
-			// Switch out pokemon!
-			// TODO: ANIMATION
-//			if (counter==1) {counter=0;}
-//			if (counter==0) {counter++;}
+			
+			int mauro=1;
+			if(fighter==this.fighter[0]) {mauro=0;}
+
 			Pokemon[] appoggio=new Pokemon[1];
 			appoggio[0]=fighter.pokemon;
 			fighter.pokemon = fighter.team.pokemon.get(fighter.choice.index);
 			fighter.team.setPkmn(appoggio[0],fighter.choice.index);
-			BattleGUI.bGUI.dispose();
-			new BattleGUI(this,0);
-
-			
-			
+			this.setFighter(fighter.pokemon,fighter.team , mauro);
+			if (counter==1) {new BattleGUI(this,0);counter=0;}
+			counter++;
 			fighter.statsChange.statsReset();
-		}
-		else if (fighter.choice.option == Choice.Option.FLEE) {
-			// ESCAPE! RUUUN!
-			// TODO: END FIGHT
-		}
-	}
+		
+			
+			
+			
+	}}
 	
 	public void executeTurn() {
 		Fighter[] turnOrder = getTurnOrder();
-
+		
 		for (Fighter f : turnOrder)
 			System.out.println(f.pokemon);
 		
@@ -513,56 +497,88 @@ public class BattleManager {
 		
 		if(turnOrder[0].choice.option==Choice.Option.MOVE && turnOrder[1].choice.option==Choice.Option.MOVE) {
 			
+			
+				boolean scambio=true;
+				if(turnOrder[0]==fighter[0]) {scambio=false;}
+			
+				
 				int mauro=0;
 				if(fighter[0].pokemon==turnOrder[1].pokemon) {mauro=1;}
-		       new Atkmn(fighter[0].pokemon,fighter[1].pokemon,mauro,true);
-
-			
+				new Atkmn(fighter[0],fighter[1],mauro,true, this, false);
 		}
 		
-		if(turnOrder[0].choice.option==Choice.Option.SWITCH && turnOrder[1].choice.option==Choice.Option.MOVE) {
-			
-			Pokemon[] appoggio=new Pokemon[1];
-			appoggio[0]=turnOrder[0].pokemon;
-			turnOrder[0].pokemon = turnOrder[0].team.pokemon.get(turnOrder[0].choice.index);
-			turnOrder[0].team.setPkmn(appoggio[0],turnOrder[0].choice.index);
-			BattleGUI.bGUI.dispose();
-
-			
-			
-			int mauro=1;
-			if(fighter[0].pokemon==turnOrder[1].pokemon) {mauro=0;}
-			
-			new Atkmn(fighter[0].pokemon,fighter[1].pokemon,mauro,false);
-		       executeAttack(turnOrder[1]);
-		
-	}
-		
-		
-		if(turnOrder[0].choice.option==Choice.Option.MOVE && turnOrder[1].choice.option==Choice.Option.SWITCH) {
-			
-
-
-			int mauro=1;
-			if(fighter[0].pokemon==turnOrder[0].pokemon) {mauro=0;}
-			
-			new Atkmn(fighter[1].pokemon,fighter[0].pokemon,mauro,false);
-		       executeAttack(turnOrder[0]);
-		
-		       
-		       Pokemon[] appoggio=new Pokemon[1];
-				appoggio[0]=turnOrder[1].pokemon;
-				turnOrder[1].pokemon = turnOrder[1].team.pokemon.get(turnOrder[1].choice.index);
-				turnOrder[1].team.setPkmn(appoggio[0],turnOrder[1].choice.index);
-				BattleGUI.bGUI.dispose();
-	}
-		
-		
-		
-
-		
 		else {
+//		
+//		if(turnOrder[0].choice.option==Choice.Option.SWITCH && turnOrder[1].choice.option==Choice.Option.MOVE) {
+//			
+//			
+//				int mauro=1;
+//				if(fighter[0].pokemon==turnOrder[1].pokemon) {mauro=0;}
+//			
+//				
+//			
+//				int giovanni=0;
+//				if(mauro==0) {giovanni=1;}
+//				
+//				Pokemon[] appoggio=new Pokemon[1];
+//				appoggio[0]=turnOrder[0].pokemon;
+//				turnOrder[0].pokemon = turnOrder[0].team.pokemon.get(turnOrder[0].choice.index);
+//				turnOrder[0].team.setPkmn(appoggio[0],turnOrder[1].choice.index);
+//				this.setFighter(turnOrder[0].pokemon,turnOrder[0].team , giovanni);
+//			
+////				Pokemon[] appoggio=new Pokemon[1];
+////				appoggio[0]=turnOrder[0].pokemon;
+////				turnOrder[0].pokemon = turnOrder[0].team.pokemon.get(turnOrder[0].choice.index);
+////				turnOrder[0].team.setPkmn(appoggio[0],turnOrder[0].choice.index);
+//
+//				
+//				new Atkmn(fighter[0],fighter[1],mauro,false, this);
+//	}
+//		
+//		if(turnOrder[0].choice.option==Choice.Option.MOVE && turnOrder[1].choice.option==Choice.Option.SWITCH) {		
+//
+//
+//				int mauro=1;
+//				if(fighter[0].pokemon==turnOrder[0].pokemon) {mauro=0;}
+//				new Atkmn(fighter[1],fighter[0],mauro,false, this);
+//		    
+//				int giovanni=0;
+//				if(mauro==0) {giovanni=1;}
+//		        Pokemon[] appoggio=new Pokemon[1];
+//				appoggio[0]=turnOrder[1].pokemon;
+//				turnOrder[1].pokemon = turnOrder[1].team.pokemon.get(turnOrder[1].choice.index);
+//				turnOrder[1].team.setPkmn(appoggio[0],turnOrder[1].choice.index);
+//				this.setFighter(turnOrder[1].pokemon,turnOrder[1].team , giovanni);
+//				
+//	}
+//		
+//		if(turnOrder[0].choice.option==Choice.Option.SWITCH && turnOrder[1].choice.option==Choice.Option.SWITCH) {
+//			
+//			
+//				Pokemon[] appogg=new Pokemon[1];
+//				appogg[0]=turnOrder[0].pokemon;
+//				turnOrder[0].pokemon = turnOrder[0].team.pokemon.get(turnOrder[0].choice.index);
+//				turnOrder[0].team.setPkmn(appogg[0],turnOrder[0].choice.index);
+//
+//			
+//		       
+//		        Pokemon[] appoggio=new Pokemon[1];
+//				appoggio[0]=turnOrder[1].pokemon;
+//				turnOrder[1].pokemon = turnOrder[1].team.pokemon.get(turnOrder[1].choice.index);
+//				turnOrder[1].team.setPkmn(appoggio[0],turnOrder[1].choice.index);
+//				
+//				new BattleGUI(this,0);
+//				
+//	}
+		
+		
+		
+		
+		
+		
+//		else {
 		for (Fighter f : turnOrder)
 			executeAction(f);}}
 	
+//}
 }

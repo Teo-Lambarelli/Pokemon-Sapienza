@@ -30,7 +30,7 @@ public class Charmander extends Pokemon{
     
 
 
-	public Charmander(int lvl) {//  	 				    hp    atk   def   satk  sdef spd lvl xp
+	public Charmander(int lvl) {//  	 			hp    atk   def   satk  sdef spd lvl xp
 		super("Charmander", Type.FIRE, REWARD_LVL,  39.0, 52.0, 43.0, 60.0, 50.0, 65.0,lvl,0,"Charmeleon", 16, Ability.BLAZE,PECULIARMOVES, FRONTSPRITE,BACKSPRITE); 
 		
 		

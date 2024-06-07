@@ -8,9 +8,12 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import battlemanager.BattleManager;
+import battlemanager.Fighter;
 import pokemon.Pokemon;
 
 public class Atkmn extends JFrame{
@@ -20,18 +23,27 @@ public class Atkmn extends JFrame{
 	private Pokemon pokemon0;
 	private Pokemon pokemon1;
 	private boolean another;
+	private Fighter fighter0;
+	private Fighter fighter1;
+	private BattleManager bg;
+	boolean cbg;
 	private int i;
 	private int c=60;
 	private BackgroundPanel p=new BackgroundPanel(image);
 	private final static ImageIcon icon = new ImageIcon("src/sprites/atkanm.png");
     private final static Image image = icon.getImage();
-	public Atkmn(Pokemon pokemon0, Pokemon pokemon1,int i, boolean another) {
-		this.pokemon0=pokemon0;
-		this.pokemon1=pokemon1;
+	public Atkmn(Fighter fighter0, Fighter fighter1,int i, boolean another, BattleManager bg, boolean cbg) {
+		this.bg=bg;
+		this.cbg=cbg;
+		this.pokemon0=fighter0.pokemon;
+		this.pokemon1=fighter1.pokemon;
+		this.fighter0=fighter0;
+		this.fighter0=fighter1;
 		this.another=another;
 		this.sprite0=pokemon0.getBackSprite();
 		this.sprite1=pokemon1.getFrontSprite();
-
+		fighter1.opponent=fighter0;
+		fighter0.opponent=fighter1;
 		JLabel s0=new JLabel();
 		JLabel s1=new JLabel();
 		
@@ -81,7 +93,7 @@ public class Atkmn extends JFrame{
 	       Timer timer = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+        	boolean deathCheck=false;
         	if(c<100) {
         	c++;
         	}
@@ -101,38 +113,67 @@ public class Atkmn extends JFrame{
         	
         	
         	else if (c==135){
+        		
+        		if (i==0) {bg.executeAttack(fighter0);bg.setFighter(fighter1.pokemon, fighter1.team, 1);
+        		
+        			
+        		
+        			if(fighter0.opponent.pokemon.getStats().getHp()<=0) {
+        				
+
+        				deathCheck=true;
+        		        pokeDeath(fighter0, 0);
+        				
+        				
+        				
+        			}
+        			
+        			p003.revalidate();
+                    p003.repaint();
+                    p002.revalidate();
+                    p002.repaint();
+
+        		}
+        		
+
+        		if (i==1) {bg.executeAttack(fighter1);bg.setFighter(fighter0.pokemon, fighter0.team, 0);}
+        		
+    			if(fighter1.opponent.pokemon.getStats().getHp()<=0) {
+    				
+
+    				deathCheck=true;
+    		        pokeDeath(fighter1, 0);
+    				
+    				
+    				
+    			}
+        		
+        		p003.revalidate();
+                p003.repaint();
+                p002.revalidate();
+                p002.repaint();
+                
+                
+				
         		int m=0;
         		if(i==0) {m=1;}
-        		if (another==true) {new Atkmn(pokemon0,pokemon1,m,false);}
+        		
+        		if(deathCheck==false) {
+        		if (another==true) {new Atkmn(fighter0,fighter1,m,false, bg, true);}
+        		else if (another==false && cbg==true) {new BattleGUI(bg,0);}
+        		}
+        		else{new BattleGUI(bg,0);}
+        		
+        		
         		c++;
         	}
         	else {
         		dispose();
+        		
         	}
         }});
     timer.start(); // Avvia il timer
         
-        
-       
-        
-        
-        
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
-		
-		
-		
-		
-		
 	    p001.add(s1);
 	    p000.add(s0);
 	    this.add(p000);
@@ -141,9 +182,28 @@ public class Atkmn extends JFrame{
 		this.setUndecorated(true); 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null); // Centra la finestra
         this.setVisible(true);
         this.setAlwaysOnTop(true);
 	}
+	
+	public void pokeDeath(Fighter fighter,int i) {
+		if(i==6) {}  //TODO finisci partita
+		else if (fighter.opponent.team.getArrayTeam()[i].getStats().getHp()<=0) {pokeDeath(fighter,i+1);}
+		else {
+			int opp=0;
+			if(fighter==bg.getFighter()[0]) {opp=1;}
+			
+			
+			
+		Pokemon[] appoggio=new Pokemon[1];
+		appoggio[0]=fighter.opponent.pokemon;
+		fighter.opponent.pokemon = fighter.opponent.team.getArrayTeam()[i];
+		fighter.opponent.team.setPkmn(appoggio[0],i);
+		bg.setFighter(fighter.opponent.pokemon, fighter.opponent.team, opp);
+		
+		}
+	}
+	
+	
 
 }

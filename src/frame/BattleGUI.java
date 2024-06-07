@@ -363,9 +363,9 @@ public class BattleGUI extends JFrame {		//di chi è il turno
 	button.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-        	bg.turnOption(indx, new Choice(Choice.Option.MOVE,i));;
+        	bg.turnOption(indx, new Choice(Choice.Option.MOVE,i));	
         	if (indx==1) {bg.executeTurn();}
-        	new BattleGUI(bg,indx2);
+        	if(indx!=1) {new BattleGUI(bg,indx2);}
         	close();
         }
     });;}else{button.setText("////");};
