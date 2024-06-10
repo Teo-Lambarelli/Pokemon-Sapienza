@@ -619,9 +619,7 @@ public class BattleManager {
 			fighter.pokemon.getStats().giveLvl(1);
 			}
 		if(fighter.pokemon.getEvolutionLvl()<101 && fighter.pokemon.getEvolutionLvl()==fighter.pokemon.getStats().getLvl()) {
-			double xp = fighter.pokemon.getStats().getXp();
-			fighter.pokemon=Pokemon.createPokemon(fighter.pokemon.getEvolution(), fighter.pokemon.getStats().getLvl());
-			fighter.pokemon.getStats().setXp(xp);//TODO la func da str a pkmn
+			fighter.pokemon=fighter.pokemon.getEvolution(); //TODO la func da str a pkmn
 		}
 		int m=0;
 		if(i==0) {m=1;}

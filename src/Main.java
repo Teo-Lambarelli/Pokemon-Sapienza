@@ -8,8 +8,8 @@ import moves.*;
 public class Main {
 
 	public static void main(String[] args) {
-//		new BackGroundFrame();
-//		MenuGUI n=new MenuGUI();
+		new BackGroundFrame();
+		MenuGUI n=new MenuGUI();
 //		new Atkmn(new Charmander(3),new Pikachu(3),1,true);
 		//BattleGUI m1=new BattleGUI();
 		//PokemonButtonBox x=new PokemonButtonBox();
@@ -17,17 +17,15 @@ public class Main {
 	
 		
 
-		Team team0=new Team(
-			new Pokemon[]{
-					
-			new Charizard(30),
-			new Charmander(8),
-			new Bulbasaur(6),
-			new Charmander(5),
-			new Charmander(8),
-			new Bulbasaur(6)},"obamna");
-		
-		SafeManager.safeFile(team0);
+//		Team team0=new Team(
+//			new Pokemon[]{
+//					
+//			new Charizard(30),
+//			new Charmander(8),
+//			new Bulbasaur(6),
+//			new Charmander(5),
+//			new Charmander(8),
+//			new Bulbasaur(6)},"obamna");
 //		
 //		Team team1=new Team(
 //				new Pokemon[]{
