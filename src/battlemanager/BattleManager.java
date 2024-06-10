@@ -24,6 +24,7 @@ public class BattleManager {
 	public final static int CRITICAL_DAMAGE = 2;
 	public final static int RANDOM_DAMAGE_SCALE = 100;
 	public final static int RANDOM_DAMAGE_RANGE = 25;
+	public final static double BURN_PERCCENT_DAMAGE = 16;
 	private Team team0;
 	private Team team1;
 	
@@ -431,6 +432,28 @@ public class BattleManager {
 						else
 							System.out.println("Effetto: L'effetto non si è attivvato");
 						break;
+					case Move.FLARE_BLITZ:
+						fighter.pokemon.damage(totalDamage/2);
+						System.out.println("Effetto: L'utilizzatore prende metà del danno fatto");
+						
+						if (rng.nextInt(10) == 0)
+							if (fighter.opponent.pokemon.getStatusEffect() == StatusEffect.DEFAULT) {
+								fighter.opponent.pokemon.setStatusEffect(StatusEffect.BURN);
+								System.out.println("Effetto: L'avversario è stato bruiato");
+							}
+							else
+								System.out.println("Effetto: L'avversario ha già uno effetto di stato e non può essere bruciato");
+						else
+							System.out.println("Effetto: L'effetto non si è attivvato");
+						break;
+					case Move.INFERNO:
+						if (fighter.opponent.pokemon.getStatusEffect() == StatusEffect.DEFAULT) {
+							fighter.opponent.pokemon.setStatusEffect(StatusEffect.BURN);
+							System.out.println("Effetto: L'avversario è stato bruiato");
+						}
+						else
+							System.out.println("Effetto: L'avversario ha già uno effetto di stato e non può essere bruciato");
+						break;
 					case Move.DRAGON_BREATH:
 						if (rng.nextInt(30) == 0)
 							if (fighter.opponent.pokemon.getStatusEffect() == StatusEffect.DEFAULT) {
@@ -556,6 +579,18 @@ public class BattleManager {
 		}
 	}
 	
+	private void executeStatus(Fighter fighter) {
+		switch (fighter.pokemon.getStatusEffect()) {
+			case StatusEffect.BURN:
+				fighter.pokemon.damage(fighter.pokemon.getStats().getMaxHp() * BURN_PERCCENT_DAMAGE / 100);
+				
+				System.out.println("-------------------------------------------------------------------------");
+				System.out.println(fighter.pokemon.getName() + " prende i danni da bruciare");
+				System.out.println("-------------------------------------------------------------------------");
+				break;
+		}
+	}
+	
 	public void executeTurn() {
 		BattleGUI.bGUI.dispose();
 		Fighter[] turnOrder = getTurnOrder();
@@ -581,11 +616,15 @@ public class BattleManager {
 			for (Fighter f : turnOrder)
 				executeAction(f);
 			
-			//EXECUTE EVENT
-//			for (Fighter f : turnOrder) {
-//				executeFighterEvent(f);
-//				f.turnPass();
-//			}
+			
+			for (Fighter f : turnOrder) {
+				//EXECUTE EVENT
+				executeFighterEvent(f);
+				f.turnPass();
+				
+				//EXECUTE STATUS
+				executeStatus(f);
+			}
 		}
 	}
 	

@@ -1,3 +1,4 @@
+package JPokeBattle;
 import pokemon.*;
 
 import javax.swing.JFrame;
