@@ -235,8 +235,7 @@ public enum Move {
         return (name().charAt(0)+name().substring(1).toLowerCase()).replace("_", " ");
     }
     
-    public Move toMove(String move) {
-    	move=move.toUpperCase().replace(" ", "_");
+    public static Move toMove(String move) {
     	for (Move m:Move.values()) {
     		if(m.toString().equals(move)) {
     			return m;
