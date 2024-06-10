@@ -1,4 +1,7 @@
-package pokemon; import types.Type; import moves.*;import java.util.ArrayList;
+package pokemon; import types.Type; import moves.*;
+
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -424,4 +427,16 @@ public abstract class Pokemon {
 
 		
 	}
+	
+	public static Pokemon createPokemon(String type, int level) {
+        try {
+            String packageName = Pokemon.class.getPackage().getName();
+            String className = packageName + "." + type;
+            Class<?> clazz = Class.forName(className);
+            Constructor<?> constructor = clazz.getConstructor(int.class);
+            return (Pokemon) constructor.newInstance(level);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Tipo di Pokemon non riconosciuto: " + type, e);
+        }
+    }
 }
