@@ -269,8 +269,8 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         n2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	if(indx==0) {new ChangePokemon(bg, indx);dispose();}
-            	else if(indx==1) {new ChangePokemon(bg, indx); dispose();}
+            	if(indx==0) {new ChangePokemon(bg, indx,false);dispose();}
+            	else if(indx==1) {new ChangePokemon(bg, indx,false); dispose();}
             	dispose();
             }
         });
@@ -359,7 +359,8 @@ public class BattleGUI extends JFrame {		//di chi è il turno
     }
     
     public void setBut(int i, JButton button, Move move, int index){
-	if(move!=null) {button.setText(move.toString()+" "+move.getPp()+"/"+move.getPp()+" "+move.getType().toString());
+	if(move!=null && bg.getFighter()[index].pokemon.getPP(i)>0) {button.setText(move.toString()+" "+bg.getFighter()[index].pokemon.getPP(i)+"/"+move.getPp()+" "+move.getType().toString());
+	
 	button.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -368,7 +369,13 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         	if(indx!=1) {new BattleGUI(bg,indx2);}
         	close();
         }
-    });;}else{button.setText("////");};
+    });;}else{
+    	if(move==null) {
+    	button.setText("////");}
+    	else {
+    		{button.setText(move.toString()+" "+bg.getFighter()[index].pokemon.getPP(i)+"/"+move.getPp()+" "+move.getType().toString());}
+    	}
+    	}
 	}
     
     

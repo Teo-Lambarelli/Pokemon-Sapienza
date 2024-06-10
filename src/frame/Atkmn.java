@@ -93,6 +93,7 @@ public class Atkmn extends JFrame{
 	       Timer timer = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+        	int opp=0;
         	boolean deathCheck=false;
         	if(c<100) {
         	c++;
@@ -122,8 +123,9 @@ public class Atkmn extends JFrame{
         				
 
         				deathCheck=true;
-        		        pokeDeath(fighter0, 0);
-        				
+        		        pokeDeath(fighter0);
+        		        bg.checkXp(fighter0, 0);
+        		        opp=1;
         				
         				
         			}
@@ -142,8 +144,9 @@ public class Atkmn extends JFrame{
     				
 
     				deathCheck=true;
-    		        pokeDeath(fighter1, 0);
-    				
+    		        pokeDeath(fighter1);
+    		        bg.checkXp(fighter1, 1);
+    		        opp=0;
     				
     				
     			}
@@ -162,7 +165,7 @@ public class Atkmn extends JFrame{
         		if (another==true) {new Atkmn(fighter0,fighter1,m,false, bg, true);}
         		else if (another==false && cbg==true) {new BattleGUI(bg,0);}
         		}
-        		else{new BattleGUI(bg,0);}
+        		else{new ChangePokemon(bg,opp, true);}
         		
         		
         		c++;
@@ -186,24 +189,22 @@ public class Atkmn extends JFrame{
         this.setAlwaysOnTop(true);
 	}
 	
-	public void pokeDeath(Fighter fighter,int i) {
-		if(i==6) {}  //TODO finisci partita
-		else if (fighter.opponent.team.getArrayTeam()[i].getStats().getHp()<=0) {pokeDeath(fighter,i+1);}
-		else {
-			int opp=0;
-			if(fighter==bg.getFighter()[0]) {opp=1;}
-			
-			
-			
-		Pokemon[] appoggio=new Pokemon[1];
-		appoggio[0]=fighter.opponent.pokemon;
-		fighter.opponent.pokemon = fighter.opponent.team.getArrayTeam()[i];
-		fighter.opponent.team.setPkmn(appoggio[0],i);
-		bg.setFighter(fighter.opponent.pokemon, fighter.opponent.team, opp);
-		
+	public void pokeDeath(Fighter fighter) {
+		BattleGUI.bGUI.dispose();
+		boolean win=true;
+//		int opp=0;
+//		if(i==6) {}  //TODO finisci partita
+//		else if (fighter.opponent.team.getArrayTeam()[i].getStats().getHp()<=0) {pokeDeath(fighter,i+1);}
+		for (Pokemon pkmn:fighter.opponent.team.getArrayTeam()) {
+			if (pkmn.getStats().getHp()>0){win=false;}
 		}
-	}
+		if (win==true) {
+			//TODO
+			System.out.println("vittoria");
+			}
+		}
+		}
+	
 	
 	
 
-}
