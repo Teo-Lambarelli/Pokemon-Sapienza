@@ -285,7 +285,7 @@ public class BattleManager {
 		Random rng = new Random();
 		
 		// Remove 1 PP
-		fighter.pokemon.setPP(fighter.pokemon.getPP(fighter.choice.index), fighter.choice.index);
+		fighter.pokemon.setPP(fighter.pokemon.getPP(fighter.choice.index)-1, fighter.choice.index);
 		
 		// Accuracy calculation
 		double percent = move.getAcc() + fighter.statsChange.accuracy - fighter.opponent.statsChange.evasion;
@@ -441,6 +441,11 @@ public class BattleManager {
 								System.out.println("Effetto: L'avversario ha già uno effetto di stato e non può essere bruciato");
 						else
 							System.out.println("Effetto: L'effetto non si è attivvato");
+						break;
+					case Move.FIRE_SPIN:
+						int turns = rng.nextInt(3) + 2; // da 2 a 5
+						fighter.opponent.event.add(new Event(EventType.FIRE_SPIN, turns));
+						System.out.println("Effetto: Si è attivato l'effetto di FIRE_SPIN per " + turns + " turni");
 						break;
 					default:
 						System.out.println("Effetto: La mossa non ha effetti particolari");

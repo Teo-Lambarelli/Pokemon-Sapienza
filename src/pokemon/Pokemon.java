@@ -38,6 +38,7 @@ public abstract class Pokemon {
 		this.STATUS_EFFECT=StatusEffect.DEFAULT;
 		this.FRONTSPRITE=FRONTSPRITE;
 		this.BACKSPRITE=BACKSPRITE;
+		resetPP();
         }
         
 	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability,Map<Integer, Move> PECULIARMOVES,String FRONTSPRITE,String BACKSPRITE){
@@ -53,6 +54,7 @@ public abstract class Pokemon {
 		this.STATUS_EFFECT=StatusEffect.DEFAULT;
 		this.FRONTSPRITE=FRONTSPRITE;
 		this.BACKSPRITE=BACKSPRITE;
+		resetPP();
         }
 	
 	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,Ability ability,Map<Integer, Move> PECULIARMOVES,String FRONTSPRITE,String BACKSPRITE){
@@ -69,6 +71,7 @@ public abstract class Pokemon {
 		this.STATUS_EFFECT=StatusEffect.DEFAULT;
 		this.FRONTSPRITE=FRONTSPRITE;
 		this.BACKSPRITE=BACKSPRITE;
+		resetPP();
         }
 	
 	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL,Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, Ability ability,Map<Integer, Move> PECULIARMOVES,String FRONTSPRITE,String BACKSPRITE){
@@ -84,6 +87,7 @@ public abstract class Pokemon {
 		this.STATUS_EFFECT=StatusEffect.DEFAULT;
 		this.FRONTSPRITE=FRONTSPRITE;
 		this.BACKSPRITE=BACKSPRITE;
+		resetPP();
         }
 	
 	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp,String evolution, int evolutionlvl, Ability ability,Map<Integer, Move> PECULIARMOVES,String FRONTSPRITE,String BACKSPRITE){
@@ -101,6 +105,7 @@ public abstract class Pokemon {
 		this.STATUS_EFFECT=StatusEffect.DEFAULT;
 		this.FRONTSPRITE=FRONTSPRITE;
 		this.BACKSPRITE=BACKSPRITE;
+		resetPP();
         }
         
 	Pokemon(String name, Type type0, Map<Integer, Move> REWARD_LVL, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability,Map<Integer, Move> PECULIARMOVES,String FRONTSPRITE,String BACKSPRITE){
@@ -117,6 +122,7 @@ public abstract class Pokemon {
 		this.STATUS_EFFECT=StatusEffect.DEFAULT;
 		this.FRONTSPRITE=FRONTSPRITE;
 		this.BACKSPRITE=BACKSPRITE;
+		resetPP();
         }
 	
 	Pokemon(String name, Type type0, Type type1, Map<Integer, Move> REWARD_LVL, Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability,Map<Integer, Move> PECULIARMOVES,String FRONTSPRITE,String BACKSPRITE){
@@ -133,6 +139,7 @@ public abstract class Pokemon {
 		this.STATUS_EFFECT=StatusEffect.DEFAULT;
 		this.FRONTSPRITE=FRONTSPRITE;
 		this.BACKSPRITE=BACKSPRITE;
+		resetPP();
         }
 	
 	Pokemon(String name, Type type0, HashMap<Integer, Move> REWARD_LVL,Move[] moves, double baseHp, double baseAtk, double baseDef, double baseSatk, double baseSdef, double baseSpd,int lvl,int xp, String evolution, int evolutionlvl, Ability ability,Map<Integer, Move> PECULIARMOVES,String FRONTSPRITE,String BACKSPRITE){
@@ -148,6 +155,7 @@ public abstract class Pokemon {
 		this.STATUS_EFFECT=StatusEffect.DEFAULT;
 		this.FRONTSPRITE=FRONTSPRITE;
 		this.BACKSPRITE=BACKSPRITE;
+		resetPP();
         }
 	
 	

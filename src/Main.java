@@ -8,15 +8,17 @@ import moves.*;
 public class Main {
 
 	public static void main(String[] args) {
-		new BackGroundFrame();
-		MenuGUI n=new MenuGUI();
+		//new BackGroundFrame();
+		//MenuGUI n=new MenuGUI();
+		
+		
+		
 //		new Atkmn(new Charmander(3),new Pikachu(3),1,true);
 		//BattleGUI m1=new BattleGUI();
 		//PokemonButtonBox x=new PokemonButtonBox();
 		
-	
+		Team team0 = SafeManager.loadFile("mario");
 		
-
 //		Team team0=new Team(
 //			new Pokemon[]{
 //					
@@ -26,15 +28,17 @@ public class Main {
 //			new Charmander(5),
 //			new Charmander(8),
 //			new Bulbasaur(6)},"obamna");
-//		
-//		Team team1=new Team(
-//				new Pokemon[]{
-//				new Squirtle(30),
-//				new Charmander(8),
-//				new Bulbasaur(6),
-//				new Charmander(5),
-//				new Charmander(8),
-//				new Bulbasaur(6)},"obamnius");
+		
+		Team team1=new Team(
+				new Pokemon[]{
+				new Squirtle(30),
+				new Charmander(8),
+				new Bulbasaur(6),
+				new Charmander(5),
+				new Charmander(8),
+				new Bulbasaur(6)},"obamnius");
+		
+		SafeManager.safeFile(team0);
 //		
 //		BattleManager bm= new BattleManager(team0,team1);
 //		
