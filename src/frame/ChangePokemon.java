@@ -15,14 +15,15 @@ public class ChangePokemon extends JFrame {
     private Team team;
     private BattleManager bg;
     private int tm; //quale team sta cambiando 0 o 1
-
-    ChangePokemon(BattleManager bg, int tm) {
+    private boolean deadpkmn;
+    ChangePokemon(BattleManager bg, int tm, boolean deadpkmn) {
         this.team = team;
         if (tm==0) {this.team=bg.getTeam0();}
         if (tm==1) {this.team=bg.getTeam1();}
         this.bg=bg;
+        this.deadpkmn=deadpkmn;
         this.tm=tm;
-
+        
 
         
         this.setLayout(new BorderLayout());
@@ -66,22 +67,34 @@ public class ChangePokemon extends JFrame {
                     BorderFactory.createEmptyBorder(0, 0, 0, 15)));
             		button.setFont(new Font("Arial", Font.BOLD, 15));
             		final int index=i;
+            		if (team.getArrayTeam()[i].getStats().getHp()<0) {button.setText("Dead");}
+            		else {
            button.addActionListener(new ActionListener() {
                @Override
                public void actionPerformed(ActionEvent e) {
 
+            	if (deadpkmn==true) {
+            		
+            		bg.turnOption(tm, new Choice(Choice.Option.SWITCH,index));
+            		bg.executeAction(bg.getFighter()[tm]);
+            		bg.turnOption(tm, null);
+            		bg.setFighter(bg.getFighter()[tm].pokemon, bg.getFighter()[tm].team, tm);
+
+            		new BattleGUI(bg,0);dispose();}
+            	else {
                	bg.turnOption(tm, new Choice(Choice.Option.SWITCH,index));
-               	
+ 
                	if (tm==0) {new BattleGUI(bg,1);dispose();}
                	
                	if(tm==1) {;bg.executeTurn();}
                	
                	dispose();
+            	}
                }
                
            });
            
-        }
+        }}
         
         
         // Aggiunta di mainPanel2 a mainPanel

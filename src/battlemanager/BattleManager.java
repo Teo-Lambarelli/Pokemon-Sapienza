@@ -285,7 +285,7 @@ public class BattleManager {
 		Random rng = new Random();
 		
 		// Remove 1 PP
-		fighter.pokemon.setPP(fighter.pokemon.getPP(fighter.choice.index), fighter.choice.index);
+		fighter.pokemon.setPP(fighter.pokemon.getPP(fighter.choice.index)-1, fighter.choice.index);
 		
 		// Accuracy calculation
 		double percent = move.getAcc() + fighter.statsChange.accuracy - fighter.opponent.statsChange.evasion;
@@ -474,16 +474,17 @@ public class BattleManager {
 		else if (fighter.choice.option == Choice.Option.SWITCH) {
 			// Switch out pokemon!
 			// TODO: ANIMATION
-			if (!fighter.has(EventType.FIRE_SPIN)) {
-				fighter.pokemon = fighter.team.pokemon.get(fighter.choice.index);
-				fighter.statsChange.statsReset();
-			}
-			else {
+//			if (!fighter.has(EventType.FIRE_SPIN)) {
+//				fighter.pokemon = fighter.team.pokemon.get(fighter.choice.index);
+//				fighter.statsChange.statsReset();
+//			}
+//			else {
 				System.out.println("-------------------------------------------------------------------------");
 				System.out.println(fighter.pokemon.getName() + " non è stato in grado di scambiare perché sotto l'effetto di FIRE_SPIN");
 				System.out.println("-------------------------------------------------------------------------");
-			}
+//			}
 			
+			BattleGUI.bGUI.dispose();
 			int mauro=1;
 			if(fighter==this.fighter[0]) {mauro=0;}
 
@@ -491,6 +492,7 @@ public class BattleManager {
 			appoggio[0]=fighter.pokemon;
 			fighter.pokemon = fighter.team.pokemon.get(fighter.choice.index);
 			fighter.team.setPkmn(appoggio[0],fighter.choice.index);
+			fighter.team.setPkmn(fighter.pokemon, 0);
 			this.setFighter(fighter.pokemon,fighter.team , mauro);
 			if (counter==1) {new BattleGUI(this,0);counter=0;}
 			counter++;
@@ -555,6 +557,7 @@ public class BattleManager {
 	}
 	
 	public void executeTurn() {
+		BattleGUI.bGUI.dispose();
 		Fighter[] turnOrder = getTurnOrder();
 		
 		for (Fighter f : turnOrder)
@@ -575,82 +578,50 @@ public class BattleManager {
 		}
 		
 		else {
-//		
-//		if(turnOrder[0].choice.option==Choice.Option.SWITCH && turnOrder[1].choice.option==Choice.Option.MOVE) {
-//			
-//			
-//				int mauro=1;
-//				if(fighter[0].pokemon==turnOrder[1].pokemon) {mauro=0;}
-//			
-//				
-//			
-//				int giovanni=0;
-//				if(mauro==0) {giovanni=1;}
-//				
-//				Pokemon[] appoggio=new Pokemon[1];
-//				appoggio[0]=turnOrder[0].pokemon;
-//				turnOrder[0].pokemon = turnOrder[0].team.pokemon.get(turnOrder[0].choice.index);
-//				turnOrder[0].team.setPkmn(appoggio[0],turnOrder[1].choice.index);
-//				this.setFighter(turnOrder[0].pokemon,turnOrder[0].team , giovanni);
-//			
-////				Pokemon[] appoggio=new Pokemon[1];
-////				appoggio[0]=turnOrder[0].pokemon;
-////				turnOrder[0].pokemon = turnOrder[0].team.pokemon.get(turnOrder[0].choice.index);
-////				turnOrder[0].team.setPkmn(appoggio[0],turnOrder[0].choice.index);
-//
-//				
-//				new Atkmn(fighter[0],fighter[1],mauro,false, this);
-//	}
-//		
-//		if(turnOrder[0].choice.option==Choice.Option.MOVE && turnOrder[1].choice.option==Choice.Option.SWITCH) {		
-//
-//
-//				int mauro=1;
-//				if(fighter[0].pokemon==turnOrder[0].pokemon) {mauro=0;}
-//				new Atkmn(fighter[1],fighter[0],mauro,false, this);
-//		    
-//				int giovanni=0;
-//				if(mauro==0) {giovanni=1;}
-//		        Pokemon[] appoggio=new Pokemon[1];
-//				appoggio[0]=turnOrder[1].pokemon;
-//				turnOrder[1].pokemon = turnOrder[1].team.pokemon.get(turnOrder[1].choice.index);
-//				turnOrder[1].team.setPkmn(appoggio[0],turnOrder[1].choice.index);
-//				this.setFighter(turnOrder[1].pokemon,turnOrder[1].team , giovanni);
-//				
-//	}
-//		
-//		if(turnOrder[0].choice.option==Choice.Option.SWITCH && turnOrder[1].choice.option==Choice.Option.SWITCH) {
-//			
-//			
-//				Pokemon[] appogg=new Pokemon[1];
-//				appogg[0]=turnOrder[0].pokemon;
-//				turnOrder[0].pokemon = turnOrder[0].team.pokemon.get(turnOrder[0].choice.index);
-//				turnOrder[0].team.setPkmn(appogg[0],turnOrder[0].choice.index);
-//
-//			
-//		       
-//		        Pokemon[] appoggio=new Pokemon[1];
-//				appoggio[0]=turnOrder[1].pokemon;
-//				turnOrder[1].pokemon = turnOrder[1].team.pokemon.get(turnOrder[1].choice.index);
-//				turnOrder[1].team.setPkmn(appoggio[0],turnOrder[1].choice.index);
-//				
-//				new BattleGUI(this,0);
-//				
-//	}
-		
-		
-		
-		
-		
-		
-//		else {
-		for (Fighter f : turnOrder)
-			executeAction(f);
-		
-		//EXECUTE EVENT
-		for (Fighter f : turnOrder) {
-			executeFighterEvent(f);
-			f.turnPass();
+			for (Fighter f : turnOrder)
+				executeAction(f);
+			
+			//EXECUTE EVENT
+//			for (Fighter f : turnOrder) {
+//				executeFighterEvent(f);
+//				f.turnPass();
+//			}
 		}
 	}
+	
+//	Esperienza guadagnata =
+//	- se il pokemon battuto è di livello inferiore = (Liv. Pokemon battuto) x 10
+//	- se il pokemon battuto è di pari livello = [(Liv. Pokemon battuto x 10) + (Liv. Pokemon battuto)]
+//	- se il pokemon battuto è di livello maggiore = (Liv. Pokemon battuto) x 10 + [(Differenza di livello) x 10]
+//	
+	
+	public void checkXp(Fighter fighter, int i) {
+		int oppLvl=fighter.opponent.pokemon.getStats().getLvl();
+		int urLvl=fighter.pokemon.getStats().getLvl();
+		if(oppLvl<urLvl) {
+			fighter.pokemon.getStats().giveXp(oppLvl*10);
+			}
+		else if(oppLvl==urLvl) {
+			fighter.pokemon.getStats().giveXp((oppLvl*10)+oppLvl);
+			}
+		else if(oppLvl>urLvl) {
+			fighter.pokemon.getStats().giveXp((oppLvl*10)+((oppLvl-urLvl)*10));
+			}
+		fighter.pokemon.getStats().updateStats();
+		
+		if (fighter.pokemon.getStats().getXp()==urLvl*10) {
+			fighter.pokemon.getStats().setXp(fighter.pokemon.getStats().getXp()-urLvl*10);
+			fighter.pokemon.getStats().giveLvl(1);
+			}
+		if(fighter.pokemon.getEvolutionLvl()<101 && fighter.pokemon.getEvolutionLvl()==fighter.pokemon.getStats().getLvl()) {
+			fighter.pokemon=fighter.pokemon.getEvolution(); //TODO la func da str a pkmn
+		}
+		int m=0;
+		if(i==0) {m=1;}
+		this.setFighter(fighter.pokemon, fighter.team, i);
+		this.fighter[m].opponent=fighter;
+	}
+	
+	
+	
 }
