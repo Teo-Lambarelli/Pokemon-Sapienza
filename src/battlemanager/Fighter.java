@@ -6,6 +6,7 @@ public class Fighter {
 	public Choice choice;
 	public StatsChange statsChange;
 	public Fighter opponent;
+	
 	public ArrayList<Event> event;
 	
 	public Fighter(Pokemon pokemon, Team team) {
@@ -13,7 +14,6 @@ public class Fighter {
 		this.team = team;
 		this.choice = null;
 		this.statsChange = new StatsChange();
-		event = new ArrayList<Event>();
 	}
 	
 	public boolean has(EventType type) {

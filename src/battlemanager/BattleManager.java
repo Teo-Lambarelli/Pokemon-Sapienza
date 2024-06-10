@@ -442,11 +442,6 @@ public class BattleManager {
 						else
 							System.out.println("Effetto: L'effetto non si è attivvato");
 						break;
-					case Move.FIRE_SPIN:
-						int turns = rng.nextInt(3) + 2; // da 2 a 5
-						fighter.opponent.event.add(new Event(EventType.FIRE_SPIN, turns));
-						System.out.println("Effetto: Si è attivato l'effetto di FIRE_SPIN per " + turns + " turni");
-						break;
 					default:
 						System.out.println("Effetto: La mossa non ha effetti particolari");
 						break;
@@ -587,10 +582,10 @@ public class BattleManager {
 				executeAction(f);
 			
 			//EXECUTE EVENT
-			for (Fighter f : turnOrder) {
-				executeFighterEvent(f);
-				f.turnPass();
-			}
+//			for (Fighter f : turnOrder) {
+//				executeFighterEvent(f);
+//				f.turnPass();
+//			}
 		}
 	}
 	

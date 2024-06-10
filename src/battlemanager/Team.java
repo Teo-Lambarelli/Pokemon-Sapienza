@@ -30,10 +30,6 @@ public class Team {
 		return player_name;
 	}
 	
-	public void setName(String name) {
-		this.player_name = name;
-	}
-	
 	public void printTeamInfo() {
 		for (Pokemon elem:pokemon) {
 			System.out.println(elem.getName());
