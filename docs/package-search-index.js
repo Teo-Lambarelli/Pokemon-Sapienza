@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"battlemanager"},{"l":"frame"},{"l":"JPokeBattle"},{"l":"moves"},{"l":"pokemon"},{"l":"types"}];updateSearchResults();
