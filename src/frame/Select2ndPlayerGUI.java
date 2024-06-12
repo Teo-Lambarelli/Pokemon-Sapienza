@@ -9,12 +9,29 @@ import java.awt.event.KeyEvent;
 
 
 
-public class Select2ndPlayerGUI extends Frame{
-	final static Color MAIN_COLOR =new Color(210, 220, 190);
-	//final static ImageIcon BUTTON_TEXTURE=new ImageIcon(------);
-	final static Color BUTTON_COLOR=new Color(54, 45, 62);
-	final static Color BUTTON_BORDER=new Color(0,0,0);
-	private String name;
+/**
+ * La classe Select2ndPlayerGUI rappresenta l'interfaccia grafica per la selezione del secondo giocatore.
+ * Questa classe permette agli utenti di scegliere se creare un nuovo giocatore o caricarne uno esistente come secondo giocatore.
+ */
+public class Select2ndPlayerGUI extends Frame {
+    /** Colore principale per lo sfondo dell'interfaccia. */
+    final static Color MAIN_COLOR = new Color(210, 220, 190);
+
+    /** Colore per i pulsanti. */
+    final static Color BUTTON_COLOR = new Color(54, 45, 62);
+
+    /** Colore del bordo dei pulsanti. */
+    final static Color BUTTON_BORDER = new Color(0, 0, 0);
+
+    /** Nome del primo giocatore. */
+    private String name;
+
+    /**
+     * Costruttore della classe Select2ndPlayerGUI.
+     * Crea l'interfaccia grafica per la selezione del secondo giocatore.
+     *
+     * @param name Il nome del primo giocatore
+     */
 	public Select2ndPlayerGUI(String name) {
         this.name=name;
         
@@ -81,8 +98,7 @@ public class Select2ndPlayerGUI extends Frame{
         loadPlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	//TODO
-            	JOptionPane.showMessageDialog(null, "TODO");
+            	new LoadPlayer();
             	
             }
         });

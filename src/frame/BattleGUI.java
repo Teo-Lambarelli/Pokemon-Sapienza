@@ -20,14 +20,36 @@ import moves.Move;
 
 
 
-public class BattleGUI extends JFrame {		//di chi è il turno
+/**
+ * La classe BattleGUI rappresenta l'interfaccia grafica per una battaglia Pokémon.
+ * Visualizza le immagini dei Pokémon e le opzioni di attacco durante la battaglia.
+ */
+public class BattleGUI extends JFrame {
 
-	private int indx;
-	private int indx2;
-	private int yCoordinate=5;
-	protected BattleManager bg;
-	public static  BattleGUI bGUI;
-	protected  BattleGUI bGUIns;
+    /** Indice del primo combattente. */
+    private int indx;
+
+    /** Indice del secondo combattente. */
+    private int indx2;
+
+    /** Coordinata Y utilizzata per l'animazione delle immagini dei Pokémon. */
+    private int yCoordinate = 5;
+
+    /** Gestore della battaglia Pokémon. */
+    protected BattleManager bg;
+
+    /** Istanza della finestra di battaglia. */
+    public static BattleGUI bGUI;
+
+    /** Istanza della finestra di battaglia. */
+    protected BattleGUI bGUIns;
+
+    /**
+     * Costruttore della classe BattleGUI.
+     *
+     * @param bg Il gestore della battaglia Pokémon.
+     * @param indx Indice del turno del combattente.
+     */
     public BattleGUI(BattleManager bg, int indx) {
         super("Pokemon Battle");
         this.bg=bg;
@@ -125,25 +147,6 @@ public class BattleGUI extends JFrame {		//di chi è il turno
                 }
                 label.setLocation(label.getX(), yCoordinate); // Imposta la nuova posizione
                 label2.setLocation(label2.getX(), yCoordinate);
-                
-                
-                
-//                if(atk==true) {
-//                	if(o==0) {
-//                		label.setLocation(label.getX()+25,label.getY()-30);
-//                		attack(label,atk,o);
-//                		
-//                		
-//                		
-//                	}
-//                	else if(o==1){
-//                		label2.setLocation(label2.getX()-25,label.getY()+30);
-//                		attack(label2,atk,o);
-//                		
-//                	}
-//                }
-                
-                
                 
             }
         });
@@ -335,6 +338,16 @@ public class BattleGUI extends JFrame {		//di chi è il turno
         p005.repaint();
     }
     
+    
+    
+    /**
+     * Metodo per creare i pulsanti degli attacchi dei Pokémon.
+     *
+     * @param abilityPanel Il pannello delle abilità dove aggiungere i pulsanti.
+     * @param index Indice del combattente.
+     * @param bool Flag per determinare se aggiungere i pulsanti al pannello.
+     */
+    
     public void makeButtons(JPanel abilityPanel, int index, boolean bool) {
     for (int i = 0; i <= 3; i++) {
     	Move move=bg.getFighter()[index].pokemon.getMoves()[i];
@@ -347,17 +360,40 @@ public class BattleGUI extends JFrame {		//di chi è il turno
                 setBut(i, button, move,index);
     }}
 
+    
+    /**
+     * Restituisce l'indice del combattente.
+     *
+     * @return L'indice del combattente.
+     */
     public int getIndx() {
     	return indx;
     }
+    
+    /**
+     * Restituisce l'indice del secondo combattente.
+     *
+     * @return L'indice del secondo combattente.
+     */
     public int getIndx2() {
     	return indx2;
     }
     
+    /**
+     * Chiude la finestra di battaglia.
+     */
     public void close() {
     	dispose();
     }
     
+    /**
+     * Imposta un pulsante con un'azione specifica.
+     *
+     * @param i Indice dell'attacco.
+     * @param button Il pulsante da impostare.
+     * @param move L'attacco associato al pulsante.
+     * @param index Indice del combattente.
+     */
     public void setBut(int i, JButton button, Move move, int index){
 	if(move!=null && bg.getFighter()[index].pokemon.getPP(i)>0) {button.setText(move.toString()+" "+bg.getFighter()[index].pokemon.getPP(i)+"/"+move.getPp()+" "+move.getType().toString());
 	
@@ -378,7 +414,12 @@ public class BattleGUI extends JFrame {		//di chi è il turno
     	}
 	}
     
-    
+    /**
+     * Imposta il testo di un pulsante.
+     *
+     * @param b Il pulsante da modificare.
+     * @param txt Il testo da impostare.
+     */
     public void setTxt(JButton b, String txt) {
     	b.setText(txt);
         b.revalidate();

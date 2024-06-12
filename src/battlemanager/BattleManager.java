@@ -500,7 +500,7 @@ public class BattleManager {
 		}
 	}
 	
-	private void executeFighterEvent(Fighter fighter) {
+	public void executeFighterEvent(Fighter fighter) {
 		if (fighter.has(EventType.FIRE_SPIN)) {
 			Fighter opponent = fighter.opponent;
 			Move move = Move.FIRE_SPIN;
@@ -589,12 +589,7 @@ public class BattleManager {
 		}
 	}
 	
-//	Esperienza guadagnata =
-//	- se il pokemon battuto è di livello inferiore = (Liv. Pokemon battuto) x 10
-//	- se il pokemon battuto è di pari livello = [(Liv. Pokemon battuto x 10) + (Liv. Pokemon battuto)]
-//	- se il pokemon battuto è di livello maggiore = (Liv. Pokemon battuto) x 10 + [(Differenza di livello) x 10]
-//	
-	
+
 	public void checkXp(Fighter fighter, int i) {
 		int oppLvl=fighter.opponent.pokemon.getStats().getLvl();
 		int urLvl=fighter.pokemon.getStats().getLvl();
@@ -608,19 +603,19 @@ public class BattleManager {
 			fighter.pokemon.getStats().giveXp((oppLvl*10)+((oppLvl-urLvl)*10));
 			}
 		fighter.pokemon.getStats().updateStats();
-		
-		if (fighter.pokemon.getStats().getXp()==urLvl*10) {
+		if (fighter.pokemon.getStats().getXp()>=urLvl*10) {
+			double diff=fighter.pokemon.getStats().getMaxHp()-fighter.pokemon.getStats().getHp();
 			fighter.pokemon.getStats().setXp(fighter.pokemon.getStats().getXp()-urLvl*10);
 			fighter.pokemon.getStats().giveLvl(1);
+			fighter.pokemon.getStats().setHp(fighter.pokemon.getStats().getMaxHp()-diff);
 			}
+		
 		if(fighter.pokemon.getEvolutionLvl()<101 && fighter.pokemon.getEvolutionLvl()==fighter.pokemon.getStats().getLvl()) {
-<<<<<<< HEAD
-			fighter.pokemon=fighter.pokemon.getEvolution(); //TODO la func da str a pkmn
-=======
+			Move[] pokemove=fighter.pokemon.getMoves();
 			double xp = fighter.pokemon.getStats().getXp();
 			fighter.pokemon=Pokemon.createPokemon(fighter.pokemon.getEvolution(), fighter.pokemon.getStats().getLvl()); //TODO la func da str a pkmn
 			fighter.pokemon.getStats().setXp(xp);
->>>>>>> main
+			fighter.pokemon.setAllMoves(pokemove);
 		}
 		int m=0;
 		if(i==0) {m=1;}
@@ -628,6 +623,6 @@ public class BattleManager {
 		this.fighter[m].opponent=fighter;
 	}
 	
-	
-	
+
 }
+

@@ -1,3 +1,4 @@
+package JPokeBattle;
 import battlemanager.Team;
 import pokemon.*;
 import moves.Move;
