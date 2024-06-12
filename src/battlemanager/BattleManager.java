@@ -299,22 +299,60 @@ public class BattleManager {
 				System.out.println("Descrizione mossa: " + move.getDescr());
 				switch(move) {
 					case Move.GROWL:
-						System.out.println("Diminuisce la difesa di " + fighter.opponent.pokemon.getName() + " fino a: " + fighter.opponent.statsChange.def);
+					case Move.TAIL_WHIP:
 						if (fighter.opponent.statsChange.bonusDef(-1))
 							System.out.println("La statistica era già troppo bassa per essere modificata");
+						System.out.println("Diminuisce la difesa di " + fighter.opponent.pokemon.getName() + " fino a: " + fighter.opponent.statsChange.def);
+						break;
+					case Move.WITHDRAW:
+						if (fighter.statsChange.bonusDef(1))
+							System.out.println("La statistica era già troppo alta per essere modificata");
+						System.out.println("Aumenta la difesa di " + fighter.pokemon.getName() + " fino a: " + fighter.statsChange.def);
+						break;
+					case Move.NASTY_PLOT:
+						if (fighter.statsChange.bonusSatk(2))
+							System.out.println("La statistica era già troppo alta per essere modificata");
+						System.out.println("Aumenta l'attacco speciale di " + fighter.pokemon.getName() + " fino a: " + fighter.statsChange.def);
 						break;
 					case Move.SMOKESCREEN:
-						System.out.println("Diminuisce l'accuratezza di " + fighter.opponent.pokemon.getName() + " fino a: " + fighter.opponent.statsChange.accuracy);
 						if (fighter.opponent.statsChange.bonusAccuracy(-1))
 							System.out.println("La statistica era già troppo bassa per essere modificata");
+						System.out.println("Diminuisce l'accuratezza di " + fighter.opponent.pokemon.getName() + " fino a: " + fighter.opponent.statsChange.accuracy);
+						break;
+					case Move.LEECH_SEED:
+						fighter.opponent.event.add(new Event(EventType.SEEDING, 20));
 						break;
 					case Move.SCARY_FACE:
-						System.out.println("Diminuisce la velocità di " + fighter.opponent.pokemon.getName() + " fino a: " + fighter.opponent.statsChange.def);
 						if (fighter.opponent.statsChange.bonusDef(-2))
 							System.out.println("La statistica era già troppo bassa per essere modificata");
+						System.out.println("Diminuisce la velocità di " + fighter.opponent.pokemon.getName() + " fino a: " + fighter.opponent.statsChange.def);
+						break;
+					case Move.THUNDER_WAVE:
+						if (fighter.opponent.pokemon.getStatusEffect() == StatusEffect.DEFAULT) {
+							fighter.opponent.pokemon.setStatusEffect(StatusEffect.PARALYZED);
+							System.out.println("Effetto: L'avversario è stato paralizzato");
+						}
+						else
+							System.out.println("Effetto: L'avversario ha già uno effetto di stato e non può essere paralizzato");
+						break;
+					case Move.POISON_POWDER:
+						if (fighter.opponent.pokemon.getStatusEffect() == StatusEffect.DEFAULT) {
+							fighter.opponent.pokemon.setStatusEffect(StatusEffect.POISON);
+							System.out.println("Effetto: L'avversario è stato avvelenato");
+						}
+						else
+							System.out.println("Effetto: L'avversario ha già uno effetto di stato e non può essere paralizzato");
+						break;
+					case Move.SLEEP_POWDER:
+						if (fighter.opponent.pokemon.getStatusEffect() == StatusEffect.DEFAULT) {
+							fighter.opponent.pokemon.setStatusEffect(StatusEffect.ASLEEP);
+							System.out.println("Effetto: L'avversario è stato addormentato");
+						}
+						else
+							System.out.println("Effetto: L'avversario ha già uno effetto di stato e non può essere paralizzato");
 						break;
 					default:
-						System.out.println("ERRORE: La mossa non è STATUS, ma è" + move.getCat().toString());
+						System.out.println("ERRORE: La mossa non è STATUS, ma è " + move.getCat().toString());
 						break;
 				}
 				System.out.println("-------------------------------------------------------------------------");
@@ -342,6 +380,20 @@ public class BattleManager {
 				double levelDamage = (fighter.pokemon.getStats().getLvl() * 2 / 5) + 2;
 				
 				double moveDamage = move.getDmg();
+				
+				if (move == Move.ELECTRO_BALL) {
+					double outspeed = fighter.pokemon.getStats().getSpd() / fighter.opponent.pokemon.getStats().getSpd();
+					if (outspeed < 1)
+						moveDamage = 40;
+					else if (outspeed < 2)
+						moveDamage = 60;
+					else if (outspeed < 2)
+						moveDamage = 80;
+					else if (outspeed < 2)
+						moveDamage = 120;
+					else
+						moveDamage = 150;
+				}
 				
 				double atk = 1, def = 1;
 				if (critical) {
@@ -418,6 +470,7 @@ public class BattleManager {
 				System.out.println("Danno tipo: " + typeDamage);
 				
 				// Apply effects
+				int turns;
 				switch (move) {
 					case Move.EMBER:
 					case Move.FIRE_FANG:
@@ -465,6 +518,36 @@ public class BattleManager {
 						else
 							System.out.println("Effetto: L'effetto non si è attivvato");
 						break;
+					case Move.FIRE_SPIN:
+						turns = rng.nextInt(6);
+						if (turns <= 1)
+							turns = 2;
+						else if (turns <= 3)
+							turns = 3;
+						fighter.opponent.event.add(new Event(EventType.FIRE_SPIN, turns));
+						break;
+					case Move.WATER_PULSE:
+						turns = rng.nextInt(6);
+						if (turns <= 1)
+							turns = 2;
+						else if (turns <= 3)
+							turns = 3;
+						fighter.opponent.event.add(new Event(EventType.CONFUSED, turns));
+						break;
+					case Move.RAPID_SPIN:
+						// REMOVE ENTRY HAZARDS
+						
+						if (fighter.statsChange.bonusSpd(1))
+							System.out.println("La statistica era già troppo alta per essere modificata");
+						System.out.println("Aumenta la velocità di " + fighter.pokemon.getName() + " fino a: " + fighter.statsChange.def);
+						break;
+					case Move.ZAP_CANNON:
+						if (fighter.opponent.pokemon.getStatusEffect() == StatusEffect.DEFAULT) {
+							fighter.opponent.pokemon.setStatusEffect(StatusEffect.PARALYZED);
+							System.out.println("Effetto: L'avversario è stato paralizzato");
+						}
+						else
+							System.out.println("Effetto: L'avversario ha già uno effetto di stato e non può essere paralizzato");
 					default:
 						System.out.println("Effetto: La mossa non ha effetti particolari");
 						break;

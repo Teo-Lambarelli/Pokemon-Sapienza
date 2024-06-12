@@ -64,7 +64,7 @@ public enum Move {
     THUNDER_PUNCH(Type.ELECTRIC, 75, 100, "May paralyze opponent.", 15, Category.PHYSICAL,0),
     ELECTRO_BALL(Type.ELECTRIC, -1, 100, "The faster the user is than the target, the greater the damage.", 10, Category.SPECIAL,0),
     ZAP_CANNON(Type.ELECTRIC, 120, 50, "Paralyzes opponent.", 5, Category.SPECIAL,0),
-    SHOCK_WAVE(Type.ELECTRIC, 60, 100, "Ignores Accuracy and Evasiveness.", 20, Category.SPECIAL,0),
+    SHOCK_WAVE(Type.ELECTRIC, 60, 999, "Ignores Accuracy and Evasiveness.", 20, Category.SPECIAL,0),
    
     ICE_BEAM(Type.ICE, 90, 100, "May freeze opponent.", 10, Category.SPECIAL,0),
     BLIZZARD(Type.ICE, 110, 70, "May freeze opponent.", 5, Category.SPECIAL,0),
