@@ -11,11 +11,31 @@ import battlemanager.Choice;
 import battlemanager.Team;
 import pokemon.Pokemon;
 
+/**
+ * La classe ChangePokemon rappresenta l'interfaccia grafica per la selezione di un nuovo Pokémon durante una battaglia.
+ * Permette ai giocatori di scegliere un Pokémon dalla loro squadra per sostituire uno sconfitto o ferito.
+ */
 public class ChangePokemon extends JFrame {
+
+    /** La squadra del giocatore. */
     private Team team;
+
+    /** Il gestore della battaglia Pokémon. */
     private BattleManager bg;
-    private int tm; //quale team sta cambiando 0 o 1
+
+    /** Indica quale squadra sta cambiando Pokémon (0 per la prima squadra, 1 per la seconda). */
+    private int tm;
+
+    /** Flag che indica se il Pokémon da cambiare è morto. */
     private boolean deadpkmn;
+
+    /**
+     * Costruttore della classe ChangePokemon.
+     *
+     * @param bg Il gestore della battaglia Pokémon.
+     * @param tm Indica quale squadra sta cambiando Pokémon (0 per la prima squadra, 1 per la seconda).
+     * @param deadpkmn Flag che indica se il Pokémon da cambiare è morto.
+     */
     ChangePokemon(BattleManager bg, int tm, boolean deadpkmn) {
         this.team = team;
         if (tm==0) {this.team=bg.getTeam0();}

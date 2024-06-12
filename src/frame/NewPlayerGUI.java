@@ -27,18 +27,48 @@ import moves.Move;
 import pokemon.*;
 
 public class NewPlayerGUI extends JFrame {
-	protected static int player;
-	protected int ct0=0;
-	protected boolean cp=false; //controllo pokemon
-	protected boolean cn=false; //controllo nome
-	protected static Pokemon[] team0 = new Pokemon[Team.MAX];
-	protected static Pokemon[] team1 = new Pokemon[Team.MAX];
-	protected String name0;
-	protected String name1;
-	public JPanel p=new JPanel();
-	public JPanel p1=new JPanel();
-	public JPanel p2=new JPanel();
-	public JPanel p3=new JPanel();
+    /** Numero del giocatore (0 o 1). */
+    protected static int player;
+
+    /** Contatore per il numero di Pokémon aggiunti al team. */
+    protected int ct0 = 0;
+
+    /** Flag per il controllo della selezione dei Pokémon. */
+    protected boolean cp = false;
+
+    /** Flag per il controllo del nome del giocatore. */
+    protected boolean cn = false;
+
+    /** Array dei Pokémon del team 0. */
+    protected static Pokemon[] team0 = new Pokemon[Team.MAX];
+
+    /** Array dei Pokémon del team 1. */
+    protected static Pokemon[] team1 = new Pokemon[Team.MAX];
+
+    /** Nome del giocatore del team 0. */
+    protected static String name0;
+
+    /** Nome del giocatore del team 1. */
+    protected static String name1;
+
+    /** Pannello principale. */
+    public JPanel p = new JPanel();
+
+    /** Pannello 1. */
+    public JPanel p1 = new JPanel();
+
+    /** Pannello 2. */
+    public JPanel p2 = new JPanel();
+
+    /** Pannello 3. */
+    public JPanel p3 = new JPanel();
+
+    /**
+     * Costruttore della classe NewPlayerGUI.
+     * Crea l'interfaccia grafica per la creazione di un nuovo giocatore e la selezione dei Pokémon del team.
+     *
+     * @param tmn Il nome del giocatore
+     */
     public NewPlayerGUI(String tmn) {
         if (name0==null) {this.name0=tmn;}
         
@@ -127,7 +157,7 @@ public class NewPlayerGUI extends JFrame {
         buttonPanel.add(p3);   
 
         // Creazione dei pulsanti
-        for (int i = 0; i <= 11; i++) {
+        for (int i = 0; i <= 3; i++) {
             JButton button = new JButton("" + i);
             button.addActionListener(new ButtonClickListener());
             buttonPanel.add(button);
@@ -140,14 +170,14 @@ public class NewPlayerGUI extends JFrame {
                     case 1: photoButton("src/sprites/squirtle.png",button);break;
                     case 2: photoButton("src/sprites/bulbasaur.png",button);break;
                     case 3: photoButton("src/sprites/pikachu.png",button);break;	
-                    case 4: photoButton("src/sprites/charmander.png",button);break;
-                    case 5: photoButton("src/sprites/charmander.png",button);break;
-                    case 6: photoButton("src/sprites/charmander.png",button);break;
-                    case 7: photoButton("src/sprites/charmander.png",button);break;
-                    case 8: photoButton("src/sprites/charmander.png",button);break;
-                    case 9: photoButton("src/sprites/charmander.png",button);break;
-                    case 10: photoButton("src/sprites/charmander.png",button);break;
-                    case 11: photoButton("src/sprites/charmander.png",button);break;
+//                    case 4: photoButton("src/sprites/charmander.png",button);break;
+//                    case 5: photoButton("src/sprites/charmander.png",button);break;
+//                    case 6: photoButton("src/sprites/charmander.png",button);break;
+//                    case 7: photoButton("src/sprites/charmander.png",button);break;
+//                    case 8: photoButton("src/sprites/charmander.png",button);break;
+//                    case 9: photoButton("src/sprites/charmander.png",button);break;
+//                    case 10: photoButton("src/sprites/charmander.png",button);break;
+//                    case 11: photoButton("src/sprites/charmander.png",button);break;
                     default: break;
                 }
         }
@@ -177,8 +207,7 @@ public class NewPlayerGUI extends JFrame {
     		name1="";
     		Pokemon[] team0 = new Pokemon[Team.MAX];
     		Pokemon[] team1 = new Pokemon[Team.MAX];
-    		
-    		
+
     	}
     	
     }
@@ -201,9 +230,9 @@ public class NewPlayerGUI extends JFrame {
         Image newimage = image.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         icon=new ImageIcon(newimage);
         pippo.setIcon(icon);
-        p3.add(pippo);
-        p3.revalidate();
-        p3.repaint();
+        p2.add(pippo);
+        p2.revalidate();
+        p2.repaint();
     	
   
     }

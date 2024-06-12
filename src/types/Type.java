@@ -1,5 +1,8 @@
 package types;
 
+/**
+ * Enumerazione che rappresenta i tipi dei Pokémon.
+ */
 public enum Type {
 	NORMAL(0),
 	FIRE(1),
@@ -23,16 +26,21 @@ public enum Type {
 	
 	private final int value;
 
+    /**
+     * Costruttore privato per inizializzare il valore del tipo.
+     * @param value Il valore intero associato al tipo.
+     */
     Type(int value) {
         this.value=value;
     }
 
+    /**
+     * Restituisce il valore numerico associato al tipo.
+     * @return Il valore numerico del tipo.
+     */
     public int getValue() {
         return value;
     }
     
-//    @Override
-//    public String toString() {
-//        return name().charAt(0)+name().substring(1).toLowerCase();
-//    }
+
 }

@@ -7,12 +7,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * La classe MenuGUI rappresenta l'interfaccia grafica del menu principale del gioco.
+ * Da qui gli utenti possono accedere alle opzioni per iniziare una nuova partita, caricare un giocatore esistente o uscire dal gioco.
+ */
 public class MenuGUI extends JFrame {
-	final static Color MAIN_COLOR =new Color(210, 220, 190);
-	//final static ImageIcon BUTTON_TEXTURE=new ImageIcon(------);
-	final static Color BUTTON_COLOR=new Color(54, 45, 62);
-	final static Color BUTTON_BORDER=new Color(0,0,0);
-	
+
+    /** Il colore principale utilizzato nell'interfaccia grafica. */
+    final static Color MAIN_COLOR = new Color(210, 220, 190);
+
+    /** Il colore dei pulsanti. */
+    final static Color BUTTON_COLOR = new Color(54, 45, 62);
+
+    /** Il colore del bordo dei pulsanti. */
+    final static Color BUTTON_BORDER = new Color(0, 0, 0);
+
+    /**
+     * Costruttore della classe MenuGUI.
+     * Crea l'interfaccia grafica del menu principale del gioco.
+     */
     public MenuGUI() {
         super("Pokemon Battle");
         
@@ -84,7 +97,6 @@ public class MenuGUI extends JFrame {
         newPlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //JOptionPane.showMessageDialog(MenuGUI.this, "New Player button clicked");
             	
             	new NewPlayerGUI(null);
             	dispose();
@@ -97,9 +109,8 @@ public class MenuGUI extends JFrame {
         loadPlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	//TODO
-            	JOptionPane.showMessageDialog(null, "TODO");
-            	
+            	new LoadPlayer();
+            	dispose();
             }
         });
 
