@@ -213,13 +213,25 @@ public class Atkmn extends JFrame {
                 win = false;
             }
         }
-        if (win) {
+        if (win && fighter.team.turni==2) {
             dispose();
             fighter.team.partiteGiocate=+1;
             fighter.opponent.team.partiteGiocate=+1;
             fighter.team.vittorie=+1;
             fighter.opponent.team.sconfitte=+1;
             new End(fighter.team, fighter.opponent.team);
+           
+        }
+        else if(win) {
+        	
+        	fighter.team.turni+=1;
+        	fighter.opponent.team.turni+=1;
+        	
+        	for (Pokemon pkmn:fighter.team.getArrayTeam()) {pkmn.getStats().updateStats();}
+        	for (Pokemon pkmn:fighter.opponent.team.getArrayTeam()) {pkmn.getStats().updateStats();}
+        	BattleManager c=new BattleManager(fighter.team,fighter.opponent.team);
+        	new BattleGUI(c,0);
+        	dispose();
         }
     }
 }

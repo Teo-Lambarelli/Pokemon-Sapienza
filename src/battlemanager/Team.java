@@ -15,6 +15,7 @@ public class Team {
     public int vittorie=0;
     public int sconfitte=0;
     public int partiteGiocate=0;
+    public int turni=0;
 
     /**
      * Costruttore della classe Team.
