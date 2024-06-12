@@ -27,6 +27,11 @@ public class SafeManager {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("name", name);
 		
+		//mi dissocio dai nami in italiano usati per queste 2 variabili
+		//io le volevo in inglese, ma siamo stanchi a quest'ora
+		jsonObject.put("win", team.vittorie);
+		jsonObject.put("loss", team.sconfitte);
+		
 		JSONArray pokemon = new JSONArray();
 		for (Pokemon p : team.getArrayTeam()) {
 			JSONObject member = new JSONObject();
@@ -96,6 +101,8 @@ public class SafeManager {
             }
             
             Team result = new Team(group, name);
+            result.vittorie = (int) jsonObject.get("win");
+            result.sconfitte = (int) jsonObject.get("loss");
             return result;
             
         } catch (IOException e) {
