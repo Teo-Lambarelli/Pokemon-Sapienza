@@ -101,8 +101,8 @@ public class SafeManager {
             }
             
             Team result = new Team(group, name);
-            result.vittorie = (int) jsonObject.get("win");
-            result.sconfitte = (int) jsonObject.get("loss");
+            result.vittorie =  Math.toIntExact((long) jsonObject.get("win"));
+            result.sconfitte = Math.toIntExact((long) jsonObject.get("loss"));
             return result;
             
         } catch (IOException e) {
