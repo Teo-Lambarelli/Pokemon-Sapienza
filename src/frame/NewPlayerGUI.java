@@ -188,7 +188,7 @@ public class NewPlayerGUI extends JFrame {
      */
     public void finish(int o) {
     	if(cp==true && cn==true && o==0) {
-    		//TODO
+
     		player++;
     		new Select2ndPlayerGUI(this.name0);		//TODO far decidere tra nuovo player e load player
     		dispose();

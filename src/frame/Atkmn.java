@@ -171,7 +171,7 @@ public class Atkmn extends JFrame {
                     if (!deathCheck) {
                         if (another) {
                             new Atkmn(fighter0, fighter1, m, false, bg, true);
-                        } else if (!another && cbg) {
+                        } else if (another==false && cbg) {
                             new BattleGUI(bg, 0);
                         }
                     } 

@@ -99,7 +99,7 @@ public class Select2ndPlayerGUI extends Frame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	new LoadPlayer();
-            	
+            	dispose();
             }
         });
 
