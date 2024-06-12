@@ -170,14 +170,6 @@ public class NewPlayerGUI extends JFrame {
                     case 1: photoButton("src/sprites/squirtle.png",button);break;
                     case 2: photoButton("src/sprites/bulbasaur.png",button);break;
                     case 3: photoButton("src/sprites/pikachu.png",button);break;	
-//                    case 4: photoButton("src/sprites/charmander.png",button);break;
-//                    case 5: photoButton("src/sprites/charmander.png",button);break;
-//                    case 6: photoButton("src/sprites/charmander.png",button);break;
-//                    case 7: photoButton("src/sprites/charmander.png",button);break;
-//                    case 8: photoButton("src/sprites/charmander.png",button);break;
-//                    case 9: photoButton("src/sprites/charmander.png",button);break;
-//                    case 10: photoButton("src/sprites/charmander.png",button);break;
-//                    case 11: photoButton("src/sprites/charmander.png",button);break;
                     default: break;
                 }
         }
@@ -189,7 +181,11 @@ public class NewPlayerGUI extends JFrame {
         this.setVisible(true);
     }
     
-    
+    /**
+     * Metodo per completare la selezione pkmn.
+     * 
+     * @param o Indica il tipo di azione da eseguire: 0 per la selezione dei Pokémon, 1 per avviare una battaglia.
+     */
     public void finish(int o) {
     	if(cp==true && cn==true && o==0) {
     		//TODO
@@ -212,6 +208,12 @@ public class NewPlayerGUI extends JFrame {
     	
     }
     
+    /**
+     * Metodo per impostare l'immagine di un pulsante.
+     * 
+     * @param i       Percorso dell'immagine da impostare.
+     * @param button  Il pulsante a cui impostare l'immagine.
+     */
     private void photoButton(String i, JButton button) {
        
         ImageIcon icon=new ImageIcon(i);
@@ -222,6 +224,11 @@ public class NewPlayerGUI extends JFrame {
  
     }
     
+    /**
+     * Metodo protetto per aggiungere la selezione di un Pokémon all'interfaccia grafica.
+     * 
+     * @param i Percorso dell'immagine del Pokémon selezionato.
+     */
     protected void addSelection(String i) {
     	
     	JLabel pippo= new JLabel();
@@ -253,14 +260,6 @@ public class NewPlayerGUI extends JFrame {
             case "1": addPokemon(new Squirtle(5));break;
             case "2": addPokemon(new Bulbasaur(5));break;
             case "3": addPokemon( new Pikachu(5));break;
-//            case "4": return new Eevee(5);break;
-//            case "5": return new Jigglypuff(5);break;
-//            case "6": return new Meowth(5);break;
-//            case "7": return new Psyduck(5);break;
-//            case "8": return new Machop(5);break;
-//            case "9": return new Geodude(5);break;
-//            case "10": return new Abra(5);break;
-//            case "11": return new Gastly(5);break;
             default: break;
             }
         }

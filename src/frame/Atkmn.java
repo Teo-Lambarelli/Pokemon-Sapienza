@@ -182,7 +182,6 @@ public class Atkmn extends JFrame {
                     c++;
                 } 
                 else {
-                	c=60;
                     dispose();
                 }
             }

@@ -12,7 +12,16 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * Classe di utilità utilizzata per salvare e caricare le squadre dei giocatori in formato JSON.
+ */
 public class SafeManager {
+	
+	/**
+     * Metodo statico per salvare una squadra in un file JSON.
+     * 
+     * @param team La squadra da salvare.
+     */
 	static public void safeFile(Team team) {
 		String name = team.getName();
 		JSONObject jsonObject = new JSONObject();
@@ -46,6 +55,12 @@ public class SafeManager {
         }
 	}
 	
+	 /**
+     * Metodo statico per caricare una squadra da un file JSON.
+     * 
+     * @param name Il nome del file da cui caricare la squadra.
+     * @return La squadra caricata.
+     */
 	static public Team loadFile(String name) {
 		ArrayList<Pokemon> team = new ArrayList<Pokemon>();
 		

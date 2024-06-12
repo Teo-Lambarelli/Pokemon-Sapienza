@@ -1,5 +1,8 @@
 package moves; import types.Type;
 
+/**
+ * Questa classe rappresenta una mossa Pokémon, con attributi come tipo, danni, precisione, ecc.
+ */
 public enum Move {
 	TACKLE(Type.NORMAL, 40, 100, "None", 35, Category.PHYSICAL,0),
 	HYPER_BEAM(Type.NORMAL, 150, 90, "User cannot move next turn.", 5, Category.SPECIAL,0),
@@ -180,15 +183,18 @@ public enum Move {
 	private final int pp;
 	private final Category cat;
 	private final int priority;
-
 	
-	
-	//quick attack
-	//aqua jet
-	//counter
-	
-	
-	
+	/**
+	 * Crea una nuova mossa con i parametri specificati.
+	 *
+	 * @param type      Il tipo della mossa.
+	 * @param dmg       I danni inflitti dalla mossa.
+	 * @param acc       La precisione della mossa.
+	 * @param descr     La descrizione della mossa.
+	 * @param pp        Il numero di PP (Power Points) della mossa.
+	 * @param cat       La categoria della mossa (Special, Physical o Status).
+	 * @param priority  La priorità della mossa.
+	 */
     Move(Type type, int dmg, int acc, String descr, int pp, Category cat, int priority ) {
         this.type=type;
         this.dmg=dmg;
@@ -200,36 +206,74 @@ public enum Move {
     }
     
  
+    /**
+     * Restituisce il tipo di questa mossa.
+     *
+     * @return Il tipo di mossa.
+     */
     public Type getType() {
     	return type;
     }
     
+    /**
+     * Restituisce i danni inflitti da questa mossa.
+     *
+     * @return I danni inflitti.
+     */
     public int getDmg() {
     	return dmg;
     }
     
+    /**
+     * Restituisce la precisione di questa mossa.
+     *
+     * @return La precisione della mossa.
+     */
     public int getAcc() {
     	return acc;
     }
     
+    /**
+     * Restituisce la descrizione di questa mossa.
+     *
+     * @return La descrizione della mossa.
+     */
     public String getDescr() {
     	return descr;
     }
     
+    /**
+     * Restituisce il numero di PP (Power Points) di questa mossa.
+     *
+     * @return Il numero di PP.
+     */
     public int getPp() {
     	return pp;
     }
     
-
-    
+    /**
+     * Restituisce la categoria di questa mossa (Special, Physical o Status).
+     *
+     * @return La categoria della mossa.
+     */
     public Category getCat() {
     	return cat;
     }
     
+    /**
+     * Restituisce la priorità di questa mossa.
+     *
+     * @return La priorità della mossa.
+     */
     public int getPriority() {
     	return priority;
     }
     
+    /**
+     * Restituisce una rappresentazione leggibile della mossa.
+     *
+     * @return Una stringa rappresentante la mossa.
+     */
     @Override
     public String toString() {
         return (name().charAt(0)+name().substring(1).toLowerCase()).replace("_", " ");

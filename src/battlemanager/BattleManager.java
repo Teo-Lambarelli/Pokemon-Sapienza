@@ -10,12 +10,13 @@ import javax.swing.Timer;
 import frame.Atkmn;
 import frame.BattleGUI;
 import moves.*; import types.*;
-
+/**
+ * La classe BattleManager gestisce le battaglie tra due team di Pokémon.
+ * Contiene metodi per iniziare la battaglia, gestire i turni e calcolare i danni.
+ */
 public class BattleManager {
 	private  Fighter[] fighter;
 	private int counter=0;
-	private int turnCounter;
-	private int c=0;
 	public final static double STAB_VALUE=1.3;
 	public final static int ON_FIELD = 2;
 	public final static int PLAYER1_FIGHTER_SLOT = 0;
@@ -28,6 +29,12 @@ public class BattleManager {
 	private Team team0;
 	private Team team1;
 	
+	/**
+	 * Costruttore della classe BattleManager. Inizializza i team e i combattenti.
+	 *
+	 * @param team0 Il primo team.
+	 * @param team1 Il secondo team.
+	 */
 	public BattleManager(Team team0, Team team1) {
 		fighter = new Fighter[ON_FIELD];
 		fighter[PLAYER1_FIGHTER_SLOT] = new Fighter(team0.pokemon.get(0), team0);
@@ -42,40 +49,69 @@ public class BattleManager {
 //		}
 	}
 	
+	
+	
+	/**
+	 * Inizia la battaglia tra i due team.
+	 */
 	public void startFight() {
-		/*TODO:
-		 * 		
-		 * animazione send in,
-		 * start turn effect,
-		 * ask for action
-		 * 
-		 */
+
 	}
 	
+	/**
+	 * Imposta il primo team.
+	 *
+	 * @param team0 Il primo team.
+	 */
 	public void setTeam0(Team team0) {
 		this.team0=team0;
 	}
+	
+	/**
+	 * Imposta il secondo team.
+	 *
+	 * @param team1 Il secondo team.
+	 */
 	public void setTeam1(Team team1) {
 		this.team0=team1;
 	}
 	
-	public void startTurnEffects() {
-		
-	}
-	
+	/**
+	 * Restituisce l'array dei combattenti.
+	 *
+	 * @return L'array dei combattenti.
+	 */
 	public Fighter[] getFighter() {
 		return fighter;
 	}
-	
+
+	/**
+	 * Imposta un combattente in una determinata posizione.
+	 *
+	 * @param pkmn Il Pokémon del combattente.
+	 * @param team Il team del combattente.
+	 * @param index L'indice del combattente.
+	 */
 	public void setFighter(Pokemon pkmn, Team team,int index) {
 		fighter[index]=new Fighter(pkmn, team);
 	}
 	
+	/**
+	 * Imposta l'opzione di turno per un combattente.
+	 *
+	 * @param index L'indice del combattente.
+	 * @param choice La scelta del turno.
+	 */
 	public void turnOption(int index, Choice choice) {
 		fighter[index].choice = choice;
 	}
 	
-	
+	/**
+	 * Calcola la velocità attuale di un combattente.
+	 *
+	 * @param fighter Il combattente di cui calcolare la velocità.
+	 * @return La velocità attuale del combattente.
+	 */
 	public double getCurrentSpd(Fighter fighter) {
 		double stat=fighter.pokemon.getStats().getSpd();
 		if(fighter.statsChange.spd>=0) {	
@@ -90,6 +126,12 @@ public class BattleManager {
 		}
 	}
 	
+	/**
+	 * Calcola l'attacco fisico attuale di un combattente.
+	 *
+	 * @param fighter Il combattente di cui calcolare l'attacco fisico.
+	 * @return L'attacco fisico attuale del combattente.
+	 */
 	public double getCurrentAtk(Fighter fighter) {
 		double stat=fighter.pokemon.getStats().getAtk();
 		if(fighter.statsChange.atk>=0) {	
@@ -104,6 +146,12 @@ public class BattleManager {
 		}
 	}
 	
+	/**
+	 * Calcola la difesa attuale di un combattente.
+	 *
+	 * @param fighter Il combattente di cui calcolare la difesa.
+	 * @return La difesa attuale del combattente.
+	 */
 	public double getCurrentDef(Fighter fighter) {
 		double stat=fighter.pokemon.getStats().getDef();
 		if(fighter.statsChange.def>=0) {	
@@ -118,6 +166,12 @@ public class BattleManager {
 		}
 	}
 	
+	/**
+	 * Calcola l'attacco speciale attuale di un combattente.
+	 *
+	 * @param fighter Il combattente di cui calcolare l'attacco speciale.
+	 * @return L'attacco speciale attuale del combattente.
+	 */
 	public double getCurrentSatk(Fighter fighter) {
 		double stat=fighter.pokemon.getStats().getSatk();
 		if(fighter.statsChange.satk>=0) {	
@@ -132,6 +186,12 @@ public class BattleManager {
 		}
 	}
 	
+	/**
+	 * Calcola la difesa speciale attuale di un combattente.
+	 *
+	 * @param fighter Il combattente di cui calcolare la difesa speciale.
+	 * @return La difesa speciale attuale del combattente.
+	 */
 	public double getCurrentSdef(Fighter fighter) {
 		double stat=fighter.pokemon.getStats().getSdef();
 		if(fighter.statsChange.sdef>=0) {	
@@ -146,15 +206,27 @@ public class BattleManager {
 		}
 	}
 	
-	
+	/**
+	 * Restituisce il primo team.
+	 *
+	 * @return Il primo team.
+	 */
 	public Team getTeam0() {
 		return team0;
 	}
 	
+	/**
+	 * Restituisce il secondo team.
+	 *
+	 * @return Il secondo team.
+	 */
 	public Team getTeam1() {
 		return team1;
 	}
 	
+	/**
+	 * Stampa lo stato attuale della battaglia.
+	 */
 	public void battleStatus() {
 		System.out.println("-------------------------------------------------------------------------");
 		for (Fighter f:fighter) {
@@ -177,6 +249,13 @@ public class BattleManager {
 		System.out.println("-------------------------------------------------------------------------");
 	}
 	
+	/**
+	 * Determina se un combattente è più veloce di un altro.
+	 *
+	 * @param f0 Il primo combattente.
+	 * @param f1 Il secondo combattente.
+	 * @return true se il primo combattente è più veloce, false altrimenti.
+	 */
 	public boolean isFaster(Fighter f0, Fighter f1) {
 		if (f0.choice.option == f1.choice.option) {
 			if (f0.choice.option == Choice.Option.MOVE) {
@@ -226,8 +305,6 @@ public class BattleManager {
 		else {
 			int p0 = 6;
 			
-//			System.out.println(f0.choice.option);
-			
 			if (f0.choice.option == Choice.Option.MOVE) {
 				Move m0 = f0.pokemon.getMoves()[f0.choice.index];
 				
@@ -261,6 +338,11 @@ public class BattleManager {
 		}
 	}
 	
+	/**
+	 * Restituisce l'ordine di turno dei combattenti, ordinati dal più veloce al più lento.
+	 *
+	 * @return Un array contenente i combattenti ordinati per turno.
+	 */
 	public Fighter[] getTurnOrder() {
 		Fighter[] turnOrder = fighter.clone();
 		
@@ -280,6 +362,11 @@ public class BattleManager {
 		return turnOrder;
 	}
 	
+	/**
+	 * Esegue l'attacco del combattente specificato.
+	 *
+	 * @param fighter Il combattente che esegue l'attacco.
+	 */
 	public void executeAttack(Fighter fighter) {
 		// Data
 		Move move = fighter.pokemon.getMoves()[fighter.choice.index];
@@ -293,7 +380,6 @@ public class BattleManager {
 		if (percent >= rng.nextInt(101)) {
 			// We got an hit!
 			if (move.getCat() == Category.STATUS) {
-				// TODO: STATUS MOVES
 				System.out.println("-------------------------------------------------------------------------");
 				System.out.println(fighter.pokemon.getName() + " usa " + move.toString() + " su di " + fighter.opponent.pokemon.getName());
 				System.out.println("Descrizione mossa: " + move.getDescr());
@@ -561,6 +647,11 @@ public class BattleManager {
 		}
 	}
 	
+	/**
+	 * Esegue l'azione scelta dal combattente.
+	 *
+	 * @param fighter Il combattente che esegue l'azione.
+	 */
 	public void executeAction(Fighter fighter) {
 		if (fighter.choice.option == Choice.Option.MOVE) {
 			boolean cbg=false;
@@ -570,7 +661,7 @@ public class BattleManager {
 			new Atkmn(this.fighter[0],this.fighter[1],mauro,false, this, cbg);
 			if (counter==1) {cbg=true;counter=0;}
 			else {counter++;}
-//			executeAttack(fighter);
+
 			
 			
 			
@@ -578,17 +669,11 @@ public class BattleManager {
 		}
 		
 		else if (fighter.choice.option == Choice.Option.SWITCH) {
-			// Switch out pokemon!
-			// TODO: ANIMATION
-//			if (!fighter.has(EventType.FIRE_SPIN)) {
-//				fighter.pokemon = fighter.team.pokemon.get(fighter.choice.index);
-//				fighter.statsChange.statsReset();
-//			}
-//			else {
+
 				System.out.println("-------------------------------------------------------------------------");
 				System.out.println(fighter.pokemon.getName() + " non è stato in grado di scambiare perché sotto l'effetto di FIRE_SPIN");
 				System.out.println("-------------------------------------------------------------------------");
-//			}
+
 			
 			BattleGUI.bGUI.dispose();
 			int mauro=1;
@@ -606,6 +691,11 @@ public class BattleManager {
 		}
 	}
 	
+	/**
+	 * Esegue gli eventi specifici del combattente, se presenti.
+	 *
+	 * @param fighter Il combattente su cui eseguire gli eventi.
+	 */
 	public void executeFighterEvent(Fighter fighter) {
 		if (fighter.has(EventType.FIRE_SPIN)) {
 			Fighter opponent = fighter.opponent;
@@ -630,8 +720,7 @@ public class BattleManager {
 			double statDamage = atk / def;
 			
 			double baseDamage = (levelDamage * moveDamage * statDamage / 50) + 2;
-			
-			// weatherDamage
+		
 			
 			double randomDamage = (rng.nextDouble(RANDOM_DAMAGE_RANGE + 1) + RANDOM_DAMAGE_SCALE - RANDOM_DAMAGE_RANGE) / 100;
 			
@@ -662,6 +751,11 @@ public class BattleManager {
 		}
 	}
 	
+	/**
+	 * Esegue gli effetti di stato sul combattente, se presenti.
+	 *
+	 * @param fighter Il combattente su cui eseguire gli effetti di stato.
+	 */
 	private void executeStatus(Fighter fighter) {
 		switch (fighter.pokemon.getStatusEffect()) {
 			case StatusEffect.BURN:
@@ -674,6 +768,9 @@ public class BattleManager {
 		}
 	}
 	
+	/**
+	 * Esegue un turno completo di battaglia.
+	 */
 	public void executeTurn() {
 		BattleGUI.bGUI.dispose();
 		Fighter[] turnOrder = getTurnOrder();
@@ -711,7 +808,12 @@ public class BattleManager {
 		}
 	}
 	
-
+	/**
+	 * Controlla se il Pokémon vincitore della battaglia guadagna esperienza e livella.
+	 *
+	 * @param fighter Il combattente vincente.
+	 * @param i       L'indice del combattente (0 per il primo, 1 per il secondo).
+	 */
 	public void checkXp(Fighter fighter, int i) {
 		int oppLvl=fighter.opponent.pokemon.getStats().getLvl();
 		int urLvl=fighter.pokemon.getStats().getLvl();
@@ -735,7 +837,7 @@ public class BattleManager {
 		if(fighter.pokemon.getEvolutionLvl()<101 && fighter.pokemon.getEvolutionLvl()==fighter.pokemon.getStats().getLvl()) {
 			Move[] pokemove=fighter.pokemon.getMoves();
 			double xp = fighter.pokemon.getStats().getXp();
-			fighter.pokemon=Pokemon.createPokemon(fighter.pokemon.getEvolution(), fighter.pokemon.getStats().getLvl()); //TODO la func da str a pkmn
+			fighter.pokemon=Pokemon.createPokemon(fighter.pokemon.getEvolution(), fighter.pokemon.getStats().getLvl()); 
 			fighter.pokemon.getStats().setXp(xp);
 			fighter.pokemon.setAllMoves(pokemove);
 		}

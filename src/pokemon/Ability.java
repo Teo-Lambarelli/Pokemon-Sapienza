@@ -1,5 +1,8 @@
 package pokemon;
 
+/**
+ * Questa classe rappresenta le abilità che possono essere possedute dai Pokémon.
+ */
 public enum Ability {
 	ADAPTABILITY("Powers up moves of the same type"),
 	AERILATE("Turns Normal-type moves into Flying-type moves"),
@@ -279,11 +282,21 @@ public enum Ability {
 
 	private String ability;
 
+	/**
+     * Costruttore per l'oggetto Ability.
+     * 
+     * @param ability Il nome dell'abilità.
+     */
 	private Ability(String string) {
 		this.ability=ability;
 
 }
 
+	 /**
+     * Override del metodo toString per ottenere una rappresentazione leggibile del nome dell'abilità.
+     * 
+     * @return Il nome dell'abilità in formato leggibile.
+     */
 	@Override
 	public String toString() {
 		return (name().charAt(0)+name().substring(1).toLowerCase()).replace("_", " ");
