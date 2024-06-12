@@ -12,6 +12,9 @@ public class Team {
     public static final int MAX = 6;
     /** Nome del giocatore possidente della squadra. */
     protected String player_name;
+    public int vittorie=0;
+    public int sconfitte=0;
+    public int partiteGiocate=0;
 
     /**
      * Costruttore della classe Team.

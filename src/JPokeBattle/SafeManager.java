@@ -1,5 +1,5 @@
 package JPokeBattle;
-import battlemanager.Team;
+import battlemanager.Team; 
 import pokemon.*;
 import moves.Move;
 import java.io.FileWriter;

@@ -215,7 +215,11 @@ public class Atkmn extends JFrame {
         }
         if (win) {
             dispose();
-            new End(fighter0.team, fighter0.opponent.team);
+            fighter.team.partiteGiocate=+1;
+            fighter.opponent.team.partiteGiocate=+1;
+            fighter.team.vittorie=+1;
+            fighter.opponent.team.sconfitte=+1;
+            new End(fighter.team, fighter.opponent.team);
         }
     }
 }

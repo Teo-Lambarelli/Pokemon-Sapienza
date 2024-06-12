@@ -109,14 +109,20 @@ public class LoadPlayer extends JFrame {
 	            		NewPlayerGUI.player++;
 	            		NewPlayerGUI.team0=SafeManager.loadFile(userInput).getArrayTeam();
 	            		NewPlayerGUI.name0=SafeManager.loadFile(userInput).getName();
+	            		JOptionPane.showMessageDialog(null, 
+	            				"games win:"+SafeManager.loadFile(userInput).vittorie + " games lost:"+SafeManager.loadFile(userInput).sconfitte + " total games:" + SafeManager.loadFile(userInput).partiteGiocate);
+	            	
 	            		new Select2ndPlayerGUI(NewPlayerGUI.name0);
 	            		}
 	            	else {
 	            		NewPlayerGUI.team1=SafeManager.loadFile(userInput).getArrayTeam();
 	            		NewPlayerGUI.name1=SafeManager.loadFile(userInput).getName();
 	            		BattleManager bg=new BattleManager(new Team(NewPlayerGUI.team0,NewPlayerGUI.name0),new Team(NewPlayerGUI.team1,NewPlayerGUI.name1));
+	            		JOptionPane.showMessageDialog(null, 
+	            				"games win:"+SafeManager.loadFile(userInput).vittorie + " games lost:"+SafeManager.loadFile(userInput).sconfitte + " total games:" + SafeManager.loadFile(userInput).partiteGiocate);
+	            	
 	            		new BattleGUI(bg,0);
-	            	}
+	            		}
 	            	
 	            	dispose();
 	            }
@@ -132,7 +138,7 @@ public class LoadPlayer extends JFrame {
 	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        this.setLocationRelativeTo(null); // Centra la finestra
 	        this.setVisible(true);
-	        this.setAlwaysOnTop(true);
+	        this.setAlwaysOnTop(false);
 
 	    }}
 	
